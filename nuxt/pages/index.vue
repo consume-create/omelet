@@ -1,7 +1,7 @@
 <template>
-  <NuxtPage>
+  <div id="home-page" class="page">
     <h1>Omelet</h1>
-  </NuxtPage>
+  </div>
 </template>
 
 <script>
@@ -11,3 +11,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import "@/assets/styles/_base.scss";
+
+#home-page {
+}
+
+</style>
