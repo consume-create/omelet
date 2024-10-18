@@ -1,4 +1,3 @@
-
 const site_name = "Omelet | Los Angeles Ad Agency";
 const site_description = "We’re an independent creative company that makes impact.";
 const site_url = "https://omelet.com"
@@ -21,6 +20,20 @@ export default defineNuxtConfig({
   //
   ssr: true,
   target: "static",
+  //
+  // Sourcemap https://nuxtseo.com/sitemap/getting-started/installation
+  //
+  sourcemap: {
+    server: true,
+    client: false
+  },
+  //
+  // Site https://nuxtseo.com/sitemap/getting-started/installation
+  //
+  site: {
+    url: site_url,
+    name: site_name
+  },
   //
   // App
   //
@@ -51,13 +64,6 @@ export default defineNuxtConfig({
     }
   },
   //
-  // Sourcemap
-  //
-  sourcemap: {
-    server: true,
-    client: false
-  },
-  //
   // CSS
   //
   css: [
@@ -74,12 +80,23 @@ export default defineNuxtConfig({
   // Modules
   //
   modules: [
-    '@nuxtjs/sanity'
+    "@nuxtjs/sanity",
+    "@nuxtjs/sitemap"
   ],
   //
   // Sanity
   //
   sanity: {
-    // module options
+    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+    apiVersion: '2024-10-01',
+    useCdn: false,
+    minimal: true,
+    additionalClients: {
+      preview: {
+        projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+        token: process.env.SANITY_STUDIO_PREVIEW_TOKEN,
+        apiVersion: '2024-10-01'
+      }
+    }
   }
 });
