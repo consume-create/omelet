@@ -1,7 +1,5 @@
-@use 'sass:math';
-
 @function strip-unit($value) {
-  @return math.div($value, $value * 0 + 1);
+  @return calc($value / $value * 0 + 1);
 }
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
@@ -13,9 +11,11 @@
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
     & {
       font-size: $min-font-size;
+
       @media screen and (min-width: $min-vw) {
         font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
       }
+
       @media screen and (min-width: $max-vw) {
         font-size: $max-font-size;
       }
@@ -27,13 +27,13 @@ $min: 320px;
 $max: 1440px;
 
 body {
-  font-family: $poppins;
   @include fluid-type($min, $max, 14px, 18px);
+  font-family: $poppins;
   line-height: 1.5em;
 }
 
 h1 {
-  font-family: $poppins-extra-bold;
   @include fluid-type($min, $max, 32px, 64px);
+  font-family: $poppins-extra-bold;
   line-height: 1.125em;
 }

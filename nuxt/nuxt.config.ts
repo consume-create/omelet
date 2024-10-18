@@ -65,18 +65,6 @@ export default defineNuxtConfig({
     "~/assets/styles/app.scss"
   ],
   //
-  // Vite
-  //
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: "modern-compiler" // or "modern"
-        }
-      }
-    }
-  },
-  //
   // Build modules
   //
   buildModules: [
