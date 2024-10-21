@@ -1,3 +1,13 @@
+require("dotenv").config({ path: "../sanity/.env" });
+// import { createClient } from "@nuxtjs/sanity";
+//
+// const client = createClient({
+//   projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+//   dataset: "production",
+//   useCdn: false,
+//   minimal: true
+// })
+
 const site_name = "Omelet | Los Angeles Ad Agency";
 const site_description = "We’re an independent creative company that makes impact.";
 const site_url = "https://omelet.com"
@@ -5,16 +15,6 @@ const site_url = "https://omelet.com"
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: false },
-  //
-  // Runtime config
-  //
-  runtimeConfig: {
-    // Public keys that are exposed to the client
-    // public: {
-    //   NODE_ENV: process.env.NODE_ENV,
-    //   SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID
-    // }
-  },
   //
   // SSR + Target
   //
@@ -69,6 +69,13 @@ export default defineNuxtConfig({
   css: [
     "~/assets/styles/reset.scss",
     "~/assets/styles/app.scss"
+  ],
+  //
+  // Plugins to load before mounting the App
+  //
+  plugins: [
+    // "~/plugins/preview.client.js",
+    "~/plugins/vue-body-scroll-lock.client.js"
   ],
   //
   // Build modules

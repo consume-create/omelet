@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Omelet',
 
-  projectId: 'm6lpvzow',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID,
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
