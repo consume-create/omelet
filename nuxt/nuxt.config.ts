@@ -74,7 +74,6 @@ export default defineNuxtConfig({
   // Plugins to load before mounting the App
   //
   plugins: [
-    // "~/plugins/preview.client.js",
     "~/plugins/vue-body-scroll-lock.client.js"
   ],
   //
