@@ -15,10 +15,14 @@
     "sanity"
   ],
   "dependencies": {
+    "@sanity/color-input": "^4.0.1",
     "@sanity/vision": "^3.61.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sanity": "^3.61.0",
+    "sanity-plugin-iframe-pane": "^3.1.6",
+    "sanity-plugin-media": "^2.3.2",
+    "sanity-plugin-prefixed-slug": "^2.0.0",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

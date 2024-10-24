@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "../sanity/.env" });
+// require("dotenv").config({ path: "../sanity/.env" });
 // import { createClient } from "@nuxtjs/sanity";
 //
 // const client = createClient({
@@ -67,41 +67,43 @@ export default defineNuxtConfig({
   // CSS
   //
   css: [
-    "~/assets/styles/reset.scss",
-    "~/assets/styles/app.scss"
+    '~/assets/styles/reset.scss',
+    '~/assets/styles/app.scss'
   ],
   //
   // Plugins to load before mounting the App
   //
   plugins: [
-    "~/plugins/vue-body-scroll-lock.client.js"
+    // '~/plugins/init.server.js',
+    '~/plugins/vue-body-scroll-lock.client.js'
   ],
   //
   // Build modules
   //
   buildModules: [
-    "@nuxtjs/dotenv"
+    '@nuxtjs/dotenv'
   ],
   //
   // Modules
   //
   modules: [
-    "@nuxtjs/sanity",
-    "@nuxtjs/sitemap"
+    '@nuxtjs/sanity',
+    '@nuxtjs/sitemap',
+    '@pinia/nuxt'
   ],
   //
   // Sanity
   //
   sanity: {
     projectId: process.env.SANITY_STUDIO_PROJECT_ID,
-    apiVersion: '2024-10-01',
+    apiVersion: '2021-03-25', // match Sanity API webhook settings
     useCdn: false,
     minimal: true,
     additionalClients: {
       preview: {
         projectId: process.env.SANITY_STUDIO_PROJECT_ID,
         token: process.env.SANITY_STUDIO_PREVIEW_TOKEN,
-        apiVersion: '2024-10-01'
+        apiVersion: '2021-03-25' // match Sanity API webhook settings
       }
     }
   }
