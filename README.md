@@ -57,6 +57,9 @@ $ nvm use 20
 # install dependencies
 $ npm install
 
+# if you don't have @sanity/cli installed, install it globally
+$ npm install -g @sanity/cli
+
 # serve with hot reload at localhost:3000
 $ sanity dev
 
