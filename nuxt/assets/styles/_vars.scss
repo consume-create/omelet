@@ -12,6 +12,7 @@ $black: #000000;
 $poppins: 'poppins', sans-serif;
 $poppins-semi-bold: 'poppins-semi-bold', sans-serif;
 $poppins-extra-bold: 'poppins-extra-bold', sans-serif;
+$omelet-hand: 'omelet-hand', sans-serif;
 
 // --------------------------------------------
 // Speeds...
@@ -47,7 +48,7 @@ $largest-screens:    '(min-width: 2000px)';
 // --------------------------------------------
 
 @function span($n) {
-  @return calc($n / 14 * 100vw);
+  @return calc($n / 14 * (100vw - var(--scrollbar-width)));
 }
 
 @function svgColorMaker($color) {

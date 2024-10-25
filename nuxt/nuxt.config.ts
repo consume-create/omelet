@@ -86,6 +86,18 @@ export default defineNuxtConfig({
     '~/assets/styles/reset.scss',
     '~/assets/styles/app.scss'
   ],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @import '~/assets/styles/_vars.scss';
+            @import '~/assets/styles/_mixins.scss';
+          `
+        }
+      }
+    }
+  },
   //
   // Plugins to load before mounting the App
   //

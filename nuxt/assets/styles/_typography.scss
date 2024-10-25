@@ -29,13 +29,93 @@ $min: 320px;
 $max: 1680px;
 
 body {
-  @include fluid-type($min, $max, 14px, 18px);
   font-family: $poppins;
-  line-height: 1.5em;
+  @include fluid-type($min, $max, 14px, 18px);
+  line-height: 1.25em;
+}
+
+strong {
+  font-family: $poppins-semi-bold;
+}
+
+.nav-a1 {
+  font-family: $poppins-extra-bold;
+  font-size: 13px;
+  line-height: 0.8em;
+}
+
+.nav-a2 {
+  font-family: $poppins-semi-bold;
+  font-size: 10px;
+  line-height: 1.1em;
+}
+
+.fs-p1 {
+  font-family: $poppins-semi-bold;
+  @include fluid-type($min, $max, 22px, 37px);
+  line-height: 1.1em;
+  letter-spacing: -0.01em;
+}
+
+.fs-p2 {
+  font-family: $poppins-semi-bold;
+  @include fluid-type($min, $max, 16px, 22px);
+  line-height: 1.1em;
+  letter-spacing: -0.01em;
+}
+
+.fs-p3 {
+  font-family: $poppins;
+  @include fluid-type($min, $max, 14px, 18px);
+  line-height: 1.25em;
+}
+
+.fs-p4 {
+  font-family: $poppins-semi-bold;
+  @include fluid-type($min, $max, 12px, 14px);
+  line-height: 1.1em;
+}
+
+.fs-t1 {
+  font-family: $omelet-hand;
+  @include fluid-type($min, $max, 32px, 68px);
+  line-height: 1em;
+  letter-spacing: -0.01em;
+}
+
+.fs-t2 {
+  font-family: $omelet-hand;
+  @include fluid-type($min, $max, 22px, 45px);
+  line-height: 0.95em;
+  letter-spacing: -0.01em;
 }
 
 h1 {
-  @include fluid-type($min, $max, 32px, 64px);
+  font-family: $poppins;
+  font-size: 12px;
+  line-height: 1.15em;
+  letter-spacing: -0.01em;
+
+  strong {
+    font-family: $poppins-semi-bold;
+  }
+}
+
+h2 {
   font-family: $poppins-extra-bold;
-  line-height: 1.125em;
+  @include fluid-type($min, $max, 46px, 93px);
+  line-height: 0.8em;
+}
+
+h3 {
+  font-family: $poppins-extra-bold;
+  @include fluid-type($min, $max, 36px, 64px);
+  line-height: 0.85em;
+}
+
+h4 {
+  font-family: $poppins-extra-bold;
+  @include fluid-type($min, $max, 24px, 40px);
+  line-height: 0.8em;
+  letter-spacing: -0.01em;
 }

@@ -18,8 +18,8 @@
 // SVG icons
 // --------------------------------------------
 
-@mixin example($fill) {
-  background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 114 40" xml:space="preserve" fill="#{svgColorMaker($fill)}"><path d=""/></svg>');
+@mixin omelet-logo($fill) {
+  background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 140" xml:space="preserve" fill="#{svgColorMaker($fill)}"><path d="M304.22,2.164v135.672h-42.349v-67.644l-22.455,67.644h-28.065l-22.526-67.644v67.644h-42.541V2.164h52.123l27.324,81.441L252.29,2.164h51.93ZM357.198,36.082v16.672h42.158v32.001h-42.158v19.163h47.906v33.918h-90.447V2.164h90.447v33.918h-47.906ZM456.73,105.643h41.008v32.193h-83.549V2.164h42.541v103.478ZM548.8,36.082v16.672h42.158v32.001h-42.158v19.163h47.906v33.918h-90.448V2.164h90.448v33.918h-47.906ZM720,2.164v33.726h-36.026v101.945h-42.541V35.89h-35.643V2.164h114.21ZM69.791.209C31.247.209,0,31.455,0,70s31.247,69.791,69.791,69.791,69.791-31.247,69.791-69.791S108.336.209,69.791.209ZM69.791,97.831c-15.371,0-27.831-12.46-27.831-27.831s12.46-27.831,27.831-27.831,27.831,12.46,27.831,27.831-12.46,27.831-27.831,27.831Z"/></svg>');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
