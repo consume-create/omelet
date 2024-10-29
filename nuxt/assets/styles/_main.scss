@@ -25,7 +25,7 @@ body {
   &.space-t {
     &:before {
       content: '';
-      height: 60px;
+      height: $header-height;
       display: flex;
     }
   }
@@ -64,6 +64,30 @@ a {
 
   @include respond-to($large-tablet) {
     margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+.marg-l {
+  margin-left: 10px;
+
+  @include respond-to($tablet) {
+    margin-left: 20px;
+  }
+
+  @include respond-to($large-tablet) {
+    margin-left: 30px;
+  }
+}
+
+.marg-r {
+  margin-right: 10px;
+
+  @include respond-to($tablet) {
+    margin-right: 20px;
+  }
+
+  @include respond-to($large-tablet) {
     margin-right: 30px;
   }
 }

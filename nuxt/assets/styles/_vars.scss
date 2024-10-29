@@ -4,6 +4,7 @@
 
 $white: #ffffff;
 $black: #000000;
+$green: #559b88;
 
 // --------------------------------------------
 // Fonts...
@@ -22,6 +23,20 @@ $speed-333: 333ms;
 $speed-666: 666ms;
 
 // --------------------------------------------
+// Heights...
+// --------------------------------------------
+
+$header-height: 60px;
+
+// --------------------------------------------
+// Spacing
+// --------------------------------------------
+
+$space-s: 10px;
+$space-m: 20px;
+$space-l: 30px;
+
+// --------------------------------------------
 // Easy does it...
 // --------------------------------------------
 
@@ -34,6 +49,7 @@ $evil-ease: cubic-bezier(0.666, 0.000, 0.333, 1.000);
 
 $portrait:           '(orientation: portrait)';
 $landscape:          '(orientation: landscape)';
+$mobile:             '(min-width: 375px)';
 $small-tablet:       '(min-width: 540px)';
 $tablet:             '(min-width: 768px)';
 $large-tablet:       '(min-width: 1024px)';

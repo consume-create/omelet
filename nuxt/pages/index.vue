@@ -8,12 +8,15 @@
       title="Overview [w/ Amoeba]"
     />
     <Placeholder
+      id="work"
       title="Work [List]"
     />
     <Placeholder
+      id="capabilities"
       title="Capabilities [List w/ Amoeba]"
     />
     <Placeholder
+      id="leadership"
       title="Team [Carousel]"
     />
     <Placeholder
@@ -25,7 +28,8 @@
 <script>
 export default {
   mounted() {
-    console.log('MOUNTED');
+    const route = useRoute();
+    console.log('MOUNTED', route.fullPath);
   }
 }
 </script>

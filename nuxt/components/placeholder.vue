@@ -1,5 +1,5 @@
 <template>
-  <section class="placeholder pad-b" :class="{'--invert': invert}">
+  <section :id="`section-${id}`" class="placeholder pad-b" :class="{'--invert': invert}">
     <div class="gutter">
       <p class="fs-p1">{{ title }}</p>
     </div>
@@ -9,6 +9,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: false
+    },
     title: {
       type: String,
       required: false,
@@ -43,6 +47,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: border-color $speed-333 $ease-out;
   }
 }
 

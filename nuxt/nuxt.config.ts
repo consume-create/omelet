@@ -31,11 +31,6 @@ export default defineNuxtConfig({
   //
   // Sourcemap https://nuxtseo.com/sitemap/getting-started/installation
   //
-  runtimeConfig: {
-    public: {
-      isDev: process.env.NODE_ENV === 'development'
-    }
-  },
   sourcemap: {
     server: true,
     client: false
@@ -99,13 +94,6 @@ export default defineNuxtConfig({
     }
   },
   //
-  // Plugins to load before mounting the App
-  //
-  plugins: [
-    // '~/plugins/init.server.js',
-    '~/plugins/vue-body-scroll-lock.client.js'
-  ],
-  //
   // Build modules
   //
   buildModules: [
@@ -117,7 +105,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/sanity',
     '@nuxtjs/sitemap',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'nuxt-anchorscroll'
   ],
   //
   // Sanity

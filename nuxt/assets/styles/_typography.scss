@@ -42,12 +42,19 @@ strong {
   font-family: $poppins-extra-bold;
   font-size: 13px;
   line-height: 0.8em;
+  text-transform: uppercase;
+
+  &.--alt {
+    font-size: 18px;
+    line-height: 1.1em;
+  }
 }
 
 .nav-a2 {
   font-family: $poppins-semi-bold;
   font-size: 10px;
   line-height: 1.1em;
+  text-transform: uppercase;
 }
 
 .fs-p1 {
@@ -92,8 +99,8 @@ strong {
 
 h1 {
   font-family: $poppins;
-  font-size: 12px;
-  line-height: 1.15em;
+  @include fluid-type($min, $max, 10px, 12px);
+  line-height: 12px;
   letter-spacing: -0.01em;
 
   strong {
