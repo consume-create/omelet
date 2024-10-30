@@ -18,8 +18,8 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string'
-      // hidden: true
+      type: 'string',
+      hidden: true
     }),
     defineField({
       name: 'siteName',
@@ -33,7 +33,7 @@ export default defineType({
     defineField({
       fieldset: 'footer',
       name: 'footerTitle',
-      title: 'Footer Title',
+      title: 'Title',
       type: 'string'
     }),
     defineField({

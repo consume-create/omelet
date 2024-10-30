@@ -1,5 +1,5 @@
 <template>
-  <section :id="`section-${id}`" class="placeholder pad-b" :class="{'--invert': invert}">
+  <section :id="id" class="placeholder pad-b" :class="{'--invert': invert}">
     <div class="gutter">
       <p class="fs-p1">{{ title }}</p>
     </div>
