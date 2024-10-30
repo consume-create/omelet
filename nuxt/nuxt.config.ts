@@ -8,8 +8,7 @@
 //   minimal: true
 // })
 
-const site_name = 'Omelet | Los Angeles Ad Agency';
-const site_description = 'We’re an independent creative company that makes impact.';
+const site_name = 'Omelet';
 const site_url = 'https://omelet.com'
 
 export default defineNuxtConfig({
@@ -56,9 +55,9 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: site_name },
-        { hid: 'description', name: 'description', content: site_description },
+        { hid: 'description', name: 'description', content: '' },
         { hid: 'og:title', property: 'og:title', content: site_name },
-        { hid: 'og:description', property: 'og:description', content: site_description },
+        { hid: 'og:description', property: 'og:description', content: '' },
         { hid: 'og:url', property: 'og:url', content: site_url },
         // { hid: 'og:image', property: 'og:image', content: `${site_url}/images/...` },
         { name: 'twitter:card', content: 'summary' },

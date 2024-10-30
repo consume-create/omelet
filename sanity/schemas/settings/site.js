@@ -25,10 +25,14 @@ export default defineType({
       name: 'siteName',
       title: 'Site Name',
       type: 'string',
-      description: 'This defines the title of your site and appears in the browser tab and search engine results',
       validation: [
         Rule => Rule.required()
       ]
+    }),
+    defineField({
+      name: 'seoSocial',
+      title: 'SEO / Social Sharing',
+      type: 'seoSocial'
     }),
     defineField({
       fieldset: 'footer',
@@ -38,14 +42,14 @@ export default defineType({
     }),
     defineField({
       fieldset: 'footer',
-      name: 'instagram',
-      title: 'Instagram URL',
+      name: 'linkedin',
+      title: 'LinkedIn URL',
       type: 'url'
     }),
     defineField({
       fieldset: 'footer',
-      name: 'linkedin',
-      title: 'LinkedIn URL',
+      name: 'instagram',
+      title: 'Instagram URL',
       type: 'url'
     })
   ]

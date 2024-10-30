@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
 import { isProxy, toRaw } from 'vue';
-// import { siteQuery } from '~/queries/content';
-// import { useSanityQuery } from '@nuxtjs/sanity';
+import { typeFilter, imageProps } from '~/utils/groq-common';
 
 export const useStore = defineStore('state', {
   state: () => ({
     site_name: '',
+    site_seo_description: '',
+    site_seo_image: null,
     footer_title: '',
     social_links: [],
     menu_open: false,
@@ -25,54 +26,36 @@ export const useStore = defineStore('state', {
       this.dark_mode = !this.dark_mode;
     },
     async fetchSiteContent() {
-      const siteQuery = '*[_type == "site"][0]';
+      const siteQuery = groq` {
+        'site': ${typeFilter('site')} {
+          siteName,
+          seoSocial {
+            description,
+            'image': image.asset->url
+          },
+          footerTitle,
+          linkedin,
+          instagram
+        }
+      }`;
       const { data } = await useSanityQuery(siteQuery);
+      const site_data = data.value.site;
 
-      this.site_name = data.value.siteName;
-      this.footer_title = data.value.footerTitle;
+      // Site settings
+      this.site_name = site_data.siteName;
+      this.site_seo_description = site_data.seoSocial?.description;
+      this.site_seo_image = site_data.seoSocial?.image;
 
-      let vals = [data.value.linkedin, data.value.instagram],
+      // Footer setings...
+      this.footer_title = site_data.footerTitle;
+
+      // Build social links based on fields with values...
+      let vals = [site_data.linkedin, site_data.instagram],
           arr = vals.filter(Boolean);
 
       if (arr.length > 0) {
         this.social_links = Object.freeze(arr);
       }
     }
-    // async getSiteContent(ctx) {
-    //   const request = groq` {
-    //       'site': *[_type == 'site'] {
-    //         siteName,
-    //         footerTitle,
-    //         instagram,
-    //         facebook,
-    //         twitter,
-    //         linkedin,
-    //         vimeo
-    //       }
-    //     }`;
-    //
-    //   const result = await (
-    //     ctx.query && ctx.query.preview === 'true' ? ctx.$sanity.preview.fetch(request) : ctx.$sanity.fetch(request)
-    //   );
-    //
-    //   if (result && result.site) {
-    //     this.site_name = result.site.siteName;
-    //     this.footer_title = result.site.footerTitle;
-    //     // store.commit('set_site_name', result.site.siteName);
-    //     // store.commit('set_site_footer_title', result.site.footerTitle);
-    //
-    //     // let vals = [result.site.instagram, result.site.facebook, result.site.twitter, result.site.linkedin, result.site.vimeo],
-    //     //     arr = vals.filter(Boolean);
-    //     //
-    //     // if (arr.length > 0) {
-    //     //   store.commit('set_site_social_links', arr);
-    //     // }
-    //   }
-    //
-    //   // if (result && result.index) {
-    //   //   store.commit('set_site_description', result.index.seoSocial.description);
-    //   //   store.commit('set_site_image', result.index.seoSocial.image);
-    //   // }
-    // }
   }
 })

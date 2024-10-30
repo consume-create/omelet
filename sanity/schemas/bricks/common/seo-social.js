@@ -4,7 +4,7 @@ export default defineType({
   name: 'seoSocial',
   title: 'SEO / Social Sharing',
   type: 'object',
-  description: 'Preview: Enter your page URL at https://www.opengraph.xyz',
+  description: 'Preview at: https://www.opengraph.xyz',
   fields: [
     defineField({
       name: 'description',

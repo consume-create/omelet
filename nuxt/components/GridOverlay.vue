@@ -37,7 +37,7 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 100%;
+  width: span(14);
   height: 100%;
   display: flex;
   justify-content: space-between;

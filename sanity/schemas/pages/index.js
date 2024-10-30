@@ -14,33 +14,6 @@ export default defineType({
       title: 'Page Title',
       type: 'string'
       // hidden: true,
-    }),
-    defineField({
-      name: 'seoSocial',
-      title: 'SEO / Social Sharing',
-      type: 'seoSocial'
-    }),
-    defineField({
-      name: 'heroImage',
-      title: 'Hero Image',
-      type: 'image',
-      validation: [
-        Rule => Rule.custom((value) => {
-          return value && value.asset ? true : 'Please upload or select an image';
-        })
-      ],
-      options: {
-        hotspot: false
-      }
-    }),
-    defineField({
-      name: 'heroText',
-      title: 'Hero Text',
-      type: 'text',
-      rows: 4,
-      validation: [
-        Rule => Rule.required()
-      ]
     })
   ]
 });

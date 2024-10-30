@@ -9,8 +9,8 @@
       </div>
       <nav id="primary-nav">
         <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
-        <NuxtLink class="icon --contact" to="mailto:hello@omelet.com" target="_blank"></NuxtLink>
-        <div class="icon --accessibility marg-r"></div>
+        <NuxtLink class="icon --contact" to="mailto:hello@omelet.com" target="_blank">hello@omelet.com</NuxtLink>
+        <div class="icon --accessibility marg-r">Accessibility</div>
       </nav>
     </div>
   </header>
@@ -240,6 +240,9 @@ header {
         .icon {
           width: 18px;
           height: 18px;
+          font-size: 0px;
+          color: transparent;
+          overflow: hidden;
           display: inline-flex;
           align-items: center;
           justify-content: center;
