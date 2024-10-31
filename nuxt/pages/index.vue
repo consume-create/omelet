@@ -1,20 +1,9 @@
 <template>
   <div id="home-page" class="page space-t">
-    <Placeholder
-      title="Hero [Video]"
-      :invert="true"
-    />
-    <Placeholder
-      title="Overview [w/ Amoeba]"
-    />
-    <Placeholder
-      id="work"
-      title="Work [List]"
-    />
-    <Placeholder
-      id="capabilities"
-      title="Capabilities [List w/ Amoeba]"
-    />
+    <Hero />
+    <Overview />
+    <Work />
+    <Capabilities />
     <Placeholder
       id="leadership"
       title="Team [Carousel]"
@@ -24,17 +13,33 @@
 </template>
 
 <script>
+import { typeFilter, imageProps } from '~/utils/groq-common';
+import Hero from '~/components/home/Hero.vue';
+import Overview from '~/components/home/Overview.vue';
+import Work from '~/components/home/Work.vue';
+import Capabilities from '~/components/home/Capabilities.vue';
 import Placeholder from '~/components/shared/Placeholder.vue';
 import Footer from '~/components/shared/Footer.vue';
 
 export default {
   components: {
+    Hero,
+    Overview,
+    Work,
+    Capabilities,
     Placeholder,
     Footer
   },
-  mounted() {
-    const route = useRoute();
-    console.log('MOUNTED', route.fullPath);
+  async asyncData() {
+    const indexQuery = groq` {
+      'index': ${typeFilter('index')} {
+        'heroImage': heroImage.asset->url
+      }
+    }`;
+    const { data } = await useSanityQuery(indexQuery);
+    const home_data = data.value.index;
+
+    console.log('HD:::', home_data);
   }
 }
 </script>

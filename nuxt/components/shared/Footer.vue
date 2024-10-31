@@ -162,7 +162,7 @@ footer {
 
       li {
         &:not(:first-child) {
-          opacity: 0.5;
+          color: $orange;
           cursor: not-allowed;
         }
       }

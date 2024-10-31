@@ -12,6 +12,18 @@ export default defineType({
     {
       name: 'hero',
       title: 'Hero'
+    },
+    {
+      name: 'overview',
+      title: 'Overview'
+    },
+    {
+      name: 'work',
+      title: 'Work'
+    },
+    {
+      name: 'capabilities',
+      title: 'Capabilities'
     }
   ],
   fields: [
@@ -29,6 +41,88 @@ export default defineType({
       options: {
         hotspot: false
       }
+    }),
+    defineField({
+      fieldset: 'overview',
+      name: 'overviewTitle',
+      title: 'Title',
+      type: 'text',
+      rows: 2,
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'overview',
+      name: 'overviewSubtitle',
+      title: 'Subtitle',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'overview',
+      name: 'overviewSubcopy',
+      title: 'Copy',
+      type: 'text',
+      rows: 6,
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'work',
+      name: 'workTitle',
+      title: 'Title',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ],
+    }),
+    defineField({
+      fieldset: 'work',
+      name: 'caseStudies',
+      title: 'Work',
+      type: 'array',
+      validation: [
+        Rule => Rule.required().unique().error('Must include at least 1 case study!')
+      ],
+      of: [
+        {
+          type: 'reference',
+          to: {
+            type: 'caseStudy'
+          }
+        }
+      ]
+    }),
+    defineField({
+      fieldset: 'capabilities',
+      name: 'capabilitiesTitle',
+      title: 'Title',
+      type: 'text',
+      rows: 2,
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'capabilities',
+      name: 'capabilitiesList',
+      title: 'Capabilities',
+      type: 'array',
+      validation: [
+        Rule => Rule.required()
+      ],
+      of: [
+        {
+          type: 'string',
+          validation: [
+            Rule => Rule.required()
+          ]
+        }
+      ]
     })
   ]
 });

@@ -112,12 +112,14 @@ h2 {
   font-family: $poppins-extra-bold;
   @include fluid-type($min, $max, 46px, 93px);
   line-height: 0.8em;
+  text-transform: uppercase;
 }
 
 h3 {
   font-family: $poppins-extra-bold;
   @include fluid-type($min, $max, 36px, 64px);
   line-height: 0.85em;
+  text-transform: uppercase;
 }
 
 h4 {

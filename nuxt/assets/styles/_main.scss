@@ -58,41 +58,41 @@ a {
 // --------------------------------------------
 
 .gutter {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: $space-s;
+  margin-right: $space-s;
 
   @include respond-to($tablet) {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: $space-m;
+    margin-right: $space-m;
   }
 
   @include respond-to($large-tablet) {
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: $space-l;
+    margin-right: $space-l;
   }
 }
 
 .marg-l {
-  margin-left: 10px;
+  margin-left: $space-s;
 
   @include respond-to($tablet) {
-    margin-left: 20px;
+    margin-left: $space-m;
   }
 
   @include respond-to($large-tablet) {
-    margin-left: 30px;
+    margin-left: $space-l;
   }
 }
 
 .marg-r {
-  margin-right: 10px;
+  margin-right: $space-s;
 
   @include respond-to($tablet) {
-    margin-right: 20px;
+    margin-right: $space-m;
   }
 
   @include respond-to($large-tablet) {
-    margin-right: 30px;
+    margin-right: $space-l;
   }
 }
 
@@ -101,37 +101,37 @@ a {
 // --------------------------------------------
 
 .pad-all {
-  padding: 10px;
+  padding: $space-s;
 
   @include respond-to($tablet) {
-    padding: 20px;
+    padding: $space-m;
   }
 
   @include respond-to($large-tablet) {
-    padding: 30px;
+    padding: $space-l;
   }
 }
 
 .pad-t {
-  padding-top: 10px;
+  padding-top: $space-s;
 
   @include respond-to($tablet) {
-    padding-top: 20px;
+    padding-top: $space-m;
   }
 
   @include respond-to($large-tablet) {
-    padding-top: 30px;
+    padding-top: $space-l;
   }
 }
 
 .pad-b {
-  padding-bottom: 10px;
+  padding-bottom: $space-s;
 
   @include respond-to($tablet) {
-    padding-bottom: 20px;
+    padding-bottom: $space-m;
   }
 
   @include respond-to($large-tablet) {
-    padding-bottom: 30px;
+    padding-bottom: $space-l;
   }
 }

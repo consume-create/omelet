@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { isProxy, toRaw } from 'vue';
 import { typeFilter, imageProps } from '~/utils/groq-common';
 
 export const useStore = defineStore('state', {
