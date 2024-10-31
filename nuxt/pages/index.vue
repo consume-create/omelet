@@ -26,7 +26,12 @@
 </template>
 
 <script>
+import Placeholder from '~/components/shared/Placeholder.vue';
+
 export default {
+  components: {
+    Placeholder
+  },
   mounted() {
     const route = useRoute();
     console.log('MOUNTED', route.fullPath);

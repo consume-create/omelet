@@ -6,7 +6,7 @@ export const useStore = defineStore('state', {
   state: () => ({
     site_name: '',
     site_seo_description: '',
-    site_seo_image: null,
+    site_seo_image: '',
     footer_title: '',
     social_links: [],
     menu_open: false,

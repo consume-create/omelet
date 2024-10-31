@@ -18,7 +18,7 @@ export default {
   mounted() {
     window.addEventListener('keydown', this.onKeydown);
   },
-  onBeforeUnmount() {
+  beforeUnmount() {
     window.removeEventListener('keydown', this.onKeydown);
   },
   methods: {

@@ -6,7 +6,7 @@
     </DevOnly> -->
     <Header />
     <transition name="menu">
-      <MobileMenu v-if="store.menu_open" />
+      <Menu v-if="store.menu_open" />
     </transition>
     <NuxtPage />
   </div>
@@ -14,8 +14,25 @@
 
 <script>
 import { useStore } from '~/stores/store';
+import GridOverlay from '~/components/shared/GridOverlay.vue';
+import Header from '~/components/shared/Header.vue';
+import Menu from '~/components/shared/Menu.vue';
 
 export default {
+  components: {
+    GridOverlay,
+    Header,
+    Menu
+  },
+  created() {
+    useSeoMeta({
+      title: this.store.site_name,
+      ogTitle: this.store.site_name,
+      description: this.store.site_seo_description,
+      ogDescription: this.store.site_seo_description,
+      ogImage: this.store.site_seo_image
+    })
+  },
   data() {
     return {
       store: useStore()

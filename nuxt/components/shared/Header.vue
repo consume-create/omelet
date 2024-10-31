@@ -39,7 +39,7 @@ export default {
     this.onResize();
     this.onScroll();
   },
-  onBeforeUnmount() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('scroll', this.onScroll);
   },
