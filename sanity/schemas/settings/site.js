@@ -12,6 +12,14 @@ export default defineType({
     {
       name: 'footer',
       title: 'Footer'
+    },
+    {
+      name: 'contact',
+      title: 'Contact'
+    },
+    {
+      name: 'socials',
+      title: 'Socials'
     }
   ],
   fields: [
@@ -38,16 +46,97 @@ export default defineType({
       fieldset: 'footer',
       name: 'footerTitle',
       title: 'Title',
-      type: 'string'
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
     }),
     defineField({
       fieldset: 'footer',
+      name: 'generalLabel',
+      title: 'General Label',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'footer',
+      name: 'businessLabel',
+      title: 'Business Label',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'contact',
+      name: 'generalEmail',
+      title: 'General Email',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'contact',
+      name: 'businessEmail',
+      title: 'Business Email',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'contact',
+      name: 'address',
+      title: 'Address',
+      type: 'text',
+      rows: 2,
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'contact',
+      name: 'addressLink',
+      title: 'Address Link',
+      type: 'url',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'contact',
+      name: 'phoneNumber',
+      title: 'Phone Number',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    // defineField({
+    //   fieldset: 'contact',
+    //   name: 'address',
+    //   title: 'Address',
+    //   type: 'array',
+    //   of: [{
+    //     type: 'block',
+    //     styles: [],
+    //     lists: [],
+    //     marks: {
+    //       decorators: []
+    //     }
+    //   }]
+    // }),
+    defineField({
+      fieldset: 'socials',
       name: 'linkedin',
       title: 'LinkedIn URL',
       type: 'url'
     }),
     defineField({
-      fieldset: 'footer',
+      fieldset: 'socials',
       name: 'instagram',
       title: 'Instagram URL',
       type: 'url'

@@ -3,10 +3,13 @@
     <div class="inner">
       <NuxtLink class="logo marg-l" to="/">Omelet</NuxtLink>
       <h1><strong>A Creative Agency</strong><br>based in Los Angeles</h1>
-      <div id="menu-btn" class="marg-r" @click="store.setMenuOpen()">
-        <span />
-        <span />
-      </div>
+      <nav id="mobile-nav">
+        <div class="icon --accessibility">Accessibility</div>
+        <div id="menu-btn" class="marg-r" @click="store.setMenuOpen()">
+          <span />
+          <span />
+        </div>
+      </nav>
       <nav id="primary-nav">
         <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
         <NuxtLink class="icon --contact" to="mailto:hello@omelet.com" target="_blank">hello@omelet.com</NuxtLink>
@@ -151,44 +154,72 @@ header {
 
     .logo {
       position: relative;
-      width: 122px;
-      height: 24px;
+      width: 104px;
+      height: 20px;
       font-size: 0px;
       color: transparent;
       overflow: hidden;
       @include omelet-logo($black);
       display: inline-flex;
+      flex-shrink: 0;
       transition: background-image $speed-666 $evil-ease;
     }
 
     h1 {
       position: absolute;
       top: 50%;
-      left: span(7);
+      left: span(6);
       transform: translateY(-50%);
     }
 
-    #menu-btn {
-      position: relative;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
+    nav#mobile-nav {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
 
-      span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 16px;
-        height: 2px;
-        background-color: $black;
-        transform: translateX(-50%) translateY(-50%);
+      .icon {
+        width: 24px;
+        height: 24px;
+        margin-right: $space-xs;
+        font-size: 0px;
+        color: transparent;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: background-image $speed-666 $evil-ease;
 
-        &:nth-child(1) {
-          margin-top: -2px;
+        &.--accessibility {
+          @include icon-accessibility($black);
+          background-size: 16px 16px;
         }
+      }
 
-        &:nth-child(2) {
-          margin-top: 2px;
+      #menu-btn {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 16px;
+          height: 2px;
+          background-color: $black;
+          transform: translateX(-50%) translateY(-50%);
+
+          &:nth-child(1) {
+            margin-top: -2px;
+          }
+
+          &:nth-child(2) {
+            margin-top: 2px;
+          }
         }
       }
     }
@@ -200,8 +231,15 @@ header {
 
   @include respond-to($mobile) {
     .inner {
-      h1 {
-        left: span(6);
+      .logo {
+        width: 122px;
+        height: 24px;
+      }
+
+      nav#mobile-nav {
+        .icon {
+          margin-right: $space-s;
+        }
       }
     }
   }
@@ -220,7 +258,7 @@ header {
         left: span(4);
       }
 
-      #menu-btn {
+      nav#mobile-nav {
         display: none;
       }
 

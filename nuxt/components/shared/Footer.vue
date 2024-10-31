@@ -1,0 +1,300 @@
+<template>
+  <footer>
+    <div class="content">
+      <div class="shape">
+        <img src="/images/contact-shape.png" />
+      </div>
+      <div class="contact-info">
+        <h4>{{ store.footer_title }}</h4>
+        <div class="cols">
+          <div class="col">
+            <div class="email-block">
+              <p class="fs-p4">{{ store.general_label }}</p>
+              <div class="row">
+                <NuxtLink class="fs-p2 underline" :to="`mailto:${store.general_email}`" target="_blank">{{ store.general_email }}</NuxtLink>
+                <NuxtLink class="icon" :to="store.social_links[0]" target="_blank">{{ store.social_links[0] }}</NuxtLink>
+              </div>
+            </div>
+            <div class="email-block">
+              <p class="fs-p4">{{ store.business_label }}</p>
+              <div class="row">
+                <NuxtLink class="fs-p2 underline" :to="`mailto:${store.business_email}`" target="_blank">{{ store.business_email }}</NuxtLink>
+                <NuxtLink class="icon" :to="store.social_links[1]" target="_blank">{{ store.social_links[1] }}</NuxtLink>
+              </div>
+            </div>
+            <NuxtLink class="col-icon" :to="store.social_links[0]" target="_blank">{{ store.social_links[0] }}</NuxtLink>
+          </div>
+          <div class="col">
+            <div class="block">
+              <NuxtLink class="pre" :to="`mailto:${store.address_link}`" target="_blank">{{ store.address }}</NuxtLink>
+            </div>
+            <div class="block">
+              <NuxtLink class="underline" :to="`tel:${store.phone_number}`" target="_blank">{{ store.phone_number }}</NuxtLink>
+            </div>
+            <NuxtLink class="col-icon" :to="store.social_links[1]" target="_blank">{{ store.social_links[1] }}</NuxtLink>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gutter">
+      <NuxtLink class="logo" to="/">Omelet</NuxtLink>
+      <ul class="legals nav-a2">
+        <li>© Omelet {{ year }}</li>
+        <li>Privacy Policy</li>
+        <li>Terms</li>
+      </ul>
+    </div>
+  </footer>
+</template>
+
+
+<script>
+import { useStore } from '~/stores/store';
+
+export default {
+  data() {
+    return {
+      store: useStore(),
+      year: new Date().getFullYear()
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+
+footer {
+  width: 100%;
+
+  .content {
+    margin: $space-l 0 $space-l span(2);
+    padding-top: $space-l;
+
+    .shape {
+      margin: $space-l $space-s;
+      display: flex;
+
+      img {
+        width: 70%;
+        max-width: 400px;
+        margin-left: auto;
+        display: flex;
+      }
+    }
+
+    h4 {
+      margin-bottom: $space-m;
+    }
+
+    .cols {
+      .col {
+        display: flex;
+        flex-direction: column;
+
+        a {
+          margin-bottom: $space-m;
+          display: inline-flex;
+        }
+
+        .email-block {
+          a {
+            text-decoration: underline;
+          }
+
+          .row {
+            display: flex;
+            align-items: center;
+
+            a.underline {
+              width: calc(#{span(10.5)} - 18px);
+
+              @include respond-to($small-tablet) {
+                width: span(6);
+              }
+            }
+
+            .icon {
+              width: 20px;
+              height: 20px;
+              font-size: 0px;
+              color: transparent;
+              overflow: hidden;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+
+              &[href*="linkedin"] {
+                @include linkedin($black);
+              }
+
+              &[href*="instagram"] {
+                @include instagram($black);
+              }
+            }
+          }
+        }
+
+        .col-icon {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .gutter {
+    .logo {
+      width: 100%;
+      aspect-ratio: 720/140;
+      font-size: 0px;
+      color: transparent;
+      overflow: hidden;
+      @include omelet-logo($black);
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .legals {
+      width: 100%;
+      padding: $space-s 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  @include respond-to($tablet) {
+    .content {
+      margin: $space-xl span(0.5) $space-xl span(2);
+
+      .cols {
+        .col {
+          display: flex;
+          flex-direction: row;
+
+          a {
+            margin-bottom: 0px;
+          }
+
+          .email-block {
+            width: span(4);
+            margin-bottom: $space-l;
+
+            .row {
+              display: flex;
+              align-items: center;
+
+              a.underline {
+                width: auto;
+              }
+
+              .icon {
+                display: none;
+              }
+            }
+          }
+
+          .block {
+            width: span(4);
+            margin-bottom: $space-m;
+          }
+
+          .col-icon {
+            width: 20px;
+            height: 20px;
+            font-size: 0px;
+            color: transparent;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            &[href*="linkedin"] {
+              margin-top: 12px;
+              @include linkedin($black);
+            }
+
+            &[href*="instagram"] {
+              @include instagram($black);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-to($large-tablet) {
+    .content {
+      margin: $space-xl 0px $space-s span(2);
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      .shape {
+        order: 2;
+        width: span(3.5);
+        margin: 0 span(0.5) 0 0;
+
+        img {
+          width: 100%;
+          max-width: none;
+        }
+      }
+
+      .contact-info {
+        order: 1;
+        margin-top: auto;
+      }
+
+      h4 {
+        margin-bottom: $space-l;
+      }
+
+      .cols {
+        .col {
+          .email-block {
+            width: span(3.5);
+            margin-bottom: $space-xl;
+          }
+
+          .block {
+            width: span(3.5);
+            padding-bottom: $space-xl;
+            margin-bottom: $space-xl;
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-to($average-desktop) {
+    .content {
+      margin: $space-xl 0px $space-xl span(3);
+
+      .shape {
+        width: span(4);
+      }
+
+      .cols {
+        .col {
+          .email-block {
+            width: span(2.5);
+          }
+
+          .block {
+            width: span(2.5);
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-to($macbook) {
+    .content {
+      .shape {
+        width: span(4.5);
+      }
+    }
+  }
+}
+
+</style>

@@ -11,19 +11,13 @@
           <div class="smiley gutter"></div>
           <div class="menu-footer">
             <ul>
-              <li>
-                <NuxtLink class="icon --contact" to="https://www.linkedin.com/company/omelet" target="_blank">LinkedIn</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink class="icon --contact" to="https://www.instagram.com/thisisomelet" target="_blank">Instagram</NuxtLink>
+              <li v-for="link in store.social_links">
+                <NuxtLink class="icon" :to="link" target="_blank">{{ link }}</NuxtLink>
               </li>
             </ul>
             <ul>
               <li>
                 <NuxtLink class="icon --contact" to="mailto:hello@omelet.com" target="_blank">hello@omelet.com</NuxtLink>
-              </li>
-              <li>
-                <div class="icon --accessibility">Accessibility</div>
               </li>
             </ul>
           </div>
@@ -166,8 +160,12 @@ export default {
               @include icon-mail($black);
             }
 
-            &.--accessibility {
-              @include icon-accessibility($black);
+            &[href*="linkedin"] {
+              @include linkedin($black);
+            }
+
+            &[href*="instagram"] {
+              @include instagram($black);
             }
           }
         }

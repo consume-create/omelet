@@ -8,12 +8,27 @@ export default defineType({
   type: 'document',
   singleton: true,
   icon: DashboardIcon,
+  fieldsets: [
+    {
+      name: 'hero',
+      title: 'Hero'
+    }
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Page Title',
-      type: 'string'
-      // hidden: true,
+      type: 'string',
+      hidden: true
+    }),
+    defineField({
+      fieldset: 'hero',
+      name: 'heroImage',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: false
+      }
     })
   ]
 });

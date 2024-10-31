@@ -19,18 +19,18 @@
       id="leadership"
       title="Team [Carousel]"
     />
-    <Placeholder
-      title="Footer"
-    />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Placeholder from '~/components/shared/Placeholder.vue';
+import Footer from '~/components/shared/Footer.vue';
 
 export default {
   components: {
-    Placeholder
+    Placeholder,
+    Footer
   },
   mounted() {
     const route = useRoute();

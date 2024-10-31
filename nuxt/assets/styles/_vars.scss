@@ -32,9 +32,12 @@ $header-height: 60px;
 // Spacing
 // --------------------------------------------
 
+$space-xs: 5px;
 $space-s: 10px;
 $space-m: 20px;
 $space-l: 30px;
+$space-xl: 40px;
+$space-xxl: 50px;
 
 // --------------------------------------------
 // Easy does it...
@@ -50,7 +53,7 @@ $evil-ease: cubic-bezier(0.666, 0.000, 0.333, 1.000);
 $portrait:           '(orientation: portrait)';
 $landscape:          '(orientation: landscape)';
 $mobile:             '(min-width: 375px)';
-$small-tablet:       '(min-width: 540px)';
+$small-tablet:       '(min-width: 500px)';
 $tablet:             '(min-width: 768px)';
 $large-tablet:       '(min-width: 1024px)';
 $desktop:            '(min-width: 1280px)';
