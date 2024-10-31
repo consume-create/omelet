@@ -159,6 +159,13 @@ footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      li {
+        &:not(:first-child) {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 
@@ -220,6 +227,29 @@ footer {
         }
       }
     }
+
+    .gutter {
+      margin: 0;
+
+      .legals {
+        justify-content: flex-start;
+
+        li {
+          &:nth-child(1) {
+            margin-left: span(2);
+            width: span(4);
+          }
+
+          &:nth-child(2) {
+            width: span(4);
+          }
+
+          &:nth-child(3) {
+            width: auto;
+          }
+        }
+      }
+    }
   }
 
   @include respond-to($large-tablet) {
@@ -264,6 +294,20 @@ footer {
         }
       }
     }
+
+    .gutter {
+      .legals {
+        li {
+          &:nth-child(1) {
+            width: span(3.5);
+          }
+
+          &:nth-child(2) {
+            width: span(3.5);
+          }
+        }
+      }
+    }
   }
 
   @include respond-to($average-desktop) {
@@ -281,6 +325,21 @@ footer {
           }
 
           .block {
+            width: span(2.5);
+          }
+        }
+      }
+    }
+
+    .gutter {
+      .legals {
+        li {
+          &:nth-child(1) {
+            margin-left: span(3);
+            width: span(2.5);
+          }
+
+          &:nth-child(2) {
             width: span(2.5);
           }
         }
