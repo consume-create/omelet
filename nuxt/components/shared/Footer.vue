@@ -40,8 +40,8 @@
       <NuxtLink class="logo" to="/">Omelet</NuxtLink>
       <ul class="legals nav-a2">
         <li>© Omelet {{ year }}</li>
-        <li>Privacy Policy</li>
-        <li>Terms</li>
+        <!-- <li>Privacy Policy</li>
+        <li>Terms</li> -->
       </ul>
     </div>
   </footer>
@@ -160,12 +160,12 @@ footer {
       align-items: center;
       justify-content: space-between;
 
-      li {
-        &:not(:first-child) {
-          color: $orange;
-          cursor: not-allowed;
-        }
-      }
+      // li {
+      //   &:not(:first-child) {
+      //     color: $orange;
+      //     cursor: not-allowed;
+      //   }
+      // }
     }
   }
 
