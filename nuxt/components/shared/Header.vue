@@ -3,9 +3,9 @@
     <div class="inner">
       <NuxtLink class="logo marg-l" to="/">Omelet</NuxtLink>
       <h1><strong>A Creative Agency</strong><br>based in Los Angeles</h1>
-      <nav id="mobile-nav">
+      <nav id="mobile-nav" class="marg-r">
         <div class="icon --accessibility">Accessibility</div>
-        <div id="menu-btn" class="marg-r" @click="store.setMenuOpen()">
+        <div id="menu-btn" @click="store.setMenuOpen()">
           <span />
           <span />
         </div>
@@ -202,6 +202,7 @@ header {
         position: relative;
         width: 24px;
         height: 24px;
+        margin-right: -4px;
         cursor: pointer;
 
         span {

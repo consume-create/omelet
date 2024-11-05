@@ -4,21 +4,17 @@
     <Overview />
     <Work />
     <Capabilities />
-    <Placeholder
-      id="leadership"
-      title="Team [Carousel]"
-    />
+    <Team />
     <Footer />
   </div>
 </template>
 
 <script>
-import { typeFilter, imageProps } from '~/utils/groq-common';
 import Hero from '~/components/home/Hero.vue';
 import Overview from '~/components/home/Overview.vue';
 import Work from '~/components/home/Work.vue';
 import Capabilities from '~/components/home/Capabilities.vue';
-import Placeholder from '~/components/shared/Placeholder.vue';
+import Team from '~/components/home/Team.vue';
 import Footer from '~/components/shared/Footer.vue';
 
 export default {
@@ -27,19 +23,8 @@ export default {
     Overview,
     Work,
     Capabilities,
-    Placeholder,
+    Team,
     Footer
-  },
-  async asyncData() {
-    const indexQuery = groq` {
-      'index': ${typeFilter('index')} {
-        'heroImage': heroImage.asset->url
-      }
-    }`;
-    const { data } = await useSanityQuery(indexQuery);
-    const home_data = data.value.index;
-
-    console.log('HD:::', home_data);
   }
 }
 </script>

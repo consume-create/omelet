@@ -5,7 +5,6 @@
       '--fill': fit !== 'contain',
       'responsive-image-picture--is-loaded': isLoaded,
       'responsive-image-picture--is-errored': isErrored,
-      'responsive-image-picture--is-transparent': isTransparent,
       'responsive-image-picture--is-fully-visible': isFullyVisible
     }"
   >
@@ -247,11 +246,12 @@ export default {
     }
   }
 
-  picture.responsive-image-picture
+  picture.responsive-image-picture {
     position: relative;
     pointer-events: none;
+  }
 
-  .responsive-image-palette
+  .responsive-image-palette {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -260,6 +260,7 @@ export default {
     opacity: 1;
     backface-visibility: hidden;
     will-change: opacity;
+  }
 
   .responsive-image-fade {
     opacity: 0;

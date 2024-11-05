@@ -40,8 +40,6 @@
       <NuxtLink class="logo" to="/">Omelet</NuxtLink>
       <ul class="legals nav-a2">
         <li>© Omelet {{ year }}</li>
-        <!-- <li>Privacy Policy</li>
-        <li>Terms</li> -->
       </ul>
     </div>
   </footer>
@@ -65,6 +63,7 @@ export default {
 
 footer {
   width: 100%;
+  overflow: hidden;
 
   .content {
     margin: $space-l 0 $space-l span(2);
@@ -99,6 +98,10 @@ footer {
         .email-block {
           a {
             text-decoration: underline;
+          }
+
+          > p.fs-p4 {
+            line-height: 16px;
           }
 
           .row {
@@ -159,13 +162,6 @@ footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      // li {
-      //   &:not(:first-child) {
-      //     color: $orange;
-      //     cursor: not-allowed;
-      //   }
-      // }
     }
   }
 
@@ -185,6 +181,10 @@ footer {
           .email-block {
             width: span(4);
             margin-bottom: $space-l;
+
+            > p.fs-p4 {
+              line-height: 24px;
+            }
 
             .row {
               display: flex;
@@ -216,7 +216,7 @@ footer {
             justify-content: center;
 
             &[href*="linkedin"] {
-              margin-top: 12px;
+              margin-top: 24px;
               @include linkedin($black);
             }
 
@@ -229,9 +229,8 @@ footer {
     }
 
     .gutter {
-      margin: 0;
-
       .legals {
+        margin: 0 (-$space-m);
         justify-content: flex-start;
 
         li {
@@ -297,6 +296,8 @@ footer {
 
     .gutter {
       .legals {
+        margin: 0 (-$space-l);
+
         li {
           &:nth-child(1) {
             width: span(3.5);

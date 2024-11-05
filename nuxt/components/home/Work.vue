@@ -1,5 +1,5 @@
 <template>
-  <section id="work">
+  <section id="work" class="pad-t">
     <div class="title-block gutter">
       <h3 class="pad-b">Work</h3>
     </div>
@@ -61,6 +61,38 @@ section#work {
         }
       }
 
+      &:nth-child(4n-1) {
+        .inner {
+          &:before {
+            background-color: $gold;
+          }
+        }
+      }
+
+      &:nth-child(4n-2) {
+        .inner {
+          &:before {
+            background-color: $green;
+          }
+        }
+      }
+
+      &:nth-child(4n-3) {
+        .inner {
+          &:before {
+            background-color: $purple;
+          }
+        }
+      }
+
+      &:nth-child(4n-4) {
+        .inner {
+          &:before {
+            background-color: $orange;
+          }
+        }
+      }
+
       .inner {
         position: relative;
         border-bottom: 1px solid rgba($black, 0.1);
@@ -69,7 +101,6 @@ section#work {
         &:before {
           content: '';
           @include abs-fill;
-          background-color: $orange;
           transform: translateY(calc(-100% - 1px));
           transition: transform $speed-333 $ease-out;
         }

@@ -51,7 +51,39 @@ export default {
 
     &:first-child,
     &:last-child {
-      width: 0px;
+      background-color: rgba(#3333ff, 35%);
+    }
+
+    &:first-child {
+      transform: translateX(#{$space-s});
+    }
+
+    &:last-child {
+      transform: translateX(-#{$space-s});
+    }
+  }
+
+  @include respond-to($tablet) {
+    .grid-line {
+      &:first-child {
+        transform: translateX(#{$space-m});
+      }
+
+      &:last-child {
+        transform: translateX(-#{$space-m});
+      }
+    }
+  }
+
+  @include respond-to($large-tablet) {
+    .grid-line {
+      &:first-child {
+        transform: translateX(#{$space-l});
+      }
+
+      &:last-child {
+        transform: translateX(-#{$space-l});
+      }
     }
   }
 }

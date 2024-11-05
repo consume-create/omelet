@@ -1,5 +1,5 @@
 <template>
-  <section id="capabilities">
+  <section id="capabilities" class="pad-t">
     <div class="title-block gutter">
       <h3 class="pre pad-b">We kind of<br>do it all</h3>
     </div>
