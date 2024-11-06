@@ -25,6 +25,9 @@ export default {
     Capabilities,
     Team,
     Footer
+  },
+  setup() {
+    console.log('index setup');
   }
 }
 </script>

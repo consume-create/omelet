@@ -144,6 +144,17 @@ section#leadership {
         display: flex;
         align-items: flex-start;
 
+        // Shim to cover pixel-rounding background-position on hover
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 100%;
+          height: 1px;
+          background-color: $white;
+        }
+
         .inner {
           width: 100%;
           margin: 0 $space-xs;

@@ -2,8 +2,9 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './schemas';
 
-import { colorInput } from '@sanity/color-input';
 import { media } from 'sanity-plugin-media';
+import { colorInput } from '@sanity/color-input';
+import { vimeoField } from 'sanity-plugin-vimeo-field';
 
 import { EyeOpenIcon } from '@sanity/icons';
 import { Iframe } from 'sanity-plugin-iframe-pane';
@@ -104,8 +105,11 @@ export default defineConfig({
               )
           ])
     }),
+    media(),
     colorInput(),
-    media()
+    vimeoField({
+      accessToken: process.env.SANITY_STUDIO_VIMEO_ACCESS_TOKEN
+    })
   ],
   schema: {
     types: schemaTypes,

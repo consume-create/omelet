@@ -2,11 +2,21 @@
   <section id="home-hero-section">
     <div class="gutter">
       <div id="home-hero-media">
-        <img src="/images/hero-fpo.jpg" />
+        <ResponsiveImage src="/images/hero-fpo.jpg" :width="1300" :height="2560" alt="" />
       </div>
     </div>
   </section>
 </template>
+
+<script>
+import ResponsiveImage from '~/components/shared/ResponsiveImage.vue';
+
+export default {
+  components: {
+    ResponsiveImage
+  }
+}
+</script>
 
 <style lang="scss">
 
