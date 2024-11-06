@@ -5,7 +5,7 @@
     </div>
     <div class="blocks">
       <div class="shape">
-        <img src="/images/capabilities-shape.png" />
+        <img src="/images/capabilities-shape.png" alt="Advertising, not breakfast" />
       </div>
       <ul class="capabilities-list">
         <li v-for="item in items">

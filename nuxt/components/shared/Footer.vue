@@ -2,7 +2,7 @@
   <footer>
     <div class="content">
       <div class="shape">
-        <img src="/images/contact-shape.png" />
+        <img src="/images/contact-shape.png" alt="Let us take a crack at it" />
       </div>
       <div class="contact-info">
         <h4>{{ store.footer_title }}</h4>
@@ -26,7 +26,7 @@
           </div>
           <div class="col">
             <div class="block">
-              <NuxtLink class="pre" :to="`mailto:${store.address_link}`" target="_blank">{{ store.address }}</NuxtLink>
+              <NuxtLink class="pre" :to="`${store.address_link}`" target="_blank">{{ store.address }}</NuxtLink>
             </div>
             <div class="block">
               <NuxtLink class="underline" :to="`tel:${store.phone_number}`" target="_blank">{{ store.phone_number }}</NuxtLink>
@@ -179,7 +179,7 @@ footer {
           }
 
           .email-block {
-            width: span(4);
+            width: span(4.5);
             margin-bottom: $space-l;
 
             > p.fs-p4 {
@@ -201,7 +201,7 @@ footer {
           }
 
           .block {
-            width: span(4);
+            width: span(4.5);
             margin-bottom: $space-m;
           }
 
