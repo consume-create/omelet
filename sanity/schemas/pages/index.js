@@ -43,6 +43,12 @@ export default defineType({
       }
     }),
     defineField({
+      fieldset: 'hero',
+      name: 'heroVideo',
+      title: 'Hero Video',
+      type: 'videoLoop'
+    }),
+    defineField({
       fieldset: 'overview',
       name: 'overviewTitle',
       title: 'Title',
@@ -86,7 +92,7 @@ export default defineType({
       title: 'Work',
       type: 'array',
       validation: [
-        Rule => Rule.required().unique().error('Must include at least 1 case study!')
+        Rule => Rule.required().unique().error('Must include at least 1 case study')
       ],
       of: [
         {
