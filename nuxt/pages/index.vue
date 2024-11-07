@@ -1,7 +1,7 @@
 <template>
   <div id="home-page" class="page space-t">
     <Hero />
-    <Overview :title="data ? data.overviewTitle : null" />
+    <Overview :title="page_data.overviewTitle" />
     <Work />
     <Capabilities />
     <Team />
@@ -33,32 +33,24 @@ export default {
     Team,
     Footer
   },
-  data() {
-    return {
-      data: null,
-      error: null,
-      loading: true
-    }
-  },
-  created() {
-    this.fetchData();
-  },
-  methods: {
-    fetchData() {
-      this.error = this.data = null;
-      this.loading = true;
+  async setup() {
+    const pageQuery = groq` {
+      'index': ${typeFilter('index')} {
+        overviewTitle,
+        heroImage ${imageProps},
+        heroVideo
+      }
+    }`;
+    let page_data = null;
+    const response = await useSanityQuery(pageQuery);
+    page_data = response.data.value.index;
 
-      useSanity().fetch(pageQuery).then(
-        (data) => {
-          this.loading = false;
-          this.data = data.index;
-          console.log(this.data.heroVideo);
-        },
-        (error) => {
-          this.error = error;
-        }
-      );
+    return {
+      page_data
     }
+  },
+  mounted() {
+    console.log('MOUNTED:', this.page_data.heroVideo.vimeo);
   }
 }
 </script>

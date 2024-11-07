@@ -3,18 +3,18 @@
     <div class="title-block gutter">
       <h3 class="pad-b">Work</h3>
     </div>
-    <div class="work-list" @mouseenter="onMouseenterList" @mouseleave="onMouseleaveList">
-      <div v-for="(item, index) in projects" class="list-item" @mouseenter="onMouseenterListItem(index)" :key="index">
+    <ul class="work-list">
+      <li v-for="item in projects" @mouseenter="directionalHover" @mouseleave="directionalHover">
         <div class="inner">
+          <div class="backsplash" />
           <div class="gutter">
             <p class="fs-p1">{{ item.title }}</p>
             <p class="fs-p3">Brand Campaign</p>
             <p class="fs-p3">Entertainment</p>
           </div>
         </div>
-      </div>
-      <div class="backsplash" :style="{'transform': `translateY(${y}%) scaleY(${sy})`}" />
-    </div>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -24,9 +24,6 @@ import { useStore } from '~/stores/store';
 export default {
   data() {
     return {
-      y: 0,
-      sy: 0,
-      prev_y: 0,
       projects: [
         { title: 'Google Small Business' },
         { title: 'Netflix Extraction' },
@@ -40,16 +37,23 @@ export default {
     }
   },
   methods: {
-    onMouseenterList(e) {
-      this.sy = e.clientY - this.prev_y > 0 ? 1 : 0;
-      this.prev_y = e.clientY;
-    },
-    onMouseleaveList(e) {
-      this.sy = e.clientY - this.prev_y > 0 ? 1 : 0;
-      this.prev_y = e.clientY;
-    },
-    onMouseenterListItem(index) {
-      this.y = index * 100;
+    directionalHover(e) {
+      const el = e.currentTarget;
+      const tolerance = 10;
+      const top = 0;
+      const bottom = el.clientHeight;
+
+      let y = e.pageY - el.offsetTop;
+
+      if (y - tolerance < top) {
+        y = top;
+      }
+
+      if (y + tolerance > bottom) {
+        y = bottom;
+      }
+
+      el.style.setProperty('--y', `${y}px`);
     }
   }
 }
@@ -66,47 +70,9 @@ section#work {
     padding-bottom: $space-s;
   }
 
-  .work-list {
-    position: relative;
-
-    .backsplash {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 12.5%;
-      background-color: rgba($orange, 1);
-      pointer-events: none;
-      transform-origin: 50% 0%;
-      transform: translateY(0%) scaleY(0);
-      transition: transform $speed-333 $ease-out;
-
-      &:before,
-      &:after, {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 0px;
-        width: 100%;
-        height: 3px;
-        margin-top: -1px;
-        background-color: inherit;
-      }
-
-      &:before {
-        top: 0px;
-        margin-top: -2px;
-      }
-    }
-
+  ul.work-list {
     @include can-hover {
-      // &:hover {
-      //   .backsplash {
-      //     opacity: 1;
-      //   }
-      // }
-
-      .list-item {
+      li {
         .inner {
           .gutter {
             p {
@@ -120,6 +86,10 @@ section#work {
 
         &:hover {
           .inner {
+            .backsplash {
+              --scale: 1;
+            }
+
             .gutter {
               p {
                 &.fs-p3 {
@@ -133,21 +103,71 @@ section#work {
       }
     }
 
-    .list-item {
+    li {
       position: relative;
       width: 100%;
       box-sizing: border-box;
-      border-top: 1px solid rgba($black, 1);
       overflow: hidden;
+
+      &:first-child {
+        .inner {
+          border-top: 1px solid rgba($black, 0.1);
+        }
+      }
+
+      &:nth-child(4n-1) {
+        .inner {
+          .backsplash {
+            background-color: $gold;
+          }
+        }
+      }
+
+      &:nth-child(4n-2) {
+        .inner {
+          .backsplash {
+            background-color: $green;
+          }
+        }
+      }
+
+      &:nth-child(4n-3) {
+        .inner {
+          .backsplash {
+            background-color: $purple;
+          }
+        }
+      }
+
+      &:nth-child(4n-4) {
+        .inner {
+          .backsplash {
+            background-color: $orange;
+          }
+        }
+      }
 
       .inner {
         position: relative;
-        padding: 16px 0;
+        border-bottom: 1px solid rgba($black, 0.1);
         overflow: hidden;
-        z-index: 1;
+
+        .backsplash {
+          display: none;
+
+          @include can-hover {
+            --scale: 0;
+            @include abs-fill;
+            display: flex;
+            transform: scaleY(var(--scale));
+            transform-origin: 50% var(--y);
+            transition: transform $speed-333 $ease-out;
+          }
+        }
 
         .gutter {
           position: relative;
+          padding: 16px 0;
           display: flex;
           align-items: center;
 
@@ -167,12 +187,12 @@ section#work {
   @include respond-to($tablet) {
     padding-bottom: span(2);
 
-    .work-list {
-      .list-item {
+    ul.work-list {
+      li {
         .inner {
-          padding: 24px 0;
-
           .gutter {
+            padding: 24px 0;
+
             p {
               width: 50%;
 
