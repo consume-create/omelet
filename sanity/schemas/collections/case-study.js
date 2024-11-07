@@ -11,8 +11,9 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
-      description: 'This is the page title for SEO and seen in the browser tab.',
+      type: 'text',
+      rows: 2,
+      description: 'This is also the page title for SEO and seen in the browser tab.',
       validation: [
         Rule => Rule.required()
       ]
@@ -42,22 +43,12 @@ export default defineType({
       ]
     }),
     defineField({
-      name: 'seo',
-      title: 'SEO / Social Sharing',
-      type: 'object',
-      description: 'Preview: Enter your page URL at https://www.opengraph.xyz (Social Sharing Image will automatically pull in the Hero Image below)',
-      fields: [
-        defineField({
-          name: 'description',
-          title: 'Description',
-          type: 'text',
-          rows: 2,
-          description: 'For search engines and social media sharing previews (Max 160 characters)',
-          validation: [
-            Rule => Rule.max(160).error('Maximum of 160 characters')
-          ]
-        })
-      ]
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'string'
+      // validation: [
+      //   Rule => Rule.required()
+      // ]
     }),
     defineField({
       name: 'heroImage',
@@ -72,6 +63,31 @@ export default defineType({
         hotspot: false
       }
     })
+    // defineField({
+    //   name: 'blocks',
+    //   title: 'Page Builder Blocks',
+    //   type: 'array',
+    //   of: [
+    //     {
+    //       type: 'textBlock'
+    //     },
+    //     {
+    //       type: 'pullQuote'
+    //     },
+    //     {
+    //       type: 'singleImage'
+    //     },
+    //     {
+    //       type: 'slideshow'
+    //     },
+    //     {
+    //       type: 'singleVideo'
+    //     },
+    //     {
+    //       type: 'colorSplash'
+    //     }
+    //   ]
+    // })
   ],
   preview: {
     select: {

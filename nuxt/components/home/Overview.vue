@@ -1,7 +1,7 @@
 <template>
   <section id="overview">
     <div class="title-block gutter">
-      <h2 class="pad-t">It’s nice to<br>meet you.</h2>
+      <h2 class="pad-t pre">{{ title }}</h2>
     </div>
     <div class="shape">
       <img src="/images/overview-shape.png" />
@@ -15,6 +15,17 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      required: false
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 
