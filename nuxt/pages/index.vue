@@ -10,17 +10,26 @@
 </template>
 
 <script setup>
-const resp = await useSanityData({
-  query: groq` {
-    'index': ${typeFilter('index')} {
-      overviewTitle,
-      heroImage ${imageProps},
-      heroVideo
-    }
-  }`
-});
-const page_data = resp;
-console.log(page_data);
+import { ref } from 'vue';
+
+const page_data = ref(null);
+
+async function fetchData() {
+  const resp = await useSanityData({
+    query: groq` {
+      'index': ${typeFilter('index')} {
+        overviewTitle,
+        heroImage ${imageProps},
+        heroVideo
+      }
+    }`
+  });
+  console.log(resp);
+
+  page_data.value = resp.value.index;
+};
+
+fetchData();
 </script>
 
 <style lang='scss'>
