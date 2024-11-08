@@ -1,7 +1,7 @@
 <template>
   <div id="home-page" class="page space-t">
     <Hero />
-    <Overview :title="page_data.overviewTitle" />
+    <Overview :title="page_data ? page_data.overviewTitle : ''" />
     <Work />
     <Capabilities />
     <Team />
