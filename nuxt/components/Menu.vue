@@ -40,7 +40,6 @@ const store = useSiteStore();
   left: 0px;
   width: 100%;
   height: 100%;
-  background-color: rgba($black, 0.85);
   overflow: hidden;
   z-index: 50;
 
@@ -56,7 +55,7 @@ const store = useSiteStore();
 
   &.menu-enter-from,
   &.menu-leave-to {
-    opacity: 0;
+    opacity: 0.999;
 
     #mobile-menu-inner {
       transform: translateY(-100%);

@@ -6,8 +6,8 @@
       <nav id="mobile-nav" class="marg-r">
         <div class="icon --accessibility">Accessibility</div>
         <div id="menu-btn" @click="toggleMenu">
-          <span />
-          <span />
+          <div class="lines"><span /><span /></div>
+          <div class="lines"><span /><span /></div>
         </div>
       </nav>
       <nav id="primary-nav">
@@ -147,6 +147,45 @@ header {
 
   &.--menu-mode {
     transform: translateY(0%);
+
+    .inner {
+      nav#mobile-nav {
+        #menu-btn {
+          .lines {
+            &:first-child {
+              span {
+                &:before {
+                  transform: translateX(-100%);
+                  transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out;
+                }
+              }
+
+              span:last-child {
+                &:before {
+                  transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out calc($speed-333 / 2);
+                }
+              }
+            }
+
+            &:last-child {
+              span {
+                &:before {
+                  transform: translateX(0%);
+                  transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out $speed-333;
+                }
+              }
+
+              span:last-child {
+                &:before {
+                  transform: translateY(0%);
+                  transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out calc($speed-333 * 1.5);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   &:before {
@@ -219,21 +258,75 @@ header {
         margin-right: -4px;
         cursor: pointer;
 
-        span {
+        .lines {
           position: absolute;
           top: 50%;
           left: 50%;
           width: 16px;
-          height: 2px;
-          background-color: $black;
+          height: 16px;
+          overflow: hidden;
+          backface-visibility: hidden;
           transform: translateX(-50%) translateY(-50%);
 
-          &:nth-child(1) {
-            margin-top: -2px;
+          &:first-child {
+            span {
+              position: absolute;
+              top: 9px;
+              left: 0px;
+              width: 100%;
+              height: 2px;
+              overflow: hidden;
+              transform: translateX(0%);
+
+              &:before {
+                content: '';
+                @include abs-fill;
+                background-color: $black;
+                transform: translateX(0%);
+                transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out calc($speed-333 * 1.5);
+              }
+            }
+
+            span:last-child {
+              top: auto;
+              bottom: 9px;
+
+              &:before {
+                transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out $speed-333;
+              }
+            }
           }
 
-          &:nth-child(2) {
-            margin-top: 2px;
+          &:last-child {
+            transform: translateX(-50%) translateY(-50%) rotate(45deg);
+
+            span {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              width: 100%;
+              height: 2px;
+              overflow: hidden;
+              transform: translateX(-50%) translateY(-50%);
+
+              &:before {
+                content: '';
+                @include abs-fill;
+                background-color: $black;
+                transform: translateX(-100%);
+                transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out calc($speed-333 / 2);
+              }
+            }
+
+            span:last-child {
+              width: 2px;
+              height: 100%;
+
+              &:before {
+                transform: translateY(-100%);
+                transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out;
+              }
+            }
           }
         }
       }
