@@ -1,5 +1,5 @@
 export default async function ({ query, params, live_preview = true }) {
-  const store = useStore();
+  const store = useSiteStore();
   const sanityClient = store.preview_is_active ? { client: 'preview', server: false, initialCache: false } : undefined;
 
   // Live preview: listen to changes

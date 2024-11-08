@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { useStore } from '~/stores/store';
+import { useSiteStore } from '~/stores/store';
 
 export default {
   data() {

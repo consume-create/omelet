@@ -46,9 +46,9 @@
 </template>
 
 <script setup>
-import { useStore } from '~/stores/store';
+import { useSiteStore } from '~/stores/store';
 
-const store = useStore();
+const store = useSiteStore();
 const year = new Date().getFullYear();
 </script>
 

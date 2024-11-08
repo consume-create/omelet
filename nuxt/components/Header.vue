@@ -1,7 +1,7 @@
 <template>
   <header :class="{'--hidden': state.hidden, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
     <div class="inner">
-      <NuxtLink class="logo marg-l" to="/">Omelet</NuxtLink>
+      <NuxtLink class="logo marg-l" to="/" @click.native="store.setMenuClose()">Omelet</NuxtLink>
       <h1><strong>A Creative Agency</strong><br>based in Los Angeles</h1>
       <nav id="mobile-nav" class="marg-r">
         <div class="icon --accessibility">Accessibility</div>
@@ -21,10 +21,10 @@
 
 <script setup>
 import { reactive} from 'vue';
-import { useStore } from '~/stores/store';
+import { useSiteStore } from '~/stores/store';
 
 const route = useRoute();
-const store = useStore();
+const store = useSiteStore();
 const state = reactive({
   event_horizon: 0,
   diff_scroll: 0,

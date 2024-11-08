@@ -1,5 +1,5 @@
 export default defineNuxtPlugin(async () => {
-  const store = useStore();
+  const store = useSiteStore();
   const route = useRoute();
 
   // Fetch global page data on start

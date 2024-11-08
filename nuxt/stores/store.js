@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { typeFilter, imageProps } from '~/utils/groq-common';
 
-export const useStore = defineStore('state', {
+export const useSiteStore = defineStore('site', {
   state: () => ({
     site_name: '',
     site_seo_description: '',

@@ -14,9 +14,6 @@
 </script>
 
 <style lang='scss'>
-@import "@/assets/styles/_base.scss";
-
 .case-study-page {
 }
-
 </style>
