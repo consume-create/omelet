@@ -1,7 +1,7 @@
 <template>
   <div id="home-page" class="page space-t">
     <Hero />
-    <!-- <Overview :title="page_data.overviewTitle" /> -->
+    <Overview :title="page_data.overviewTitle" />
     <Work />
     <Capabilities />
     <Team />
@@ -19,8 +19,7 @@ const resp = await useSanityData({
     }
   }`
 });
-const page_data = resp;
-console.log(page_data);
+const page_data = resp.value.index;
 </script>
 
 <style lang='scss'>
