@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
 const homeQuery = groq`*[(_type == "index")][0]{
   overviewTitle,
   heroImage ${imageProps},
