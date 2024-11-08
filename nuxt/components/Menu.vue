@@ -27,20 +27,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from '~/stores/store';
 
-export default {
-  data() {
-    return {
-      store: useStore()
-    }
-  }
-}
+const store = useStore();
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 #mobile-menu {
   position: fixed;
   top: 0px;
@@ -173,5 +166,4 @@ export default {
     }
   }
 }
-
 </style>

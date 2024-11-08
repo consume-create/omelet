@@ -225,7 +225,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 
 .responsive-image-wrapper {
   position: relative;

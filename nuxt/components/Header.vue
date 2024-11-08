@@ -1,5 +1,5 @@
 <template>
-  <header :class="{'--hidden': hidden, '--shield': shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
+  <header :class="{'--hidden': state.hidden, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
     <div class="inner">
       <NuxtLink class="logo marg-l" to="/">Omelet</NuxtLink>
       <h1><strong>A Creative Agency</strong><br>based in Los Angeles</h1>
@@ -19,72 +19,72 @@
   </header>
 </template>
 
-<script>
+<script setup>
+import { reactive} from 'vue';
 import { useStore } from '~/stores/store';
 
-export default {
-  data() {
-    return {
-      store: useStore(),
-      menu_mode: false,
-      event_horizon: 0,
-      diff_scroll: 0,
-      last_scroll: 0,
-      hidden: false,
-      shield_mode: false,
-      scrolling_cb: false
-    }
-  },
-  mounted() {
-    window.addEventListener('resize', this.onResize);
-    window.addEventListener('scroll', this.onScroll);
+const store = useStore();
+const state = reactive({
+  event_horizon: 0,
+  diff_scroll: 0,
+  last_scroll: 0,
+  hidden: false,
+  shield_mode: false,
+  scrolling_cb: false
+});
 
-    this.onResize();
-    this.onScroll();
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('scroll', this.onScroll);
-  },
-  methods: {
-    onResize() {
-      if (window.innerWidth >= 768 && this.store.menu_open) {
-        this.store.setMenuOpen();
-      }
-    },
-    onScroll() {
-      this.event_horizon = window.pageYOffset;
-      clearTimeout(this.scrolling_cb);
+// Mounted
+onMounted(() => {
+  window.addEventListener('resize', onResize);
+  window.addEventListener('scroll', onScroll);
 
-      if (this.event_horizon <= 1) {
-        this.shield_mode = false;
-        this.hidden = false;
-      } else {
-        this.shield_mode = true;
+  onResize();
+  onScroll();
+});
 
-        if (this.event_horizon - this.last_scroll >= 0) {
-          this.diff_scroll = 0;
-          this.hidden = true;
-        } else {
-          this.diff_scroll = this.diff_scroll + 1;
-          if (this.diff_scroll >= 1) {
-            this.hidden = false;
-          }
+// Before Unmount
+onBeforeMount(() => {
+  window.removeEventListener('resize', onResize);
+  window.removeEventListener('scroll', onScroll);
+});
 
-          this.scrolling_cb = setTimeout(() => {
-            this.diff_scroll = 0;
-          }, 50);
-        }
+// Methods
+function onResize() {
+  if (window.innerWidth >= 768 && store.menu_open) {
+    store.setMenuOpen();
+  }
+};
+
+function onScroll() {
+  state.event_horizon = window.pageYOffset;
+  clearTimeout(state.scrolling_cb);
+
+  if (state.event_horizon <= 1) {
+    state.shield_mode = false;
+    state.hidden = false;
+  } else {
+    state.shield_mode = true;
+
+    if (state.event_horizon - state.last_scroll >= 0) {
+      state.diff_scroll = 0;
+      state.hidden = true;
+    } else {
+      state.diff_scroll = state.diff_scroll + 1;
+      if (state.diff_scroll >= 1) {
+        state.hidden = false;
       }
 
-      this.last_scroll = this.event_horizon;
+      state.scrolling_cb = setTimeout(() => {
+        state.diff_scroll = 0;
+      }, 50);
     }
   }
-}
+
+  state.last_scroll = state.event_horizon;
+};
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 header {
   position: fixed;
   top: 0px;
@@ -324,5 +324,4 @@ header {
     }
   }
 }
-
 </style>

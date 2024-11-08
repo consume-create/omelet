@@ -16,33 +16,24 @@
   </section>
 </template>
 
-<script>
-import { useStore } from '~/stores/store';
-
-export default {
-  data() {
-    return {
-      items: [
-        'Brand Strategy',
-        'Communications Strategy',
-        'Social & Influencer Strategy',
-        'Research/Analysis',
-        'Integrated Campaigns',
-        'Digital Platforms',
-        'Shared Value Storytelling',
-        'Original Content',
-        'Film',
-        'Social Content',
-        'Digital',
-        'Experimental'
-      ]
-    }
-  }
-}
+<script setup>
+const items = [
+  'Brand Strategy',
+  'Communications Strategy',
+  'Social & Influencer Strategy',
+  'Research/Analysis',
+  'Integrated Campaigns',
+  'Digital Platforms',
+  'Shared Value Storytelling',
+  'Original Content',
+  'Film',
+  'Social Content',
+  'Digital',
+  'Experimental'
+]
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 section#capabilities {
   width: 100%;
   padding-bottom: span(3);
@@ -139,5 +130,4 @@ section#capabilities {
     }
   }
 }
-
 </style>

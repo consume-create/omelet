@@ -1,5 +1,5 @@
 <template>
-  <div id="grid-overlay" v-if="isActive">
+  <div id="grid-overlay" v-if="enabled">
     <div
       class="grid-line"
       v-for="i in 15"
@@ -8,31 +8,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isActive: false
-    }
-  },
-  mounted() {
-    window.addEventListener('keydown', this.onKeydown);
-  },
-  beforeUnmount() {
-    window.removeEventListener('keydown', this.onKeydown);
-  },
-  methods: {
-    onKeydown(e) {
-      if (e.key === 'g') {
-        this.isActive = !this.isActive;
-      }
-    }
+<script setup>
+import { ref } from 'vue';
+
+const enabled = ref(false);
+
+// Mounted
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown);
+});
+
+// Before Unmount
+onBeforeMount(() => {
+  window.removeEventListener('keydown', onKeydown);
+});
+
+// Methods
+function onKeydown(e) {
+  if (e.key === 'g') {
+    enabled.value = !enabled.value;
   }
 };
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 #grid-overlay {
   position: fixed;
   top: 0px;

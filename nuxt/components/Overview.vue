@@ -16,19 +16,15 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    title: {
-      type: String,
-      required: false
-    }
+<script setup>
+const props = defineProps({
+  title: {
+    type: String
   }
-};
+});
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 section#overview {
   width: 100%;
   padding-bottom: span(3);
@@ -92,5 +88,4 @@ section#overview {
     }
   }
 }
-
 </style>

@@ -73,8 +73,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 section#work {
   width: 100%;
   padding-bottom: span(3);
@@ -203,5 +202,4 @@ section#work {
     }
   }
 }
-
 </style>

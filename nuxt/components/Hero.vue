@@ -8,18 +8,10 @@
   </section>
 </template>
 
-<script>
-import ResponsiveImage from '~/components/shared/ResponsiveImage.vue';
-
-export default {
-  components: {
-    ResponsiveImage
-  }
-}
+<script script>
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 section#home-hero-section {
   margin-bottom: span(1);
 
@@ -59,5 +51,4 @@ section#home-hero-section {
     }
   }
 }
-
 </style>

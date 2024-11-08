@@ -6,29 +6,26 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    id: {
-      type: String,
-      required: false
-    },
-    title: {
-      type: String,
-      required: false,
-      default: 'Placeholder'
-    },
-    invert: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
+<script setup>
+const props = defineProps({
+  id: {
+    type: String,
+    required: false
+  },
+  title: {
+    type: String,
+    required: false,
+    default: 'Placeholder'
+  },
+  invert: {
+    type: Boolean,
+    required: false,
+    default: false
   }
-};
+});
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 .placeholder {
   &.--invert {
     .gutter {
@@ -50,5 +47,4 @@ export default {
     transition: border-color $speed-333 $ease-out;
   }
 }
-
 </style>

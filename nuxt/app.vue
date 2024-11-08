@@ -12,47 +12,39 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from '~/stores/store';
-import GridOverlay from '~/components/shared/GridOverlay.vue';
-import Header from '~/components/shared/Header.vue';
-import Menu from '~/components/shared/Menu.vue';
 
-export default {
-  components: {
-    GridOverlay,
-    Header,
-    Menu
-  },
-  created() {
-    useSeoMeta({
-      title: this.store.site_name,
-      ogTitle: this.store.site_name,
-      description: this.store.site_seo_description,
-      ogDescription: this.store.site_seo_description,
-      ogImage: this.store.site_seo_image
-    })
-  },
-  data() {
-    return {
-      store: useStore()
-    }
-  },
-  mounted() {
-    // add event listeners
-    window.addEventListener('resize', this.onResize);
-    this.updateScrollbarWidth();
-  },
-  methods: {
-    onResize() {
-      // window resized... do stuff
-      this.updateScrollbarWidth();
-    },
-    updateScrollbarWidth() {
-      // store scrollbar width in css custom property to calculate grid spans properly
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
-    }
-  }
+const store = useStore();
+
+// Composables
+useSeoMeta({
+  title: store.site_name,
+  ogTitle: store.site_name,
+  description: store.site_seo_description,
+  ogDescription: store.site_seo_description,
+  ogImage: store.site_seo_image
+})
+
+// Mounted
+onMounted(() => {
+  window.addEventListener('resize', onResize);
+  onResize();
+});
+
+// Before Unmount
+onBeforeMount(() => {
+  window.removeEventListener('resize', onResize);
+});
+
+// Methods
+function onResize() {
+  updateScrollbarWidth();
+};
+
+function updateScrollbarWidth() {
+  // NOTE: Store scrollbar width in css custom property to calculate grid spans properly
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
 };
 </script>

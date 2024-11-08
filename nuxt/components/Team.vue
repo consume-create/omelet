@@ -4,8 +4,8 @@
       <h3>Meet the eggs in our leadership team</h3>
     </div>
     <div class="carousel-controls pad-b">
-      <div class="arrow --prev" @click="onClickPrev" />
-      <div class="arrow --next" @click="onClickNext" />
+      <div class="arrow --prev" @click="teamCarousel.prev" />
+      <div class="arrow --next" @click="teamCarousel.next" />
     </div>
     <div class="carousel-wrapper">
       <Carousel
@@ -34,58 +34,31 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { Carousel, Slide } from 'vue3-carousel';
-import ResponsiveImage from '~/components/shared/ResponsiveImage.vue';
 import 'vue3-carousel/dist/carousel.css';
 
-export default {
-  components: {
-    Carousel,
-    Slide,
-    ResponsiveImage
-  },
-  setup() {
-    const teamCarousel = ref(null);
-
-    return {
-      teamCarousel
-    }
-  },
-  data() {
-    return {
-      members: [
-        { name: 'Thas Naseemuddeen', role: 'Chief Executive Officer', image: '/images/team/Thas.jpg' },
-        { name: 'Pete Talaba', role: 'Chief Strategy Officer', image: '/images/team/Pete.jpg' },
-        { name: 'Chelsea Kauth', role: 'Executive Creative Director', image: '/images/team/Chels.jpg' },
-        { name: 'Josh Smutko', role: 'Executive Creative Director', image: '/images/team/Josh.jpg' },
-        { name: 'Sarah D', role: 'N/A', image: '/images/team/Sarah_D.jpg' },
-        { name: 'Ricardo Diaz', role: 'Chief Innovation Officer', image: '/images/team/Ricardo.jpg' },
-        { name: 'Zeynep Taslica', role: 'Head of Production', image: '/images/team/Zey.jpg' },
-        { name: 'Sarah Ceglarski', role: 'Chief Marketing Officer', image: '/images/team/Sarah.jpg' },
-        { name: 'Abba Binns', role: 'Director of People & Culture', image: '/images/team/Abba.jpg' },
-        { name: 'Naj Allana', role: 'Chief Financial Officer', image: '/images/team/Naj.jpg' },
-        { name: 'Raul Montes', role: 'Creative Director', image: '/images/team/Raul.jpg' },
-        { name: 'Jimmy Barker', role: 'Creative Director', image: '/images/team/Jimmy.jpg' },
-        { name: 'Florian Bodet', role: 'Creative Director', image: '/images/team/Flo.jpg' },
-        { name: 'Don Kurz', role: 'Executive Board Chair', image: '/images/team/Don.jpg' }
-      ]
-    }
-  },
-  methods: {
-    onClickPrev() {
-      this.teamCarousel.prev();
-    },
-    onClickNext() {
-      this.teamCarousel.next();
-    }
-  }
-}
+const teamCarousel = ref(null);
+const members = [
+  { name: 'Thas Naseemuddeen', role: 'Chief Executive Officer', image: '/images/team/Thas.jpg' },
+  { name: 'Pete Talaba', role: 'Chief Strategy Officer', image: '/images/team/Pete.jpg' },
+  { name: 'Chelsea Kauth', role: 'Executive Creative Director', image: '/images/team/Chels.jpg' },
+  { name: 'Josh Smutko', role: 'Executive Creative Director', image: '/images/team/Josh.jpg' },
+  { name: 'Sarah D', role: 'N/A', image: '/images/team/Sarah_D.jpg' },
+  { name: 'Ricardo Diaz', role: 'Chief Innovation Officer', image: '/images/team/Ricardo.jpg' },
+  { name: 'Zeynep Taslica', role: 'Head of Production', image: '/images/team/Zey.jpg' },
+  { name: 'Sarah Ceglarski', role: 'Chief Marketing Officer', image: '/images/team/Sarah.jpg' },
+  { name: 'Abba Binns', role: 'Director of People & Culture', image: '/images/team/Abba.jpg' },
+  { name: 'Naj Allana', role: 'Chief Financial Officer', image: '/images/team/Naj.jpg' },
+  { name: 'Raul Montes', role: 'Creative Director', image: '/images/team/Raul.jpg' },
+  { name: 'Jimmy Barker', role: 'Creative Director', image: '/images/team/Jimmy.jpg' },
+  { name: 'Florian Bodet', role: 'Creative Director', image: '/images/team/Flo.jpg' },
+  { name: 'Don Kurz', role: 'Executive Board Chair', image: '/images/team/Don.jpg' }
+];
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 section#leadership {
   width: 100%;
   padding-bottom: span(3);
@@ -263,5 +236,4 @@ section#leadership {
     }
   }
 }
-
 </style>

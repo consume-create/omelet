@@ -45,22 +45,14 @@
   </footer>
 </template>
 
-
-<script>
+<script setup>
 import { useStore } from '~/stores/store';
 
-export default {
-  data() {
-    return {
-      store: useStore(),
-      year: new Date().getFullYear()
-    }
-  }
-}
+const store = useStore();
+const year = new Date().getFullYear();
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
 footer {
   width: 100%;
   overflow: hidden;
@@ -356,5 +348,4 @@ footer {
     }
   }
 }
-
 </style>
