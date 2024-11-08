@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-const data = await useSanityData({
+const { data } = await useSanityData({
   query: groq` {
     'index': ${typeFilter('index')} {
       overviewTitle,
