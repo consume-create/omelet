@@ -3,73 +3,108 @@
     <div class="title-block gutter">
       <h3 class="pad-b">Work</h3>
     </div>
-    <div class="work-list" @mouseenter="getEdgeDirection" @mouseleave="getEdgeDirection">
-      <div v-for="(item, index) in projects" class="list-item" @mouseenter="onMouseenterListItem(index)" :key="index">
+    <div class="work-list" @mouseenter="backsplashDirection" @mouseleave="backsplashDirection">
+      <div v-for="(item, index) in projects" class="list-item" :class="state.items[index]" @mouseenter="onMouseenterListItem($event, index)" @mouseleave="onMouseleaveListItem($event, index)" :key="index">
         <div class="inner">
+          <div class="mask-outer">
+            <div class="mask-inner">
+              <p class="fs-p3"><span class="marg-r">Brand Campaign</span></p>
+              <p class="fs-p3"><span class="marg-r">Entertainment</span></p>
+            </div>
+          </div>
           <div class="gutter">
             <p class="fs-p1">{{ item.title }}</p>
-            <p class="fs-p3">Brand Campaign</p>
-            <p class="fs-p3">Entertainment</p>
           </div>
         </div>
       </div>
-      <div :class="`backsplash bg-${color}`" :style="{'transform': `translateY(${translate_y}%) scaleY(${scale_y})`, 'transformOrigin': `50% ${origin_y}%`}" />
+      <div :class="`backsplash bg-${state.color}`" :style="{'transform': `translateY(${state.translate_y}%) scaleY(${state.scale_y})`, 'transformOrigin': `50% ${state.origin_y}%`}" />
     </div>
   </section>
 </template>
 
-<script>
+<script setup>
 import { useSiteStore } from '~/stores/store';
 
-export default {
-  data() {
-    const colors_arr = ['gold', 'green', 'orange', 'purple'];
+const colors_arr = ['gold', 'green', 'orange', 'purple'];
+const class_names = ['--in', '--in-top', '--in-bottom', '--out', '--out-top', '--out-bottom'];
+const projects = [
+  { title: 'Google Small Business' },
+  { title: 'Netflix Extraction' },
+  { title: 'Hogwarts Legacy' },
+  { title: 'Youtube Premium' },
+  { title: 'Asana' },
+  { title: 'Hikup' },
+  { title: 'Google One' },
+  { title: 'Google Play' }
+];
+const state = reactive({
+  translate_y: 0,
+  scale_y: 0,
+  origin_y: 0,
+  colors: colors_arr,
+  color: colors_arr[0],
+  items: []
+});
 
-    return {
-      translate_y: 0,
-      scale_y: 0,
-      origin_y: 0,
-      colors: colors_arr,
-      color: colors_arr[0],
-      projects: [
-        { title: 'Google Small Business' },
-        { title: 'Netflix Extraction' },
-        { title: 'Hogwarts Legacy' },
-        { title: 'Youtube Premium' },
-        { title: 'Asana' },
-        { title: 'Hikup' },
-        { title: 'Google One' },
-        { title: 'Google Play' }
-      ]
-    }
-  },
-  methods: {
-    getEdgeDirection(e) {
-      const dir = e.type === 'mouseenter' ? 1 : 0;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const mouse_x = e.clientX;
-      const mouse_y = e.clientY;
-      const top = Math.abs(rect.top - mouse_y);
-      const bottom = Math.abs(rect.bottom - mouse_y);
-      const left = Math.abs(rect.left - mouse_x);
-      const right = Math.abs(rect.right - mouse_x);
-      const min = Math.min(top, bottom, left, right);
+projects.forEach((item) => {
+  state.items.push('--out');
+});
 
-      this.scale_y = dir;
+// Methods
+function backsplashDirection(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const dir = e.type === 'mouseenter' ? 1 : 0;
+  const mouse_x = e.clientX;
+  const mouse_y = e.clientY;
+  const top = Math.abs(rect.top - mouse_y);
+  const bottom = Math.abs(rect.bottom - mouse_y);
+  const left = Math.abs(rect.left - mouse_x);
+  const right = Math.abs(rect.right - mouse_x);
+  const min = Math.min(top, bottom, left, right);
 
-      if (min === top) {
-        this.origin_y = 0;
-      } else if (min == bottom) {
-        this.origin_y = 100;
-      } else {
-        this.origin_y = 50;
-      }
-    },
-    onMouseenterListItem(index) {
-      this.translate_y = index * 100;
-      this.color = this.colors[index % 4];
-    }
+  state.scale_y = dir;
+
+  if (min === top) {
+    state.origin_y = 0;
+  } else if (min == bottom) {
+    state.origin_y = 100;
+  } else {
+    state.origin_y = 50;
   }
+};
+
+function onMouseenterListItem(e, index) {
+  state.translate_y = index * 100;
+  state.color = state.colors[index % 4];
+
+  listItemDirection(e, index);
+};
+
+function onMouseleaveListItem(e, index) {
+  listItemDirection(e, index);
+};
+
+function listItemDirection(e, index) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  const prefix = e.type === 'mouseenter' ? '--in' : '--out';
+  const mouse_x = e.clientX;
+  const mouse_y = e.clientY;
+  const top = Math.abs(rect.top - mouse_y);
+  const bottom = Math.abs(rect.bottom - mouse_y);
+  const left = Math.abs(rect.left - mouse_x);
+  const right = Math.abs(rect.right - mouse_x);
+  const min = Math.min(top, bottom, left, right);
+
+  let edge = '';
+
+  if (min === top) {
+    edge = '-top';
+  } else if (min == bottom) {
+    edge = '-bottom';
+  }
+
+  state.items[index] = `${prefix}${edge}`;
 }
 </script>
 
@@ -116,34 +151,6 @@ section#work {
       }
     }
 
-    @include can-hover {
-      .list-item {
-        .inner {
-          .gutter {
-            p {
-              &.fs-p3 {
-                opacity: 0;
-                transition: opacity calc($speed-333 / 2) $ease-out;
-              }
-            }
-          }
-        }
-
-        &:hover {
-          .inner {
-            .gutter {
-              p {
-                &.fs-p3 {
-                  opacity: 1;
-                  transition: opacity $speed-333 $ease-out;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     .list-item {
       position: relative;
       width: 100%;
@@ -161,6 +168,32 @@ section#work {
         overflow: hidden;
         z-index: 1;
 
+        .mask-outer {
+          @include abs-fill;
+          overflow: hidden;
+          display: none;
+
+          .mask-inner {
+            @include abs-fill;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0;
+
+            p {
+              width: span(3.5);
+              display: flex;
+              align-items: center;
+
+              span {
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+        }
+
         .gutter {
           position: relative;
           display: flex;
@@ -168,10 +201,73 @@ section#work {
 
           p {
             position: relative;
+            white-space: nowrap;
             display: inline-flex;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+          }
+        }
+      }
+    }
 
-            &.fs-p3 {
-              display: none;
+    @include can-hover {
+      .list-item {
+        .inner {
+          .mask-outer {
+            transform: translateY(-100%);
+            transition: transform $speed-333 $ease-out;
+
+            .mask-inner {
+              transform: translateY(100%);
+              transition: transform $speed-333 $ease-out;
+            }
+          }
+        }
+
+        &.--out {
+          .inner {
+            .mask-outer {
+              transform: translateY(-100%);
+
+              .mask-inner {
+                transform: translateY(100%);
+              }
+            }
+          }
+        }
+        &.--out-top {
+          .inner {
+            .mask-outer {
+              transform: translateY(-100%);
+
+              .mask-inner {
+                transform: translateY(75%);
+              }
+            }
+          }
+        }
+        &.--out-bottom {
+          .inner {
+            .mask-outer {
+              transform: translateY(100%);
+
+              .mask-inner {
+                transform: translateY(-75%);
+              }
+            }
+          }
+        }
+
+        &.--in,
+        &.--in-top,
+        &.--in-bottom {
+          .inner {
+            .mask-outer {
+              transform: translateY(0%);
+
+              .mask-inner {
+                transform: translateY(0%);
+              }
             }
           }
         }
@@ -187,14 +283,13 @@ section#work {
         .inner {
           padding: 24px 0;
 
+          .mask-outer {
+            display: flex;
+          }
+
           .gutter {
             p {
               width: 50%;
-
-              &.fs-p3 {
-                width: 25%;
-                display: inline-flex;
-              }
             }
           }
         }
