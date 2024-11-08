@@ -14,7 +14,7 @@ export default async function ({ query, params, live_preview = true }) {
     }
   });
 
-  const { data, refresh } = await useSanityQuery(query, params, sanityClient);
+  const { data, refresh } = await useLazySanityQuery(query, params, sanityClient);
 
   return data;
 }
