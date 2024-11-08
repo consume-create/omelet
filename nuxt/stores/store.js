@@ -26,7 +26,10 @@ export const useStore = defineStore('state', {
   }),
   actions: {
     setMenuOpen() {
-      this.menu_open = !this.menu_open;
+      this.menu_open = true;
+    },
+    setMenuClose() {
+      this.menu_open = false;
     },
     setDarkMode() {
       this.dark_mode = !this.dark_mode;

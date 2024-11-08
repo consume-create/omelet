@@ -5,7 +5,7 @@
       <h1><strong>A Creative Agency</strong><br>based in Los Angeles</h1>
       <nav id="mobile-nav" class="marg-r">
         <div class="icon --accessibility">Accessibility</div>
-        <div id="menu-btn" @click="store.setMenuOpen()">
+        <div id="menu-btn" @click="toggleMenu">
           <span />
           <span />
         </div>
@@ -23,6 +23,7 @@
 import { reactive} from 'vue';
 import { useStore } from '~/stores/store';
 
+const route = useRoute();
 const store = useStore();
 const state = reactive({
   event_horizon: 0,
@@ -51,7 +52,7 @@ onBeforeMount(() => {
 // Methods
 function onResize() {
   if (window.innerWidth >= 768 && store.menu_open) {
-    store.setMenuOpen();
+    store.setMenuClose();
   }
 };
 
@@ -82,6 +83,19 @@ function onScroll() {
 
   state.last_scroll = state.event_horizon;
 };
+
+function toggleMenu() {
+  if (store.menu_open) {
+    store.setMenuClose();
+  } else {
+    store.setMenuOpen();
+  }
+}
+
+// Watchers
+watch(route, () => {
+  store.setMenuClose();
+});
 </script>
 
 <style lang='scss'>
