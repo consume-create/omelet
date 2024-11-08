@@ -19,7 +19,7 @@ const resp = await useSanityData({
     }
   }`
 });
-const page_data = resp.value;
+const page_data = resp;
 console.log(page_data);
 </script>
 
