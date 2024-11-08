@@ -3,7 +3,7 @@
     <div class="title-block gutter">
       <h3 class="pad-b">Work</h3>
     </div>
-    <div class="work-list" @mouseenter="onMouseenterList" @mouseleave="onMouseleaveList">
+    <div class="work-list" @mouseenter="getEdgeDirection" @mouseleave="getEdgeDirection">
       <div v-for="(item, index) in projects" class="list-item" @mouseenter="onMouseenterListItem(index)" :key="index">
         <div class="inner">
           <div class="gutter">
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="backsplash" :style="{'transform': `translateY(${y}%) scaleY(${sy})`}" />
+      <div :class="`backsplash bg-${color}`" :style="{'transform': `translateY(${translate_y}%) scaleY(${scale_y})`, 'transformOrigin': `50% ${origin_y}%`}" />
     </div>
   </section>
 </template>
@@ -23,10 +23,14 @@ import { useStore } from '~/stores/store';
 
 export default {
   data() {
+    const colors_arr = ['gold', 'green', 'orange', 'purple'];
+
     return {
-      y: 0,
-      sy: 0,
-      prev_y: 0,
+      translate_y: 0,
+      scale_y: 0,
+      origin_y: 0,
+      colors: colors_arr,
+      color: colors_arr[0],
       projects: [
         { title: 'Google Small Business' },
         { title: 'Netflix Extraction' },
@@ -40,16 +44,30 @@ export default {
     }
   },
   methods: {
-    onMouseenterList(e) {
-      this.sy = e.clientY - this.prev_y > 0 ? 1 : 0;
-      this.prev_y = e.clientY;
-    },
-    onMouseleaveList(e) {
-      this.sy = e.clientY - this.prev_y > 0 ? 1 : 0;
-      this.prev_y = e.clientY;
+    getEdgeDirection(e) {
+      const dir = e.type === 'mouseenter' ? 1 : 0;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const mouse_x = e.clientX;
+      const mouse_y = e.clientY;
+      const top = Math.abs(rect.top - mouse_y);
+      const bottom = Math.abs(rect.bottom - mouse_y);
+      const left = Math.abs(rect.left - mouse_x);
+      const right = Math.abs(rect.right - mouse_x);
+      const min = Math.min(top, bottom, left, right);
+
+      this.scale_y = dir;
+
+      if (min === top) {
+        this.origin_y = 0;
+      } else if (min == bottom) {
+        this.origin_y = 100;
+      } else {
+        this.origin_y = 50;
+      }
     },
     onMouseenterListItem(index) {
-      this.y = index * 100;
+      this.translate_y = index * 100;
+      this.color = this.colors[index % 4];
     }
   }
 }
@@ -75,11 +93,11 @@ section#work {
       left: 0px;
       width: 100%;
       height: 12.5%;
-      background-color: rgba($orange, 1);
       pointer-events: none;
       transform-origin: 50% 0%;
       transform: translateY(0%) scaleY(0);
-      transition: transform $speed-333 $ease-out;
+      transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out;
+      will-change: background-color transform;
 
       &:before,
       &:after, {
