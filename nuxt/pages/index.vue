@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import Hero from '~/components/home/Hero.vue';
 import Overview from '~/components/home/Overview.vue';
 import Work from '~/components/home/Work.vue';
@@ -33,24 +34,23 @@ export default {
     Team,
     Footer
   },
-  async setup() {
-    const pageQuery = groq` {
-      'index': ${typeFilter('index')} {
-        overviewTitle,
-        heroImage ${imageProps},
-        heroVideo
-      }
-    }`;
-    let page_data = null;
-    const response = await useSanityQuery(pageQuery);
-    page_data = response.data.value.index;
+  setup() {
+    const page_data = ref([]);
+    (async () => {
+      const pageQuery = groq` {
+        'index': ${typeFilter('index')} {
+          overviewTitle,
+          heroImage ${imageProps},
+          heroVideo
+        }
+      }`;
+      const response = await useSanityQuery(pageQuery);
+      page_data.value = response.data.value.index;
+    })();
 
     return {
       page_data
     }
-  },
-  mounted() {
-    console.log('MOUNTED:', this.page_data.heroVideo.vimeo);
   }
 }
 </script>
