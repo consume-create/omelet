@@ -1,7 +1,7 @@
 <template>
   <div id="home-page" class="page space-t">
     <Hero />
-    <Overview :title="page_data.overviewTitle" />
+    <!-- <Overview :title="page_data.overviewTitle" /> -->
     <Work />
     <Capabilities />
     <Team />
@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-const { data } = await useSanityData({
+const resp = await useSanityData({
   query: groq` {
     'index': ${typeFilter('index')} {
       overviewTitle,
@@ -19,7 +19,8 @@ const { data } = await useSanityData({
     }
   }`
 });
-const page_data = data.value.index;
+const page_data = resp;
+console.log(page_data);
 </script>
 
 <style lang='scss'>
