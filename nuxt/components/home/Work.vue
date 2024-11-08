@@ -118,12 +118,6 @@ section#work {
     }
 
     @include can-hover {
-      // &:hover {
-      //   .backsplash {
-      //     opacity: 1;
-      //   }
-      // }
-
       .list-item {
         .inner {
           .gutter {
@@ -155,8 +149,12 @@ section#work {
       position: relative;
       width: 100%;
       box-sizing: border-box;
-      border-top: 1px solid rgba($black, 1);
+      border-bottom: 1px solid $ash;
       overflow: hidden;
+
+      &:first-child {
+        border-top: 1px solid $ash;
+      }
 
       .inner {
         position: relative;
