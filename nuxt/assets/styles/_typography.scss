@@ -34,7 +34,8 @@ body {
   line-height: 1.25em;
 }
 
-strong {
+strong,
+.bold {
   font-family: $poppins-semi-bold;
 }
 
@@ -109,8 +110,13 @@ h1 {
   letter-spacing: -0.01em;
   transform: translateX(-0.05em);
 
-  strong {
+  strong,
+  .bold {
     font-family: $poppins-semi-bold;
+  }
+
+  @include respond-to($tablet) {
+    line-height: 1.2em;
   }
 }
 

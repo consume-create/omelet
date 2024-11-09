@@ -2,7 +2,7 @@
   <header :class="{'--hidden': state.hidden, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
     <div class="inner">
       <NuxtLink class="logo marg-l" to="/" @click.native="store.setMenuClose()">Omelet</NuxtLink>
-      <h1><strong>A Creative Agency</strong><br>based in Los Angeles</h1>
+      <h1 class="pre" v-html="getTitleLines" />
       <nav id="mobile-nav" class="marg-r">
         <div class="icon --accessibility">Accessibility</div>
         <div id="menu-btn" @click="toggleMenu">
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { reactive} from 'vue';
+import { ref, reactive} from 'vue';
 import { useSiteStore } from '~/stores/store';
 
 const route = useRoute();
@@ -32,6 +32,23 @@ const state = reactive({
   hidden: false,
   shield_mode: false,
   scrolling_cb: false
+});
+const header_title = ref(store.header_title);
+
+// Computed
+const getTitleLines = computed(() => {
+  const lines = header_title.value.split('\n');
+  let html = '';
+  lines.forEach((line, index) => {
+    let br = index < lines.length - 1 ? '\n' : '';
+    if (index === 0) {
+      html += `<strong>${line}</strong>${br}`;
+    } else {
+      html += `${line}${br}`;
+    }
+  });
+
+  return html;
 });
 
 // Mounted
@@ -221,7 +238,7 @@ header {
     h1 {
       position: absolute;
       top: 50%;
-      left: span(6);
+      left: span(5.5);
       transform: translateY(-50%);
     }
 
@@ -342,6 +359,10 @@ header {
       .logo {
         width: 122px;
         height: 24px;
+      }
+
+      h1 {
+        left: span(6);
       }
 
       nav#mobile-nav {

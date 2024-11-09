@@ -14,6 +14,10 @@ export default defineType({
       title: 'Tags'
     },
     {
+      name: 'header',
+      title: 'Header'
+    },
+    {
       name: 'footer',
       title: 'Footer'
     },
@@ -24,6 +28,10 @@ export default defineType({
     {
       name: 'socials',
       title: 'Socials'
+    },
+    {
+      name: 'legal',
+      title: 'Legal Stuff'
     }
   ],
   fields: [
@@ -64,6 +72,17 @@ export default defineType({
       ]
     }),
     defineField({
+      fieldset: 'header',
+      name: 'headerTitle',
+      title: 'Title',
+      type: 'text',
+      rows: 2,
+      validation: [
+        Rule => Rule.required()
+      ],
+      description: 'The first line will be in bold'
+    }),
+    defineField({
       fieldset: 'footer',
       name: 'footerTitle',
       title: 'Title',
@@ -86,6 +105,16 @@ export default defineType({
       name: 'businessLabel',
       title: 'Business Label',
       type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'footer',
+      name: 'handwriting',
+      title: 'Handwriting',
+      type: 'text',
+      rows: 4,
       validation: [
         Rule => Rule.required()
       ]
@@ -136,20 +165,6 @@ export default defineType({
         Rule => Rule.required()
       ]
     }),
-    // defineField({
-    //   fieldset: 'contact',
-    //   name: 'address',
-    //   title: 'Address',
-    //   type: 'array',
-    //   of: [{
-    //     type: 'block',
-    //     styles: [],
-    //     lists: [],
-    //     marks: {
-    //       decorators: []
-    //     }
-    //   }]
-    // }),
     defineField({
       fieldset: 'socials',
       name: 'linkedin',
@@ -161,6 +176,15 @@ export default defineType({
       name: 'instagram',
       title: 'Instagram URL',
       type: 'url'
+    }),
+    defineField({
+      fieldset: 'legal',
+      name: 'copyright',
+      title: 'Copyright Info',
+      type: 'string',
+      validation: [
+        Rule => Rule.required()
+      ]
     })
   ]
 });

@@ -39,7 +39,7 @@
     <div class="gutter">
       <NuxtLink class="logo" to="/">Omelet</NuxtLink>
       <ul class="legals nav-a2">
-        <li>© Omelet {{ year }}</li>
+        <li>{{ store.copyright }}</li>
       </ul>
     </div>
   </footer>
