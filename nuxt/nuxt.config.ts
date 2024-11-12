@@ -102,6 +102,12 @@ export default defineNuxtConfig({
   //
   modules: ['@nuxtjs/sanity', '@nuxtjs/sitemap', '@pinia/nuxt', 'nuxt-anchorscroll', '@nuxt/scripts'],
   //
+  // Generate
+  //
+  generate: {
+    fallback: true
+  },
+  //
   // Sanity
   //
   sanity: {

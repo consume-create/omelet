@@ -11,7 +11,10 @@
 </template>
 
 <script setup>
+import { useSiteStore } from '~/stores/store';
+
 const route = useRoute();
+const store = useSiteStore();
 const params = { slug: route.params.slug };
 const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
   title,
