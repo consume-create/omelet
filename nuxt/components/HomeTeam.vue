@@ -1,7 +1,7 @@
 <template>
   <section id="leadership" class="pad-t">
     <div class="title-block">
-      <h3>Meet the eggs in our leadership team</h3>
+      <h3 class="pre">{{ title }}</h3>
     </div>
     <div class="carousel-controls pad-b">
       <div class="arrow --prev" @click="teamCarousel.prev" />
@@ -23,10 +23,10 @@
         <Slide v-for="(member, index) in members" :key="index">
           <div class="inner">
             <div class="image-holder">
-              <ResponsiveImage :src="member.image" :width="800" :height="2400" :alt="member.name" />
+              <ResponsiveImage v-bind="member.image" :alt="member.name" />
             </div>
             <p class="fs-p4">{{ member.name }}</p>
-            <p class="fs-p4 reg">{{ member.role }}</p>
+            <p class="fs-p4 reg">{{ member.title }}</p>
           </div>
         </Slide>
       </Carousel>
@@ -39,23 +39,17 @@ import { ref } from 'vue';
 import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
+// Props
+const props = defineProps({
+  title: {
+    type: String
+  },
+  members: {
+    type: Array
+  }
+});
+
 const teamCarousel = ref(null);
-const members = [
-  { name: 'Thas Naseemuddeen', role: 'Chief Executive Officer', image: '/images/team/Thas.jpg' },
-  { name: 'Pete Talaba', role: 'Chief Strategy Officer', image: '/images/team/Pete.jpg' },
-  { name: 'Chelsea Kauth', role: 'Executive Creative Director', image: '/images/team/Chels.jpg' },
-  { name: 'Josh Smutko', role: 'Executive Creative Director', image: '/images/team/Josh.jpg' },
-  { name: 'Sarah D', role: 'N/A', image: '/images/team/Sarah_D.jpg' },
-  { name: 'Ricardo Diaz', role: 'Chief Innovation Officer', image: '/images/team/Ricardo.jpg' },
-  { name: 'Zeynep Taslica', role: 'Head of Production', image: '/images/team/Zey.jpg' },
-  { name: 'Sarah Ceglarski', role: 'Chief Marketing Officer', image: '/images/team/Sarah.jpg' },
-  { name: 'Abba Binns', role: 'Director of People & Culture', image: '/images/team/Abba.jpg' },
-  { name: 'Naj Allana', role: 'Chief Financial Officer', image: '/images/team/Naj.jpg' },
-  { name: 'Raul Montes', role: 'Creative Director', image: '/images/team/Raul.jpg' },
-  { name: 'Jimmy Barker', role: 'Creative Director', image: '/images/team/Jimmy.jpg' },
-  { name: 'Florian Bodet', role: 'Creative Director', image: '/images/team/Flo.jpg' },
-  { name: 'Don Kurz', role: 'Executive Board Chair', image: '/images/team/Don.jpg' }
-];
 </script>
 
 <style lang='scss'>

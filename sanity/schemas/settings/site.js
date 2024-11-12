@@ -10,10 +10,6 @@ export default defineType({
   icon: CogIcon,
   fieldsets: [
     {
-      name: 'tags',
-      title: 'Tags'
-    },
-    {
       name: 'header',
       title: 'Header'
     },
@@ -53,23 +49,6 @@ export default defineType({
       name: 'seoSocial',
       title: 'SEO / Social Sharing',
       type: 'seoSocial'
-    }),
-    defineField({
-      fieldset: 'tags',
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      validation: [
-        Rule => Rule.required()
-      ],
-      of: [
-        {
-          type: 'string',
-          validation: [
-            Rule => Rule.required()
-          ]
-        }
-      ]
     }),
     defineField({
       fieldset: 'header',

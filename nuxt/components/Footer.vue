@@ -2,7 +2,7 @@
   <footer>
     <div class="content">
       <div class="shape">
-        <img src="/images/contact-shape.png" alt="Let us take a crack at it" />
+        <img src="/images/contact-shape.png" :alt="store.footer_handwriting" />
       </div>
       <div class="contact-info">
         <h4>{{ store.footer_title }}</h4>
@@ -58,11 +58,10 @@ footer {
   overflow: hidden;
 
   .content {
-    margin: $space-l 0 $space-l span(2);
-    padding-top: $space-l;
+    margin: 0px 0px $space-l span(2);
 
     .shape {
-      margin: $space-l $space-s;
+      margin: 0px $space-s $space-l;
       display: flex;
 
       img {
@@ -159,7 +158,7 @@ footer {
 
   @include respond-to($tablet) {
     .content {
-      margin: $space-xl span(0.5) $space-xl span(2);
+      margin: 0px span(0.5) $space-xl span(2);
 
       .cols {
         .col {
@@ -245,7 +244,7 @@ footer {
 
   @include respond-to($large-tablet) {
     .content {
-      margin: $space-xl 0px $space-s span(2);
+      margin: 0px 0px $space-s span(2);
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
@@ -305,7 +304,7 @@ footer {
 
   @include respond-to($average-desktop) {
     .content {
-      margin: $space-xl 0px $space-xl span(3);
+      margin: 0px 0px $space-xl span(3);
 
       .shape {
         width: span(4);

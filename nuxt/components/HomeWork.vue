@@ -1,29 +1,47 @@
 <template>
   <section id="work" class="pad-t">
     <div class="title-block gutter">
-      <h3 class="pad-b">Work</h3>
+      <h3 class="pad-b">{{ title }}</h3>
     </div>
     <div class="work-list" @mouseenter="backsplashDirection" @mouseleave="backsplashDirection">
-      <div v-for="(item, index) in projects" class="list-item" :class="state.items[index]" @mouseenter="onMouseenterListItem($event, index)" @mouseleave="onMouseleaveListItem($event, index)" :key="index">
+      <NuxtLink
+        v-for="(item, index) in caseStudies"
+        class="list-item"
+        :class="state.items[index]"
+        :to="`/${item.slug.current}`"
+        @mouseenter="onMouseenterListItem($event, index)"
+        @mouseleave="onMouseleaveListItem($event, index)"
+        :key="index"
+      >
         <div class="inner">
           <div class="mask-outer">
             <div class="mask-inner">
-              <p class="fs-p3"><span class="marg-r">Brand Campaign</span></p>
-              <p class="fs-p3"><span class="marg-r">Entertainment</span></p>
+              <p class="fs-p3"><span class="marg-r">{{ item.ctaTags.categoryTag.tag }}</span></p>
+              <p class="fs-p3"><span class="marg-r">{{ item.ctaTags.industryTag.tag }}</span></p>
             </div>
           </div>
           <div class="gutter">
             <p class="fs-p1">{{ item.title }}</p>
           </div>
         </div>
-      </div>
-      <div :class="`backsplash bg-${state.color}`" :style="{'transform': `translateY(${state.translate_y}%) scaleY(${state.scale_y})`, 'transformOrigin': `50% ${state.origin_y}%`}" />
+      </NuxtLink>
+      <div :class="`backsplash bg-${state.color}`" :style="{'height': `${100 / caseStudies.length}%`, 'transform': `translateY(${state.translate_y}%) scaleY(${state.scale_y})`, 'transformOrigin': `50% ${state.origin_y}%`}" />
     </div>
   </section>
 </template>
 
 <script setup>
 import { useSiteStore } from '~/stores/store';
+
+// Props
+const props = defineProps({
+  title: {
+    type: String
+  },
+  caseStudies: {
+    type: Array
+  }
+});
 
 const colors_arr = ['gold', 'green', 'orange', 'purple'];
 const class_names = ['--in', '--in-top', '--in-bottom', '--out', '--out-top', '--out-bottom'];
@@ -126,7 +144,7 @@ section#work {
       top: 0px;
       left: 0px;
       width: 100%;
-      height: 12.5%;
+      height: 0px;
       pointer-events: none;
       transform-origin: 50% 0%;
       transform: translateY(0%) scaleY(0);
@@ -157,6 +175,8 @@ section#work {
       box-sizing: border-box;
       border-bottom: 1px solid $ash;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
 
       &:first-child {
         border-top: 1px solid $ash;

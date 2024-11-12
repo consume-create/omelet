@@ -11,7 +11,7 @@
         </div>
       </nav>
       <nav id="primary-nav">
-        <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
+        <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ path: '/', hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
         <NuxtLink class="icon --contact" to="mailto:hello@omelet.com" target="_blank">hello@omelet.com</NuxtLink>
         <div class="icon --accessibility marg-r">Accessibility</div>
       </nav>
@@ -58,6 +58,7 @@ onMounted(() => {
 
   onResize();
   onScroll();
+  checkRoute();
 });
 
 // Before Unmount
@@ -109,9 +110,18 @@ function toggleMenu() {
   }
 }
 
+function checkRoute() {
+  if (route.name === 'index') {
+    store.setLightMode();
+  } else {
+    store.setDarkMode();
+  }
+}
+
 // Watchers
 watch(route, () => {
   store.setMenuClose();
+  checkRoute();
 });
 </script>
 
@@ -126,7 +136,7 @@ header {
   transform: translateY(0%);
   transition: transform $speed-666 $evil-ease, color $speed-666 $evil-ease;
 
-  &.--dark-mode {
+  &.--dark-mode:not(.--menu-mode) {
     color: $white;
 
     &:before {
@@ -136,6 +146,35 @@ header {
     .inner {
       .logo {
         @include omelet-logo($white);
+      }
+
+      nav#mobile-nav {
+        .icon {
+          &.--accessibility {
+            @include icon-accessibility($white);
+            background-size: 16px 16px;
+          }
+        }
+
+        #menu-btn {
+          .lines {
+            &:first-child {
+              span {
+                &:before {
+                  background-color: $white;
+                }
+              }
+            }
+
+            &:last-child {
+              span {
+                &:before {
+                  background-color: $white;
+                }
+              }
+            }
+          }
+        }
       }
 
       nav#primary-nav {

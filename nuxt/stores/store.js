@@ -10,7 +10,7 @@ export const useSiteStore = defineStore('site', {
     footer_title: '',
     general_label: '',
     business_label: '',
-    handwriting: '',
+    footer_handwriting: '',
     general_email: '',
     business_email: '',
     address: '',
@@ -35,7 +35,10 @@ export const useSiteStore = defineStore('site', {
       this.menu_open = false;
     },
     setDarkMode() {
-      this.dark_mode = !this.dark_mode;
+      this.dark_mode = true;
+    },
+    setLightMode() {
+      this.dark_mode = false;
     },
     async fetchSiteContent() {
       const siteQuery = groq` {
@@ -75,7 +78,7 @@ export const useSiteStore = defineStore('site', {
       this.footer_title = site_data.footerTitle;
       this.general_label = site_data.generalLabel;
       this.business_label = site_data.businessLabel;
-      this.handwriting = site_data.handwriting;
+      this.footer_handwriting = site_data.handwriting;
 
       // Contact settings...
       this.general_email = site_data.generalEmail;

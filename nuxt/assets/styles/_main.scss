@@ -18,7 +18,7 @@ body {
 }
 
 .pre {
-  white-space: pre;
+  white-space: pre-line;
 }
 
 // --------------------------------------------
@@ -33,6 +33,16 @@ body {
       display: flex;
     }
   }
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity $speed-666 $ease-out;
+}
+
+.page-enter,
+.page-leave-active {
+  opacity: 0;
 }
 
 // --------------------------------------------
@@ -165,5 +175,13 @@ a {
 
   @include respond-to($large-tablet) {
     padding-bottom: $space-l;
+  }
+}
+
+.pad-bl {
+  padding-bottom: span(2);
+
+  @include respond-to($tablet) {
+    padding-bottom: span(1);
   }
 }

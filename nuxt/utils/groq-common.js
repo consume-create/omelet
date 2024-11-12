@@ -24,7 +24,6 @@ export const imageProps = `
     'src': asset->url,
     'filename': asset->originalFilename,
     'width': asset->metadata.dimensions.width,
-    'height': asset->metadata.dimensions.height,
-    'palette': asset->metadata.palette
+    'height': asset->metadata.dimensions.height
   }
 `;

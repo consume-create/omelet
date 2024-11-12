@@ -24,6 +24,10 @@ export default defineType({
     {
       name: 'capabilities',
       title: 'Capabilities'
+    },
+    {
+      name: 'team',
+      title: 'Team'
     }
   ],
   fields: [
@@ -35,17 +39,8 @@ export default defineType({
     }),
     defineField({
       fieldset: 'hero',
-      name: 'heroImage',
-      title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: false
-      }
-    }),
-    defineField({
-      fieldset: 'hero',
       name: 'heroVideo',
-      title: 'Hero Video',
+      title: 'Video',
       type: 'videoLoop'
     }),
     defineField({
@@ -97,9 +92,7 @@ export default defineType({
       of: [
         {
           type: 'reference',
-          to: {
-            type: 'caseStudy'
-          }
+          to: [{ type: 'caseStudy' }]
         }
       ]
     }),
@@ -115,18 +108,68 @@ export default defineType({
     }),
     defineField({
       fieldset: 'capabilities',
-      name: 'capabilitiesList',
-      title: 'Capabilities',
-      type: 'array',
+      name: 'capabilitiesHandwriting',
+      title: 'Handwriting',
+      type: 'text',
+      rows: 2,
       validation: [
         Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'capabilities',
+      name: 'capabilitiesTags',
+      title: 'Tags',
+      type: 'array',
+      validation: [
+        Rule => Rule.required().unique().error('Must include at least 1 tag.')
       ],
       of: [
         {
-          type: 'string',
-          validation: [
-            Rule => Rule.required()
-          ]
+          type: 'reference',
+          to: [{ type: 'tags' }]
+        }
+      ]
+    }),
+    defineField({
+      fieldset: 'capabilities',
+      name: 'servicesCTA1',
+      title: 'CTA',
+      type: 'servicesCTA',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'capabilities',
+      name: 'servicesCTA2',
+      title: 'CTA',
+      type: 'servicesCTA',
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'team',
+      name: 'teamTitle',
+      title: 'Title',
+      type: 'text',
+      rows: 2,
+      validation: [
+        Rule => Rule.required()
+      ]
+    }),
+    defineField({
+      fieldset: 'team',
+      name: 'members',
+      title: 'Members',
+      type: 'array',
+      validation: [
+        Rule => Rule.required().unique().error('Must include at least 1 team member.')
+      ],
+      of: [
+        {
+          type: 'teamMember'
         }
       ]
     })
