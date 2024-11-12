@@ -1,5 +1,8 @@
 <template>
   <div>
+    <transition name="loader">
+      <Loader v-if="store.loader" />
+    </transition>
     <GridOverlay />
     <!-- <DevOnly>
       <GridOverlay />
@@ -30,6 +33,7 @@ useSeoMeta({
 onMounted(() => {
   window.addEventListener('resize', onResize);
   onResize();
+  console.log('app mounted');
 });
 
 // Before Unmount

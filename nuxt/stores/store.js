@@ -3,6 +3,7 @@ import { typeFilter, imageProps } from '~/utils/groq-common';
 
 export const useSiteStore = defineStore('site', {
   state: () => ({
+    loader: true,
     site_name: '',
     site_seo_description: '',
     site_seo_image: '',
@@ -28,6 +29,9 @@ export const useSiteStore = defineStore('site', {
     preview_is_active: false
   }),
   actions: {
+    setLoaderComplete() {
+      this.loader = false;
+    },
     setMenuOpen() {
       this.menu_open = true;
     },

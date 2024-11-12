@@ -32,6 +32,9 @@
 </template>
 
 <script setup>
+import { useSiteStore } from '~/stores/store';
+
+const store = useSiteStore();
 const homeQuery = groq`*[(_type == "index")][0]{
   heroVideo,
   overviewTitle,
@@ -71,4 +74,12 @@ const homeQuery = groq`*[(_type == "index")][0]{
   }
 }`;
 const pageData = await useSanityData({ query: homeQuery });
+
+onMounted(() => {
+  if (store.loader) {
+    setTimeout(() => {
+      store.setLoaderComplete();
+    }, 1000);
+  }
+});
 </script>

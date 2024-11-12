@@ -32,6 +32,12 @@ const pageData = await useSanityData({ query: pageQuery, params: params });
 
 onMounted(() => {
   console.log(pageData);
+
+  if (store.loader) {
+    setTimeout(() => {
+      store.setLoaderComplete();
+    }, 1000);
+  }
 })
 </script>
 
