@@ -1,22 +1,24 @@
 <template>
   <div ref="wrapper" class="video-cover-wrapper" :class="{'--no-controls': !controls}">
     <div class="video-holder" :class="{'--show': state.playing_mode, '--cover': cover}" :style="[cover && {'width': `${state.player_width}px`, 'height': `${state.player_height}px`}]">
-      <vueVimeoPlayer ref="player"
-        :video-id="vid"
-        :options="{
-          controls: controls ? true : false,
-          autoplay: controls ? false : true,
-          loop: controls ? false : true,
-          muted: controls ? false : true,
-          playsinline: true,
-          autopause: 0
-        }"
-        :player-width="state.player_width"
-        :player-height="state.player_height"
-        @loaded="onLoaded"
-        @playing="isPlaying"
-        @ended="onEnded"
-      />
+      <client-only>
+        <vueVimeoPlayer ref="player"
+          :video-id="vid"
+          :options="{
+            controls: controls ? true : false,
+            autoplay: controls ? false : true,
+            loop: controls ? false : true,
+            muted: controls ? false : true,
+            playsinline: true,
+            autopause: 0
+          }"
+          :player-width="state.player_width"
+          :player-height="state.player_height"
+          @loaded="onLoaded"
+          @playing="isPlaying"
+          @ended="onEnded"
+        />
+      </client-only>
     </div>
     <div class="video-poster" :class="{'--show': !state.playing_mode}">
       <ResponsiveImage v-bind="poster" :alt="alt" />
