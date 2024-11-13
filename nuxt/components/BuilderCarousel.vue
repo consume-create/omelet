@@ -99,6 +99,7 @@ function onClickPagination(index) {
         position: relative;
         width: 100%;
         aspect-ratio: 16/9;
+        background-color: $ash;
         display: flex;
         overflow: hidden;
       }

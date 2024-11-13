@@ -25,3 +25,21 @@ const richTextComponents = {
   }
 }
 </script>
+
+<style lang='scss'>
+.richtext {
+  a {
+    text-decoration: underline;
+    text-decoration-color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+
+  p {
+    &:not(:first-child) {
+      margin-top: 1.5em;
+    }
+  }
+}
+</style>

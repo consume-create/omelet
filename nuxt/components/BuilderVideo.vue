@@ -1,7 +1,7 @@
 <template>
   <section class="builder-video pad-bl">
     <div class="gutter">
-      <div class="video-size" :style="{'aspectRatio': `${vimeo.play.source.width}/${vimeo.play.source.height}`}">
+      <div class="video-size" :style="{'aspectRatio': (vimeo.play.source.height / vimeo.play.source.width) < 1 ? `${vimeo.play.source.width}/${vimeo.play.source.height}` : '16/9'}">
         <VideoCover :vimeo="vimeo" :controls="true" />
       </div>
     </div>
