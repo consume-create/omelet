@@ -91,7 +91,7 @@ strong,
 
 .fs-t1 {
   font-family: $omelet-hand;
-  @include fluid-type($min, $max, 32px, 68px);
+  @include fluid-type($min, $max, 32px, 56px);
   line-height: 1em;
   letter-spacing: -0.01em;
 }

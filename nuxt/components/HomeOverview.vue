@@ -243,7 +243,7 @@ function render() {
 <style lang='scss'>
 section#overview {
   width: 100%;
-  padding-bottom: span(3);
+  padding-bottom: span(2);
   overflow: hidden;
 
   .title-block {
@@ -272,7 +272,7 @@ section#overview {
   }
 
   @include respond-to($tablet) {
-    padding-bottom: span(2);
+    padding-bottom: span(1);
 
     .title-block {
       h2 {

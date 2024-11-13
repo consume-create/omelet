@@ -1,8 +1,13 @@
 <template>
   <footer>
-    <div class="content">
+    <div class="directory">
       <div class="shape">
-        <img src="/images/contact-shape.png" :alt="store.footer_handwriting" />
+        <div class="inner">
+          <div class="content">
+            <img src="/images/contact-shape.png" :alt="store.footer_handwriting" />
+            <p class="fs-t1 pre" v-html="formatLines" />
+          </div>
+        </div>
       </div>
       <div class="contact-info">
         <h4>{{ store.footer_title }}</h4>
@@ -50,6 +55,17 @@ import { useSiteStore } from '~/stores/store';
 
 const store = useSiteStore();
 const year = new Date().getFullYear();
+
+// Computed
+const formatLines = computed(() => {
+  const lines = store.footer_handwriting.split('\n');
+  let html = '';
+  lines.forEach((line, index) => {
+    html += `<span>${line}</span>`;
+  });
+
+  return html;
+});
 </script>
 
 <style lang='scss'>
@@ -57,18 +73,45 @@ footer {
   width: 100%;
   overflow: hidden;
 
-  .content {
+  .directory {
     margin: 0px 0px $space-l span(2);
 
     .shape {
-      margin: 0px $space-s $space-l;
+      margin: 0px $space-s $space-s;
       display: flex;
 
-      img {
-        width: 70%;
-        max-width: 400px;
+      .inner {
+        position: relative;
+        width: 100%;
+        max-width: 350px;
         margin-left: auto;
-        display: flex;
+
+        .content {
+          position: relative;
+          width: 75%;
+          margin-left: auto;
+
+          img {
+            width: 100%;
+            display: flex;
+          }
+
+          p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: $gold;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            transform: rotate(1deg) translateX(-50%) translateY(-50%);
+
+            span {
+              white-space: nowrap;
+              display: flex;
+            }
+          }
+        }
       }
     }
 
@@ -157,8 +200,16 @@ footer {
   }
 
   @include respond-to($tablet) {
-    .content {
+    .directory {
       margin: 0px span(0.5) $space-xl span(2);
+
+      .shape {
+        .inner {
+          .content {
+            width: 80%;
+          }
+        }
+      }
 
       .cols {
         .col {
@@ -243,7 +294,7 @@ footer {
   }
 
   @include respond-to($large-tablet) {
-    .content {
+    .directory {
       margin: 0px 0px $space-s span(2);
       display: flex;
       flex-wrap: nowrap;
@@ -254,9 +305,12 @@ footer {
         width: span(3.5);
         margin: 0 span(0.5) 0 0;
 
-        img {
-          width: 100%;
-          max-width: none;
+        .inner {
+          max-width: 400px;
+
+          .content {
+            width: 100%;
+          }
         }
       }
 
@@ -303,7 +357,7 @@ footer {
   }
 
   @include respond-to($average-desktop) {
-    .content {
+    .directory {
       margin: 0px 0px $space-xl span(3);
 
       .shape {
@@ -340,9 +394,10 @@ footer {
   }
 
   @include respond-to($macbook) {
-    .content {
+    .directory {
       .shape {
         width: span(4.5);
+        margin: 0 span(1) 0 0;
       }
     }
   }

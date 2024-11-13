@@ -129,7 +129,7 @@ function listItemDirection(e, index) {
 <style lang='scss'>
 section#work {
   width: 100%;
-  padding-bottom: span(3);
+  padding-bottom: span(2);
   overflow: hidden;
 
   .title-block {
@@ -296,7 +296,7 @@ section#work {
   }
 
   @include respond-to($tablet) {
-    padding-bottom: span(2);
+    padding-bottom: span(1);
 
     .work-list {
       .list-item {

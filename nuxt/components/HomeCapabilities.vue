@@ -5,7 +5,12 @@
     </div>
     <div class="blocks">
       <div class="shape">
-        <img src="/images/capabilities-shape.png" alt="Advertising, not breakfast" />
+        <div class="inner">
+          <div class="content">
+            <img src="/images/capabilities-shape.png" :alt="handwriting" />
+            <p class="fs-t2 pre" v-html="formatLines" />
+          </div>
+        </div>
       </div>
       <ul class="capabilities-list">
         <li v-for="item in tags">
@@ -38,12 +43,23 @@ const props = defineProps({
     type: Array
   }
 });
+
+// Computed
+const formatLines = computed(() => {
+  const lines = props.handwriting.split('\n');
+  let html = '';
+  lines.forEach((line, index) => {
+    html += `<span>${line}</span>`;
+  });
+
+  return html;
+});
 </script>
 
 <style lang='scss'>
 section#capabilities {
   width: 100%;
-  padding-bottom: span(3);
+  padding-bottom: span(2.5);
   overflow: hidden;
 
   .title-block {
@@ -55,13 +71,48 @@ section#capabilities {
     flex-direction: column;
 
     .shape {
+      position: relative;
       order: 2;
       margin: span(1) span(3) 0 span(1);
 
-      img {
+      .inner {
+        position: relative;
         width: 100%;
         max-width: 480px;
-        display: flex;
+
+        .content {
+          position: relative;
+          width: 100%;
+
+          img {
+            width: 100%;
+            display: flex;
+          }
+
+          p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: $green;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            transform: rotate(-4deg) translateX(-60%) translateY(-60%);
+
+            span {
+              white-space: nowrap;
+              display: flex;
+            }
+
+            @include respond-to($small-tablet) {
+              transform: rotate(-4deg) translateX(-64%) translateY(-60%);
+            }
+
+            @include respond-to($tablet) {
+              transform: rotate(-4deg) translateX(-66%) translateY(-66%);
+            }
+          }
+        }
       }
     }
 
@@ -102,7 +153,7 @@ section#capabilities {
   }
 
   @include respond-to($tablet) {
-    padding-bottom: span(2);
+    padding-bottom: span(1.5);
 
     .blocks {
       .shape {
@@ -160,7 +211,7 @@ section#capabilities {
         margin: 0 auto 0 $space-l;
         grid-area: A;
 
-        img {
+        .inner {
           max-width: 600px;
         }
       }

@@ -55,7 +55,7 @@ const teamCarousel = ref(null);
 <style lang='scss'>
 section#leadership {
   width: 100%;
-  padding-bottom: span(3);
+  padding-bottom: span(2.5);
   overflow: hidden;
 
   .title-block {
@@ -176,14 +176,14 @@ section#leadership {
   }
 
   @include respond-to($tablet) {
-    padding-bottom: span(2);
+    padding-bottom: span(1.5);
 
     .carousel-controls {
       margin: -18px $space-m 0;
 
       .arrow {
-        width: 28px;
-        height: 28px;
+        width: 34px;
+        height: 34px;
       }
     }
 

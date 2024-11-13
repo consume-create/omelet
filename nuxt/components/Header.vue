@@ -499,7 +499,7 @@ header {
   @include respond-to($small-tablet) {
     .inner {
       h1 {
-        left: span(5);
+        left: span(4.5);
       }
     }
   }
@@ -507,7 +507,7 @@ header {
   @include respond-to($tablet) {
     .inner {
       h1 {
-        left: span(4);
+        left: span(3);
       }
 
       nav#mobile-nav {
@@ -554,7 +554,7 @@ header {
   @include respond-to($large-tablet) {
     .inner {
       h1 {
-        left: span(3);
+        left: span(2.5);
       }
 
       nav#primary-nav {
@@ -566,11 +566,19 @@ header {
   @include respond-to($desktop) {
     .inner {
       h1 {
-        left: span(3);
+        left: span(2);
       }
 
       nav#primary-nav {
         width: span(5);
+      }
+    }
+  }
+
+  @include respond-to($retina-macbook) {
+    .inner {
+      h1 {
+        left: span(1.5);
       }
     }
   }

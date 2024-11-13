@@ -112,6 +112,7 @@ function onClickPagination(index) {
       .arrow {
         width: 24px;
         height: 24px;
+        margin: 0 $space-s;
         @include arrow($black);
         cursor: pointer;
 
@@ -166,8 +167,8 @@ function onClickPagination(index) {
     .carousel-wrapper {
       .carousel-controls {
         .arrow {
-          width: 28px;
-          height: 28px;
+          width: 34px;
+          height: 34px;
         }
 
         ul {
@@ -175,7 +176,7 @@ function onClickPagination(index) {
           align-items: center;
 
           li {
-            height: 28px;
+            height: 34px;
             margin: 0 $space-s;
 
             &:after {
