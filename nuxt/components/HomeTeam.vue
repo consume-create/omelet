@@ -203,11 +203,6 @@ section#leadership {
   @include respond-to($large-tablet) {
     .carousel-controls {
       margin: -24px $space-l 0;
-
-      .arrow {
-        width: 34px;
-        height: 34px;
-      }
     }
 
     .carousel-wrapper {
