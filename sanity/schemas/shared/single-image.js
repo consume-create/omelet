@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import { getExtension, getImageDimensions } from '@sanity/asset-utils';
 import { ImageIcon } from '@sanity/icons';
 
 export default defineType({
@@ -13,7 +14,17 @@ export default defineType({
       type: 'image',
       validation: [
         Rule => Rule.custom((value) => {
-          return value && value.asset ? true : 'Please upload or select an image';
+          const filetype = getExtension(value.asset._ref);
+
+          if (!value || !value.asset) {
+            return 'Please upload or select an image';
+          }
+
+          if (filetype !== 'jpg' && filetype !== 'png') {
+            return 'Image must be a JPG or PNG. GIFs need to be converted to .mov (https://convertio.co/gif-mov) and then uploaded to Vimeo'
+          }
+
+          return true;
         })
       ],
       options: {
