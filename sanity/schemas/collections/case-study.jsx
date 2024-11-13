@@ -128,13 +128,24 @@ export default defineType({
           ]
         }),
         defineField({
-          name: 'copy',
+          name: 'richtext',
           title: 'Copy',
-          type: 'text',
-          rows: 4,
           validation: [
             Rule => Rule.required()
-          ]
+          ],
+          type: 'array',
+          of: [{
+            type: 'block',
+            styles: [],
+            lists: [],
+            marks: {
+              decorators: [
+                { title: 'Bold', value: 'strong' },
+                { title: 'Italic', value: 'em' }
+              ],
+              annotations: []
+            }
+          }]
         })
       ]
     }),
@@ -153,31 +164,31 @@ export default defineType({
         }
       ]
     }),
-    // defineField({
-    //   name: 'blocks',
-    //   title: 'Page Builder Blocks',
-    //   type: 'array',
-    //   of: [
-    //     {
-    //       type: 'textBlock'
-    //     },
-    //     {
-    //       type: 'pullQuote'
-    //     },
-    //     {
-    //       type: 'singleImage'
-    //     },
-    //     {
-    //       type: 'slideshow'
-    //     },
-    //     {
-    //       type: 'singleVideo'
-    //     },
-    //     {
-    //       type: 'colorSplash'
-    //     }
-    //   ]
-    // })
+    defineField({
+      name: 'blocks',
+      title: 'Builder Blocks',
+      type: 'array',
+      of: [
+        {
+          type: 'textBlock'
+        },
+        {
+          type: 'pullQuote'
+        },
+        {
+          type: 'singleImage'
+        },
+        {
+          type: 'videoLoop'
+        },
+        {
+          type: 'videoPlayer'
+        },
+        {
+          type: 'carousel'
+        }
+      ]
+    })
   ],
   preview: {
     select: {

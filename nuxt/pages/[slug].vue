@@ -6,6 +6,41 @@
       :subtitle="pageData.subtitle"
       :media="pageData.heroMedia[0]"
     />
+    <BuilderTextBlock
+      :headline="pageData.overview.headline"
+      :richtext="pageData.overview.richtext"
+      :tags="pageData.tags"
+    />
+    <template v-for="(block, index) in pageData.blocks">
+      <BuilderTextBlock
+        v-if="block.type === 'textBlock'"
+        :headline="block.headline"
+        :richtext="block.richtext"
+      />
+      <BuilderPullQuote
+        v-if="block.type === 'pullQuote'"
+        :quote="block.title"
+        :citee="block.citee"
+      />
+      <BuilderImage
+        v-if="block.type === 'singleImage'"
+        :image="block.image"
+      />
+      <BuilderVideo
+        v-if="block.type === 'videoLoop'"
+        :vimeo="block.vimeo"
+        :controls="false"
+      />
+      <BuilderVideo
+        v-if="block.type === 'videoPlayer'"
+        :vimeo="block.vimeo"
+        :controls="true"
+      />
+      <BuilderCarousel
+        v-if="block.type === 'carousel'"
+        :slides="block.slides"
+      />
+    </template>
     <Footer />
   </div>
 </template>
@@ -29,13 +64,59 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
       'type': _type,
       vimeo
     }
+  },
+  overview {
+    headline,
+    richtext
+  },
+  tags[]-> {
+    tag
+  },
+  blocks[] {
+    _type == 'textBlock' => {
+      'type': _type,
+      headline,
+      richtext
+    },
+    _type == 'pullQuote' => {
+      'type': _type,
+      title,
+      citee
+    },
+    _type == 'singleImage' => {
+      'type': _type,
+      image ${imageProps}
+    },
+    _type == 'videoLoop' => {
+      'type': _type,
+      vimeo
+    },
+    _type == 'videoPlayer' => {
+      'type': _type,
+      vimeo
+    },
+    _type == 'carousel' => {
+      'type': _type,
+      slides[] {
+        _type == 'singleImage' => {
+          'type': _type,
+          image ${imageProps}
+        },
+        _type == 'videoLoop' => {
+          'type': _type,
+          vimeo
+        },
+        _type == 'videoPlayer' => {
+          'type': _type,
+          vimeo
+        }
+      }
+    }
   }
 }`;
 const pageData = await useSanityData({ query: pageQuery, params: params });
 
 onMounted(() => {
-  console.log(pageData);
-
   if (store.loader) {
     setTimeout(() => {
       store.setLoaderComplete();

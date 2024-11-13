@@ -1,13 +1,3 @@
-// require('dotenv').config({ path: '../sanity/.env' });
-// import { createClient } from '@nuxtjs/sanity';
-//
-// const client = createClient({
-//   projectId: process.env.SANITY_STUDIO_PROJECT_ID,
-//   dataset: 'production',
-//   useCdn: false,
-//   minimal: true
-// })
-
 const site_name = 'Omelet';
 const site_url = 'https://omelet.com'
 
@@ -110,7 +100,21 @@ export default defineNuxtConfig({
   // Generate
   //
   generate: {
-    fallback: true
+    fallback: true,
+    async routes() {
+      const query = `*[_type == 'caseStudy']`;
+      const results = await useSanityData({ query: query });
+      let case_studies = [];
+
+      results.forEach((item) => {
+        let slug = item.slug;
+        if (slug.current) {
+          case_studies.push(`/${slug.current}`);
+        }
+      });
+
+      return case_studies;
+    }
   },
   //
   // Sanity

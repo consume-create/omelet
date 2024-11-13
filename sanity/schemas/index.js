@@ -13,10 +13,12 @@ import industryTags from './shared/industry-tags';
 import seoSocial from './shared/seo-social';
 import servicesCTA from './shared/services-cta';
 import teamMember from './shared/team-member';
-import textBlock from './shared/text-block';
 import singleImage from './shared/single-image';
 import videoLoop from './shared/video-loop';
 import videoPlayer from './shared/video-player';
+import textBlock from './shared/builder/text-block';
+import pullQuote from './shared/builder/pull-quote';
+import carousel from './shared/builder/carousel';
 
 export const schemaTypes = [
   site,
@@ -27,8 +29,10 @@ export const schemaTypes = [
   seoSocial,
   servicesCTA,
   teamMember,
-  textBlock,
   singleImage,
   videoLoop,
-  videoPlayer
+  videoPlayer,
+  textBlock,
+  pullQuote,
+  carousel
 ];

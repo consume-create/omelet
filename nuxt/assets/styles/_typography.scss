@@ -143,4 +143,9 @@ h4 {
   letter-spacing: -0.01em;
   text-transform: uppercase;
   transform: translateX(-0.05em);
+
+  &.alt {
+    @include fluid-type($min, $max, 25px, 55px);
+    line-height: 1.1em;
+  }
 }

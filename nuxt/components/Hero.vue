@@ -3,11 +3,7 @@
     <div class="hero-section-inner bg-green">
       <div class="hero-media">
         <ResponsiveImage v-if="media.type === 'singleImage'" v-bind="media.image" :alt="title" />
-        <div v-if="media.type !== 'singleImage' && vimeo_poster" class="video-wrapper">
-          <div class="video-poster">
-            <ResponsiveImage v-bind="vimeo_poster" :alt="title" />
-          </div>
-        </div>
+        <VideoCover v-if="media.type !== 'singleImage' && video" :vimeo="video.vimeo" :cover="true" />
       </div>
       <div class="hero-title pad-b">
         <div class="gutter">
@@ -38,14 +34,10 @@ const props = defineProps({
 });
 
 let vimeo_poster = false;
+let video = false;
 
 if (props.media.type !== 'singleImage') {
-  const vimeoData = props.media.vimeo;
-  vimeo_poster = {
-    src: vimeoData.pictures.base_link.replace('?r=pad', '') + '?r=rpad',
-    width: vimeoData.pictures.sizes.pop().width,
-    height: vimeoData.pictures.sizes.pop().height
-  }
+  video = props.media;
 }
 </script>
 

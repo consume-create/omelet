@@ -33,7 +33,6 @@ useSeoMeta({
 onMounted(() => {
   window.addEventListener('resize', onResize);
   onResize();
-  console.log('app mounted');
 });
 
 // Before Unmount
