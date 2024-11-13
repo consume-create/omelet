@@ -33,6 +33,9 @@ let ctx = null,
     points = [],
     tweens = [],
     raf = null,
+    rotate = {
+      'to': 0
+    },
     scale = 1,
     constraints = [];
 
@@ -81,16 +84,19 @@ onMounted(() => {
 function randomizeAmplitudes() {
   let amplitudes = [];
 
+  // Rotation
+  rotate.to += (Math.random() * 14) - 7;
+
   // New random amplitudes in the defined range
   for(let i = 0; i < numSegments; i++) {
-    const r = i * segment,
+    const r = (i * segment) + rotate.to,
           s = 10 * scale,
-          v1 = constrain(r, (Math.random() * 100) + 400),
-          v2 = v1 - ((Math.random() * s) + 10);
+          v1 = constrain(r, (Math.random() * 100) + 400);
 
     amplitudes.push({
       'p1': v1,
-      'p2': v2
+      'p2': v1 - ((Math.random() * s) + 10),
+      'r': r
     });
   }
 
@@ -180,19 +186,21 @@ function tween() {
     if(tweens[i]) {
       tweens[i].t1.kill();
       tweens[i].t2.kill();
+      tweens[i].t3.kill();
     }
 
     // Tween
     tweens[i] = {
-      t1: gsap.to(points[i], {p1: amplitudes[i].p1, ease: 'none', duration: 3}),
-      t2: gsap.to(points[i], {p2: amplitudes[i].p2, ease: 'none', duration: 3})
+      t1: gsap.to(points[i], {p1: amplitudes[i].p1, ease: 'none', duration: 2}),
+      t2: gsap.to(points[i], {p2: amplitudes[i].p2, ease: 'none', duration: 2}),
+      t3: gsap.to(points[i], {r: amplitudes[i].r, ease: 'none', duration: 2})
     }
   }
 
   // Loop
   setTimeout(() => {
     tween();
-  }, 3000);
+  }, 2000);
 }
 
 function render() {
@@ -209,9 +217,8 @@ function render() {
       insetPoints = [];
 
   for(let i = 0; i < points.length; i++) {
-    let r = i * segment,
-        p1 = getPoint(r, points[i].p1),
-        p2 = getPoint(r, points[i].p2);
+    let p1 = getPoint(points[i].r, points[i].p1),
+        p2 = getPoint(points[i].r, points[i].p2);
 
     outsetPoints.push(p1.x, p1.y);
     insetPoints.push(p2.x, p2.y);
@@ -262,6 +269,7 @@ section#overview {
   .title-block {
     padding-bottom: $space-s;
     display: flex;
+    //border: 1px solid #f00;
   }
 
   #omoeba {
@@ -272,10 +280,11 @@ section#overview {
   }
 
   .text-block {
-    margin: span(-1) span(1) 0px span(3);
+    margin: span(-1) span(1) 0px span(2.5);
     display: flex;
     flex-direction: column;
-    padding-top: span(0.5);
+    padding: span(0.5) 0 0 span(0.5);
+    //border: 1px solid #f00;
 
     .copy {
       p {
@@ -304,13 +313,13 @@ section#overview {
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(7);
+      margin: span(-1.5) span(1) 0px span(6.5);
     }
   }
 
   @include respond-to($desktop) {
     .text-block {
-      margin: span(-1.75) span(1) 0px span(7);
+      margin: span(-1.75) span(1) 0px span(6.5);
     }
   }
 
@@ -326,7 +335,7 @@ section#overview {
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(8);
+      margin: span(-1.5) span(1) 0px span(7.5);
     }
   }
 
