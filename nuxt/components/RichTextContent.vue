@@ -17,8 +17,7 @@ const richTextComponents = {
 
       if (uriLooksSafe(href)) {
         const rel = href.startsWith('/') ? undefined : 'noreferrer noopener';
-        const target = value.blank ? '_blank' : '_self';
-        return `<a href="${href}" rel="${rel}" target="${target}">${children}</a>`;
+        return `<a href="${href}" rel="${rel}" target="_blank">${children}</a>`;
       } else {
         return children;
       }
