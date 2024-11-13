@@ -46,11 +46,11 @@ function onKeydown(e) {
   .grid-line {
     width: 1px;
     height: 100%;
-    background-color: rgba(#FF0000, 35%);
+    background-color: rgba(#FF0000, 13%);
 
     &:first-child,
     &:last-child {
-      background-color: rgba(#3333ff, 35%);
+      background-color: rgba(#3333ff, 13%);
     }
 
     &:first-child {

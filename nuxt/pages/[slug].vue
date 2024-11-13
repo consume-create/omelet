@@ -40,6 +40,14 @@
         v-if="block.type === 'carousel'"
         :slides="block.slides"
       />
+      <BuilderMediaGrid
+        v-if="block.type === 'mediaGrid'"
+        :items="block.items"
+      />
+      <BuilderMultiColumn
+        v-if="block.type === 'multiColumn'"
+        :items="block.items"
+      />
     </template>
     <Footer />
   </div>
@@ -110,6 +118,36 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
           'type': _type,
           vimeo
         }
+      }
+    },
+    _type == 'mediaGrid' => {
+      'type': _type,
+      items[] {
+        _type == 'singleImage' => {
+          'type': _type,
+          image ${imageProps}
+        },
+        _type == 'videoLoop' => {
+          'type': _type,
+          vimeo
+        }
+      }
+    },
+    _type == 'multiColumn' => {
+      'type': _type,
+      items[] {
+        _type == 'singleImage' => {
+          'type': _type,
+          image ${imageProps}
+        },
+        _type == 'videoLoop' => {
+          'type': _type,
+          vimeo
+        },
+        _type == 'textColumn' => {
+          'type': _type,
+          richtext
+        },
       }
     }
   }

@@ -6,6 +6,7 @@ export default defineType({
   name: 'tags',
   title: 'Tags',
   type: 'document',
+  icon: HashIcon,
   fields: [
     defineField({
       name: 'tag',

@@ -1,13 +1,14 @@
 import React from 'react';
 import { defineField, defineType, defineArrayMember } from 'sanity';
 import { SlugInput } from 'sanity-plugin-prefixed-slug';
-import { EditIcon, UnknownIcon } from '@sanity/icons';
+import { ProjectsIcon, UnknownIcon } from '@sanity/icons';
 // Sanity Icon Set: https://icons.sanity.build/all
 
 export default defineType({
   name: 'caseStudy',
   title: 'Case Study',
   type: 'document',
+  icon: ProjectsIcon,
   fieldsets: [
     {
       name: 'hero',
@@ -186,6 +187,12 @@ export default defineType({
         },
         {
           type: 'carousel'
+        },
+        {
+          type: 'mediaGrid'
+        },
+        {
+          type: 'multiColumn'
         }
       ]
     })

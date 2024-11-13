@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity';
-import { DashboardIcon } from '@sanity/icons';
+import { HomeIcon } from '@sanity/icons';
 // Sanity Icon Set: https://icons.sanity.build/all
 
 export default defineType({
@@ -7,7 +7,7 @@ export default defineType({
   title: 'Home',
   type: 'document',
   singleton: true,
-  icon: DashboardIcon,
+  icon: HomeIcon,
   fieldsets: [
     {
       name: 'hero',

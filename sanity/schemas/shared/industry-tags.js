@@ -6,6 +6,7 @@ export default defineType({
   name: 'industryTags',
   title: 'Industry Tags',
   type: 'document',
+  icon: HashIcon,
   fields: [
     defineField({
       name: 'tag',

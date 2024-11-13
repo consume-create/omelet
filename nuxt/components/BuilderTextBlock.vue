@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="fs-p3"><RichTextContent :content="richtext" /></div>
+        <RichTextContent :content="richtext" />
       </div>
     </div>
   </section>
@@ -102,7 +102,6 @@ const props = defineProps({
 
         &:only-child {
           margin: 0 auto;
-          padding: span(0.5) 0;
         }
       }
     }

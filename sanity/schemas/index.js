@@ -19,6 +19,9 @@ import videoPlayer from './shared/video-player';
 import textBlock from './shared/builder/text-block';
 import pullQuote from './shared/builder/pull-quote';
 import carousel from './shared/builder/carousel';
+import mediaGrid from './shared/builder/media-grid';
+import multiColumn from './shared/builder/multi-column';
+import textColumn from './shared/builder/text-column';
 
 export const schemaTypes = [
   site,
@@ -34,5 +37,8 @@ export const schemaTypes = [
   videoPlayer,
   textBlock,
   pullQuote,
-  carousel
+  carousel,
+  mediaGrid,
+  multiColumn,
+  textColumn
 ];
