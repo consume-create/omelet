@@ -49,12 +49,16 @@
         :items="block.items"
       />
     </template>
+    <UpNext
+      :cta="getNextCta"
+    />
     <Footer />
   </div>
 </template>
 
 <script setup>
 import { useSiteStore } from '~/stores/store';
+import { findIndex as _findIndex } from 'lodash';
 
 const route = useRoute();
 const store = useSiteStore();
@@ -153,6 +157,14 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
   }
 }`;
 const pageData = await useSanityData({ query: pageQuery, params: params });
+
+// Computed
+const getNextCta = computed(() => {
+  const current_index = _findIndex(store.case_studies, {'slug': route.params.slug});
+  const next_case_study = current_index < store.case_studies.length - 1 ? store.case_studies[current_index + 1] : store.case_studies[0];
+
+  return next_case_study;
+});
 
 onMounted(() => {
   if (store.loader) {

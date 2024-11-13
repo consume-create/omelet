@@ -19,6 +19,7 @@ export const useSiteStore = defineStore('site', {
     phone_number: '',
     social_links: [],
     copyright: '',
+    case_studies: [],
     menu_open: false,
     dark_mode: false,
     site_nav: [
@@ -65,10 +66,17 @@ export const useSiteStore = defineStore('site', {
           linkedin,
           instagram,
           copyright
+        },
+        'index': ${typeFilter('index')} {
+          caseStudies[]-> {
+            title,
+            'slug': slug.current
+          }
         }
       }`;
       const { data } = await useSanityQuery(siteQuery);
       const site_data = data.value.site;
+      const home_data = data.value.index;
 
       // Site settings
       this.site_name = site_data.siteName;
@@ -101,6 +109,9 @@ export const useSiteStore = defineStore('site', {
 
       // Legal settings...
       this.copyright = site_data.copyright;
+
+      // Case Studies...
+      this.case_studies = home_data.caseStudies;
     }
   }
 })
