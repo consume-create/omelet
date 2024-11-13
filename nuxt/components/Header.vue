@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, reactive} from 'vue';
+import { ref, reactive } from 'vue';
 import { useSiteStore } from '~/stores/store';
 
 const route = useRoute();

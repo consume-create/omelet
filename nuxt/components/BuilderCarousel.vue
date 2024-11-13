@@ -7,6 +7,7 @@
           :wrapAround="false"
           snapAlign="start"
           :modelValue="0"
+          @slide-end="handleSlideEnd"
         >
           <Slide v-for="(slide, index) in slides" :key="index">
             <ResponsiveImage v-if="slide.type === 'singleImage'" v-bind="slide.image" :alt="slide.image.filename" />
@@ -15,18 +16,18 @@
           </Slide>
         </Carousel>
         <div class="carousel-controls pad-t">
-          <div class="arrow --prev" @click="carousel.prev" />
+          <div class="arrow --prev" @click="onClickPrev" />
           <ul>
-            <li v-for="(slide, index) in slides" :key="index" @click="carousel.slideTo(index)" />
+            <li v-for="(slide, index) in slides" :class="{'--active': state.current_index === index}" :key="index" @click="onClickPagination(index)" />
           </ul>
-          <div class="arrow --next" @click="carousel.next" />
+          <div class="arrow --next" @click="onClickNext" />
         </div>
       </div>
     </div>
   </section>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { Carousel, Slide, Pagination } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
@@ -37,6 +38,34 @@ const props = defineProps({
   }
 });
 const carousel = ref(null);
+const state = reactive({
+  current_index: 0
+})
+
+// Methods
+function handleSlideEnd(data) {
+  state.current_index = data.currentSlideIndex;
+}
+
+function onClickPrev() {
+  if (state.current_index > 0) {
+    state.current_index = state.current_index - 1;
+    carousel.value.data.prev();
+  }
+}
+
+function onClickNext() {
+  if (state.current_index < props.slides.length - 1) {
+    state.current_index = state.current_index + 1;
+    carousel.value.data.next();
+  }
+}
+
+function onClickPagination(index) {
+  state.current_index = index;
+  carousel.value.data.slideTo(index);
+}
+
 </script>
 
 <style lang='scss'>
