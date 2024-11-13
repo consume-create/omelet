@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition name="loader">
+    <transition name="loader" :duration="2100">
       <Loader v-if="store.loader" />
     </transition>
     <GridOverlay />

@@ -1,7 +1,9 @@
 <template>
   <header :class="{'--hidden': state.hidden, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
     <div class="inner">
-      <NuxtLink class="logo marg-l" to="/" @click.native="store.setMenuClose()">Omelet</NuxtLink>
+      <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loader}" to="/" @click.native="store.setMenuClose()">
+        <span>O</span><span>M</span><span>E</span><span>L</span><span>E</span><span>T</span>
+      </NuxtLink>
       <h1 class="pre" v-html="getTitleLines" />
       <nav id="mobile-nav" class="marg-r">
         <div class="icon --accessibility">Accessibility</div>
@@ -145,7 +147,9 @@ header {
 
     .inner {
       .logo {
-        @include omelet-logo($white);
+        span {
+          @include omelet-logo($white);
+        }
       }
 
       nav#mobile-nav {
@@ -268,10 +272,56 @@ header {
       font-size: 0px;
       color: transparent;
       overflow: hidden;
-      @include omelet-logo($black);
       display: inline-flex;
       flex-shrink: 0;
-      transition: background-image $speed-666 $evil-ease;
+
+      &.appear {
+        span {
+          transform: translate(0, 0);
+        }
+      }
+
+      span {
+        @include omelet-logo($black);
+        background-size: 104px 20px !important;
+        transform: translate(0, -100%);
+
+        &:nth-child(1) {
+          width: 21px;
+          background-position: 0px 0px !important;
+          transition: transform $speed-666 1800ms cubic-bezier(0.075, 0.820, 0.165, 1.000), background-image $speed-666 $evil-ease;
+        }
+
+        &:nth-child(2) {
+          width: 24px;
+          background-position: -21px 0px !important;
+          transition: transform $speed-666 1911ms cubic-bezier(0.075, 0.820, 0.165, 1.000), background-image $speed-666 $evil-ease;
+        }
+
+        &:nth-child(3) {
+          width: 14px;
+          background-position: -45px 0px !important;
+          transition: transform $speed-666 2022ms cubic-bezier(0.075, 0.820, 0.165, 1.000), background-image $speed-666 $evil-ease;
+        }
+
+        &:nth-child(4) {
+          width: 13px;
+          background-position: -59px 0px !important;
+          transition: transform $speed-666 2133ms cubic-bezier(0.075, 0.820, 0.165, 1.000), background-image $speed-666 $evil-ease;
+        }
+
+        &:nth-child(5) {
+          width: 14px;
+          background-position: -72px 0px !important;
+          transition: transform $speed-666 2244ms cubic-bezier(0.075, 0.820, 0.165, 1.000), background-image $speed-666 $evil-ease;
+        }
+
+        &:nth-child(6) {
+          width: 18px;
+          background-position: -86px 0px !important;
+          transition: transform $speed-666 2355ms cubic-bezier(0.075, 0.820, 0.165, 1.000), background-image $speed-666 $evil-ease;
+        }
+      }
     }
 
     h1 {
@@ -398,6 +448,40 @@ header {
       .logo {
         width: 122px;
         height: 24px;
+
+        span {
+          background-size: 122px 24px !important;
+
+          &:nth-child(1) {
+            width: 24px;
+            background-position: 0px 0px !important;
+          }
+
+          &:nth-child(2) {
+            width: 29px;
+            background-position: -24px 0px !important;
+          }
+
+          &:nth-child(3) {
+            width: 16px;
+            background-position: -53px 0px !important;
+          }
+
+          &:nth-child(4) {
+            width: 16px;
+            background-position: -69px 0px !important;
+          }
+
+          &:nth-child(5) {
+            width: 17px;
+            background-position: -85px 0px !important;
+          }
+
+          &:nth-child(6) {
+            width: 20px;
+            background-position: -102px 0px !important;
+          }
+        }
       }
 
       h1 {
