@@ -30,9 +30,10 @@ onMounted(() => {
 
   #loader-text {
     display: block;
-    font: normal normal normal 25.45vw/1em $poppins-extra-bold;
+    font: normal normal normal 26.83vw/1em $poppins-extra-bold;
     white-space: nowrap;
     overflow: hidden;
+    letter-spacing: -0.04em;
 
     span {
       display: inline-block;

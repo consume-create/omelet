@@ -39,7 +39,7 @@ onMounted(() => {
   if (store.loader) {
     setTimeout(() => {
       store.setLoaderComplete();
-    }, 2000);
+    }, 1800);
   }
 })
 </script>
