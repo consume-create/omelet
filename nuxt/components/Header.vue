@@ -15,7 +15,7 @@
       <nav id="primary-nav">
         <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ path: '/', hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
         <NuxtLink class="icon --contact" :to="`mailto:${store.general_email}`" target="_blank">{{ store.general_email }}</NuxtLink>
-        <div class="icon --accessibility marg-r">Accessibility</div>
+        <div class="icon --accessibility marg-r" @click="onClickAccessibility">Accessibility</div>
       </nav>
     </div>
   </header>
@@ -118,6 +118,10 @@ function checkRoute() {
   } else {
     store.setDarkMode();
   }
+}
+
+function onClickAccessibility() {
+  console.log('acc..');
 }
 
 // Watchers

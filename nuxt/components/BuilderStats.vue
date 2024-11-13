@@ -15,7 +15,6 @@ const props = defineProps({
     type: Array
   }
 });
-console.log(props.stats);
 </script>
 
 <style lang='scss'>
