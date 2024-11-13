@@ -32,7 +32,9 @@ let ctx = null,
     },
     points = [],
     tweens = [],
-    raf = null;
+    raf = null,
+    scale = 1,
+    constraints = [];
 
 // Props
 const props = defineProps({
@@ -57,14 +59,23 @@ onMounted(() => {
   ctx.globalCompositeOperation = 'xor';
   ctx.fillStyle = '#ff5501';
 
-  // Initial Points
-  points = randomizeAmplitudes();
+  // Listen
+  window.addEventListener('resize', onResize);
 
-  // Tween
-  tween();
+  // Kick the tires and light the fires
+  setTimeout(() => {
+    // Resize
+    window.dispatchEvent(new Event('resize'));
 
-  // Render
-  raf = requestAnimationFrame(render);
+    // Initial Points
+    points = randomizeAmplitudes();
+
+    // Tween
+    tween();
+
+    // Render
+    raf = requestAnimationFrame(render);
+  }, 0);
 });
 
 function randomizeAmplitudes() {
@@ -73,8 +84,9 @@ function randomizeAmplitudes() {
   // New random amplitudes in the defined range
   for(let i = 0; i < numSegments; i++) {
     const r = i * segment,
-          v1 = constrain(r, (Math.random() * 100) + 300),
-          v2 = v1 - ((Math.random() * 10) + 10);
+          s = 10 * scale,
+          v1 = constrain(r, (Math.random() * 100) + 400),
+          v2 = v1 - ((Math.random() * s) + 10);
 
     amplitudes.push({
       'p1': v1,
@@ -95,23 +107,6 @@ function getPoint(rotation, amplitude) {
 
 function constrain(rotation, amplitude) {
   if (!omoeba.value) return false;
-
-  // TODO: on resize?
-  const scale = 1920 / omoeba.value.getBoundingClientRect().width,
-        constraints = [
-          {
-            x1: (collide1.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
-            y1: (collide1.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
-            x2: (collide1.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
-            y2: (collide1.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
-          },
-          {
-            x1: (collide2.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
-            y1: (collide2.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
-            x2: (collide2.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
-            y2: (collide2.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
-          },
-        ];
 
   let constrainedAmplitude = amplitude;
 
@@ -237,6 +232,24 @@ function render() {
   let shape2 = new Path2D();
   shape2.curve(insetPoints, 0.666, 10, true);
   ctx.fill(shape2);
+}
+
+function onResize(e) {
+  scale = 1920 / omoeba.value.getBoundingClientRect().width;
+  constraints = [
+    {
+      x1: (collide1.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
+      y1: (collide1.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
+      x2: (collide1.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
+      y2: (collide1.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
+    },
+    {
+      x1: (collide2.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
+      y1: (collide2.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
+      x2: (collide2.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
+      y2: (collide2.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
+    },
+  ];
 }
 </script>
 
