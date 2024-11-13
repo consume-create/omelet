@@ -15,7 +15,9 @@ const store = useSiteStore(),
       loader = ref(null);
 
 onMounted(() => {
-  loader.value.classList.add('appear');
+  setTimeout(() => {
+    loader.value.classList.add('appear');
+  }, 27);
 });
 </script>
 
