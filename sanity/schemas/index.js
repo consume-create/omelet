@@ -22,6 +22,7 @@ import carousel from './shared/builder/carousel';
 import mediaGrid from './shared/builder/media-grid';
 import multiColumn from './shared/builder/multi-column';
 import textColumn from './shared/builder/text-column';
+import stats from './shared/builder/stats';
 
 export const schemaTypes = [
   site,
@@ -40,5 +41,6 @@ export const schemaTypes = [
   carousel,
   mediaGrid,
   multiColumn,
-  textColumn
+  textColumn,
+  stats
 ];

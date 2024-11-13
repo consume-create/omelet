@@ -48,6 +48,10 @@
         v-if="block.type === 'multiColumn'"
         :items="block.items"
       />
+      <BuilderStats
+        v-if="block.type === 'stats'"
+        :stats="block.items"
+      />
     </template>
     <UpNext
       :cta="getNextCta"
@@ -153,7 +157,14 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
           richtext
         },
       }
-    }
+    },
+    _type == 'stats' => {
+      'type': _type,
+      items[] {
+        title,
+        copy
+      }
+    },
   }
 }`;
 const pageData = await useSanityData({ query: pageQuery, params: params });

@@ -209,6 +209,9 @@ export default defineType({
         },
         {
           type: 'multiColumn'
+        },
+        {
+          type: 'stats'
         }
       ]
     })

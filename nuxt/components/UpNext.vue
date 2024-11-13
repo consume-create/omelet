@@ -21,6 +21,7 @@ const props = defineProps({
 <style lang='scss'>
 .up-next-section {
   position: relative;
+  padding-top: span(1);
 
   .gutter {
     text-align: center;
@@ -67,6 +68,8 @@ const props = defineProps({
   }
 
   @include respond-to($average-desktop) {
+    padding-top: span(0.5);
+
     .up-next-cta {
       img {
         height: 66px;
