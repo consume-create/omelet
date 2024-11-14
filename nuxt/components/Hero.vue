@@ -3,7 +3,7 @@
     <div class="hero-section-inner bg-green">
       <div class="hero-media">
         <ResponsiveImage v-if="media.type === 'singleImage'" v-bind="media.image" :alt="title" />
-        <VideoCover v-if="media.type !== 'singleImage' && video" :vimeo="video.vimeo" :cover="true" />
+        <VideoCover v-if="media.type !== 'singleImage' && video" :vimeo="video.vimeo" :cover="true" :hero="true" />
       </div>
       <div class="hero-title pad-b">
         <div class="gutter">
@@ -21,6 +21,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useSiteStore } from '~/stores/store';
 import { findIndex as _findIndex } from 'lodash';
 
 const route = useRoute();
@@ -46,6 +47,7 @@ let video = false;
 if (props.media.type !== 'singleImage') {
   video = props.media;
 }
+
 
 // Computed
 const getPrevSlug = computed(() => {

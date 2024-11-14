@@ -36,7 +36,7 @@ onMounted(() => {
 });
 
 // Before Unmount
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   window.removeEventListener('resize', onResize);
 });
 

@@ -1,30 +1,24 @@
 <template>
   <div ref="wrapper" class="video-cover-wrapper" :class="{'--no-controls': !controls}">
     <div class="video-holder" :class="{'--show': state.playing_mode, '--cover': cover}" :style="[cover && {'width': `${state.player_width}px`, 'height': `${state.player_height}px`}]">
-      <client-only>
-        <vueVimeoPlayer ref="player"
-          :video-id="vid"
-          :options="{
-            controls: controls ? true : false,
-            autoplay: controls ? false : true,
-            loop: controls ? false : true,
-            muted: controls ? false : true,
-            playsinline: true,
-            autopause: 0
-          }"
-          :player-width="state.player_width"
-          :player-height="state.player_height"
-          @loaded="onLoaded"
-          @playing="isPlaying"
-          @ended="onEnded"
-        />
-      </client-only>
+      <vueVimeoPlayer ref="player"
+        :video-id="vid"
+        :options="state.options"
+        :player-width="state.player_width"
+        :player-height="state.player_height"
+        @loaded="onLoaded"
+        @playing="isPlaying"
+        @ended="onEnded"
+      />
     </div>
     <div class="video-poster" :class="{'--show': !state.playing_mode}">
       <ResponsiveImage v-bind="poster" :alt="alt" />
-      <div v-if="controls" class="play-btn" @click="clickToPlay">
+      <div v-if="controls || store.accessibility" class="play-btn" @click="clickToPlay">
         <span class="fs-p2">Play</span>
       </div>
+    </div>
+    <div v-if="hero && store.accessibility" class="video-poster --show force-poster">
+      <ResponsiveImage v-bind="poster" :alt="alt" />
     </div>
   </div>
 </template>
@@ -37,6 +31,11 @@ const store = useSiteStore();
 
 // Props
 const props = defineProps({
+  hero: {
+    type: Boolean,
+    default: false,
+    required: false
+  },
   vimeo: {
     type: Object
   },
@@ -51,24 +50,33 @@ const props = defineProps({
     required: false
   }
 });
+
 const state = reactive({
   playing_mode: false,
   player_width: 0,
-  player_height: 0
+  player_height: 0,
+  options: {
+    controls: props.controls ? true : false,
+    loop: props.controls ? false : true,
+    muted: props.controls ? false : true,
+    playsinline: true,
+    autopause: 0
+  }
 });
+
+if (store.accessibility) {
+  state.options.loop = false;
+}
 
 let player = ref();
 const wrapper = ref();
-const vimeo = props.vimeo;
-const controls = props.controls;
-const cover = props.cover;
 const poster = {
-  src: vimeo.pictures.base_link.replace('?r=pad', '') + '?r=rpad',
-  width: vimeo.pictures.sizes.pop().width,
-  height: vimeo.pictures.sizes.pop().height
+  src: props.vimeo.pictures.base_link.replace('?r=pad', '') + '_1920?r=rpad',
+  width: props.vimeo.pictures.sizes.pop().width,
+  height: props.vimeo.pictures.sizes.pop().height
 }
-const alt = vimeo.name;
-const vid = vimeo.id;
+const alt = props.vimeo.name;
+const vid = props.vimeo.id;
 
 // Mounted
 onMounted(() => {
@@ -77,13 +85,13 @@ onMounted(() => {
 });
 
 // Before Unmount
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   window.removeEventListener('resize', onResize);
 });
 
 // Methods
 function onLoaded() {
-  if (!controls) {
+  if (!props.controls && !store.accessibility) {
     player.value.play();
   }
 }
@@ -98,17 +106,16 @@ function clickToPlay() {
 }
 
 function onEnded() {
-  if (controls) {
-    state.playing_mode = false;
-  }
+  player.value.pause();
+  state.playing_mode = false;
 }
 
 function onResize() {
-  if (!cover) return false;
+  if (!props.cover) return false;
 
   const wrapper_width = wrapper.value.clientWidth;
   const wrapper_height = wrapper.value.clientHeight;
-  const video_ratio = vimeo.play.source.width / vimeo.play.source.height;
+  const video_ratio = props.vimeo.play.source.width / props.vimeo.play.source.height;
   let new_width = wrapper_width;
   let new_height = wrapper_height;
 
@@ -124,7 +131,17 @@ function onResize() {
 
 // Watchers
 watch(() => store.accessibility, (newValue, oldValue) => {
-  console.log('OML_ACC::', newValue);
+  if (newValue === true) {
+    if (player) {
+      player.value.pause();
+    }
+
+    state.playing_mode = false;
+  } else {
+    if (!props.controls) {
+      player.value.play();
+    }
+  }
 });
 </script>
 
