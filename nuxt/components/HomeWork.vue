@@ -205,6 +205,7 @@ section#work {
               width: span(3.5);
               display: flex;
               align-items: center;
+              line-height: 1.1em;
 
               span {
                 display: flex;

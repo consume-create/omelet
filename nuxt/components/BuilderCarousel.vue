@@ -98,7 +98,7 @@ function onClickPagination(index) {
       .carousel__slide {
         position: relative;
         width: 100%;
-        aspect-ratio: 2/1;
+        aspect-ratio: 16/9;
         background-color: $ash;
         display: flex;
         overflow: hidden;

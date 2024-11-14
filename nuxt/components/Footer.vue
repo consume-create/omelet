@@ -4,8 +4,8 @@
       <div class="shape">
         <div class="inner">
           <div class="content">
-            <img src="/images/contact-shape.png" :alt="store.footer_handwriting" />
-            <p class="fs-t1 pre" v-html="formatLines" />
+            <img src="/images/contact-shape.svg" :alt="store.footer_handwriting" />
+            <p class="fs-t2 pre" v-html="formatLines" />
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ footer {
 
         .content {
           position: relative;
-          width: 75%;
+          width: 64%;
           margin-left: auto;
 
           img {
