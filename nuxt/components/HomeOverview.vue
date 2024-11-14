@@ -37,7 +37,8 @@ let ctx = null,
       'to': 0
     },
     scale = 1,
-    constraints = [];
+    constraints = [],
+    tween_loop = 0;
 
 // Props
 const props = defineProps({
@@ -81,6 +82,28 @@ onMounted(() => {
   }, 0);
 });
 
+// Unmount
+onBeforeUnmount(() => {
+  // Remove resize event listener
+  window.removeEventListener('resize', onResize);
+
+  // Cancel render
+  window.cancelAnimationFrame(raf);
+
+  // Kill tweens
+  for(let i = 0; i < points.length; i++) {
+    // Kill
+    if(tweens[i]) {
+      tweens[i].t1.kill();
+      tweens[i].t2.kill();
+      tweens[i].t3.kill();
+    }
+  }
+
+  // Cancel tween loop
+  clearTimeout(tween_loop);
+});
+
 function randomizeAmplitudes() {
   let amplitudes = [];
 
@@ -112,8 +135,6 @@ function getPoint(rotation, amplitude) {
 }
 
 function constrain(rotation, amplitude) {
-  if (!omoeba.value) return false;
-
   let constrainedAmplitude = amplitude;
 
   // Check collisions and constrain
@@ -198,14 +219,12 @@ function tween() {
   }
 
   // Loop
-  setTimeout(() => {
+  tween_loop = setTimeout(() => {
     tween();
   }, 2000);
 }
 
 function render() {
-  if (!omoeba.value) return false;
-
   // Loop
   raf = requestAnimationFrame(render);
 
