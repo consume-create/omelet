@@ -60,6 +60,10 @@ export default defineNuxtConfig({
         { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
         { rel: 'manifest', href: '/site.webmanifest' }
       ]
+    },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in'
     }
   },
   //
@@ -93,8 +97,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/sanity',
     '@nuxtjs/sitemap',
-    '@pinia/nuxt',
-    'nuxt-anchorscroll'
+    '@pinia/nuxt'
   ],
   //
   // Generate
