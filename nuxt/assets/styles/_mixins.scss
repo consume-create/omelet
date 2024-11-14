@@ -54,6 +54,13 @@
   background-size: contain;
 }
 
+@mixin checkmark($fill) {
+  background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 8 8" xml:space="preserve" fill="#{svgColorMaker($fill)}"><path d="M6.354,2.9l-2.954,2.954-1.753-1.753.753-.753,1,1,2.2-2.2.754.753Z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+}
+
 @mixin linkedin($fill) {
   background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 18 18" xml:space="preserve" fill="#{svgColorMaker($fill)}"><path d="M6.216,17.589h3.86v-6.474c0-.346.024-.691.127-.939.277-.691.915-1.407,1.981-1.407,1.397,0,1.957,1.061,1.957,2.619v6.201h3.86v-6.644c0-3.558-1.903-5.218-4.444-5.218-2.083,0-2.994,1.163-3.505,1.952h.024v-1.679h-3.86c.049,1.085,0,11.59,0,11.59ZM2.151,4.412c1.343,0,2.186-.891,2.186-2.001-.024-1.139-.837-2.001-2.156-2.001S0,1.278,0,2.412s.837,2.001,2.132,2.001h.024-.005ZM4.079,17.589V5.999H.219v11.59h3.86Z"/></svg>');
   background-repeat: no-repeat;

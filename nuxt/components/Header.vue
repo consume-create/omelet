@@ -6,7 +6,7 @@
       </NuxtLink>
       <h1 class="pre" v-html="getTitleLines" />
       <nav id="mobile-nav" class="marg-r">
-        <div class="icon --accessibility">Accessibility</div>
+        <div class="icon --accessibility" :class="{'--enabled': store.accessibility}" @click="onClickAccessibility">Accessibility</div>
         <div id="menu-btn" @click="toggleMenu">
           <div class="lines"><span /><span /></div>
           <div class="lines"><span /><span /></div>
@@ -15,7 +15,7 @@
       <nav id="primary-nav">
         <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ path: '/', hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
         <NuxtLink class="icon --contact" :to="`mailto:${store.general_email}`" target="_blank">{{ store.general_email }}</NuxtLink>
-        <div class="icon --accessibility marg-r" @click="onClickAccessibility">Accessibility</div>
+        <div class="icon --accessibility marg-r" :class="{'--enabled': store.accessibility}" @click="onClickAccessibility">Accessibility</div>
       </nav>
     </div>
   </header>
@@ -58,6 +58,7 @@ onMounted(() => {
   window.addEventListener('resize', onResize);
   window.addEventListener('scroll', onScroll);
 
+  checkAccessibilityMode();
   onResize();
   onScroll();
   checkRoute();
@@ -120,8 +121,30 @@ function checkRoute() {
   }
 }
 
+function checkAccessibilityMode() {
+  if (localStorage.getItem('OML_ACC')) {
+    store.setAccessibilityOn();
+  } else {
+    store.setAccessibilityOff();
+  }
+}
+
 function onClickAccessibility() {
-  console.log('acc..');
+  if (store.accessibility) {
+    turnAccessibilityOff();
+  } else {
+    turnAccessibilityOn();
+  }
+}
+
+function turnAccessibilityOff() {
+  localStorage.removeItem('OML_ACC');
+  store.setAccessibilityOff();
+}
+
+function turnAccessibilityOn() {
+  localStorage.setItem('OML_ACC', true);
+  store.setAccessibilityOn();
 }
 
 // Watchers
@@ -342,12 +365,12 @@ header {
       flex-shrink: 0;
 
       .icon {
+        position: relative;
         width: 24px;
         height: 24px;
         margin-right: $space-xs;
         font-size: 0px;
         color: transparent;
-        overflow: hidden;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -447,6 +470,32 @@ header {
     }
   }
 
+  .icon {
+    &.--accessibility {
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 12px;
+        height: 12px;
+        background-color: $orange;
+        border-radius: 50%;
+        opacity: 0;
+        pointer-events: none;
+        @include checkmark($white);
+        transform: translateX(50%) translateY(-50%);
+        transition: opacity $speed-333 $ease-out;
+      }
+
+      &.--enabled {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
   @include respond-to($mobile) {
     .inner {
       .logo {
@@ -532,11 +581,11 @@ header {
         }
 
         .icon {
-          width: 18px;
-          height: 18px;
+          position: relative;
+          width: 24px;
+          height: 24px;
           font-size: 0px;
           color: transparent;
-          overflow: hidden;
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -545,10 +594,12 @@ header {
 
           &.--contact {
             @include icon-mail($black);
+            background-size: 18px 18px;
           }
 
           &.--accessibility {
             @include icon-accessibility($black);
+            background-size: 18px 18px;
           }
         }
       }

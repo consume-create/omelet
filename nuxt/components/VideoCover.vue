@@ -30,7 +30,10 @@
 </template>
 
 <script setup>
+import { useSiteStore } from '~/stores/store';
 import { vueVimeoPlayer } from 'vue-vimeo-player';
+
+const store = useSiteStore();
 
 // Props
 const props = defineProps({
@@ -118,6 +121,11 @@ function onResize() {
   state.player_width = new_width + 2;
   state.player_height = new_height + 2;
 }
+
+// Watchers
+watch(() => store.accessibility, (newValue, oldValue) => {
+  console.log('OML_ACC::', newValue);
+});
 </script>
 
 <style lang='scss'>
