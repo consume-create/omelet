@@ -44,7 +44,7 @@
     <div class="gutter">
       <NuxtLink class="logo" to="/">Omelet</NuxtLink>
       <ul class="legals nav-a2">
-        <li>{{ store.copyright }}</li>
+        <li v-html="formatCopyright" />
       </ul>
     </div>
   </footer>
@@ -65,6 +65,11 @@ const formatLines = computed(() => {
   });
 
   return html;
+});
+
+const formatCopyright = computed(() => {
+  let label = store.copyright.replace('®', '<span class="reg">®</span>');
+  return label;
 });
 </script>
 

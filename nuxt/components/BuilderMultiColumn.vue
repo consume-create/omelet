@@ -1,5 +1,5 @@
 <template>
-  <section class="builder-mulit-column pad-bl">
+  <section class="builder-multi-column pad-bl">
     <div class="gutter">
       <div class="cols" :class="[ `cols-${items.length}` ]">
         <div v-for="(item, index) in items" class="col" :class="[ item.type ]" :key="index">
@@ -21,14 +21,12 @@ const props = defineProps({
 </script>
 
 <style lang='scss'>
-.builder-mulit-column {
+.builder-multi-column {
   position: relative;
   overflow: hidden;
 
   .cols {
     .col {
-      width: 100%;
-
       &:not(:last-child) {
         margin-bottom: $space-s;
       }
@@ -39,7 +37,22 @@ const props = defineProps({
         background-color: $black;
         overflow: hidden;
       }
+
+      &.textColumn {
+        margin-left: calc(#{span(1)} - #{$space-s});
+        margin-right: calc(#{span(1)} - #{$space-s});
+      }
     }
+
+    // &.cols-2 {
+    //   .col.textColumn:nth-child(1) {
+    //     margin-bottom: span(2);
+    //   }
+    //
+    //   .col.textColumn:nth-child(2) {
+    //     margin-top: span(2);
+    //   }
+    // }
   }
 
   @include respond-to($tablet) {
@@ -69,12 +82,16 @@ const props = defineProps({
 
         .col.textColumn:nth-child(1) {
           width: calc(50% - #{span(1)});
+          margin-left: 0px;
           margin-right: auto;
+          margin-bottom: 0px;
         }
 
         .col.textColumn:nth-child(2) {
           width: calc(50% - #{span(1)});
           margin-left: auto;
+          margin-right: 0px;
+          margin-top: 0px;
         }
       }
 
@@ -89,6 +106,11 @@ const props = defineProps({
       .col {
         &:not(:last-child) {
           margin-bottom: 0px;
+        }
+
+        &.textColumn {
+          margin-left: 0;
+          margin-right: 0;
         }
       }
     }
