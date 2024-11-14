@@ -16,11 +16,11 @@
           </Slide>
         </Carousel>
         <div class="carousel-controls pad-t">
-          <div class="arrow --prev" @click="onClickPrev" />
+          <div class="arrow --prev" :class="{'--disabled': state.current_index === 0}" @click="onClickPrev" />
           <ul>
             <li v-for="(slide, index) in slides" :class="{'--active': state.current_index === index}" :key="index" @click="onClickPagination(index)" />
           </ul>
-          <div class="arrow --next" @click="onClickNext" />
+          <div class="arrow --next" :class="{'--disabled': state.current_index === slides.length - 1}" @click="onClickNext" />
         </div>
       </div>
     </div>
@@ -120,9 +120,15 @@ function onClickPagination(index) {
         margin: 0 $space-s;
         @include arrow($black);
         cursor: pointer;
+        transition: opacity $speed-333 $ease-out;
 
         &.--prev {
           transform: rotate(180deg);
+        }
+
+        &.--disabled {
+          opacity: 0.3;
+          pointer-events: none;
         }
       }
 
