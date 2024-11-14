@@ -26,13 +26,13 @@ const props = defineProps({
     overflow: hidden;
   }
 
-  @include respond-to($average-desktop) {
+  @include respond-to($large-tablet) {
     .gutter {
       margin: 0 span(1);
     }
   }
 
-  @include respond-to($macbook) {
+  @include respond-to($desktop) {
     .gutter {
       margin: 0 span(2);
     }
