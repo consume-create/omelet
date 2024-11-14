@@ -24,8 +24,13 @@
 </template>
 
 <script setup>
+import { ref, defineExpose } from 'vue';
 import { useSiteStore } from '~/stores/store';
 import { vueVimeoPlayer } from 'vue-vimeo-player';
+
+defineExpose({
+  carouselSlideChange
+});
 
 const store = useSiteStore();
 
@@ -128,6 +133,16 @@ function onResize() {
   state.player_width = new_width + 2;
   state.player_height = new_height + 2;
 }
+
+function carouselSlideChange() {
+  if (props.controls || store.accessibility) {
+    if (player) {
+      player.value.pause();
+    }
+
+    state.playing_mode = false;
+  }
+};
 
 // Watchers
 watch(() => store.accessibility, (newValue, oldValue) => {

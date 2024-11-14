@@ -11,8 +11,8 @@
         >
           <Slide v-for="(slide, index) in slides" :key="index">
             <ResponsiveImage v-if="slide.type === 'singleImage'" v-bind="slide.image" :alt="slide.image.filename" />
-            <VideoCover v-if="slide.type === 'videoLoop'" :vimeo="slide.vimeo" :cover="true" />
-            <VideoCover v-if="slide.type === 'videoPlayer'" :vimeo="slide.vimeo" :cover="true" :controls="true" />
+            <VideoCover v-if="slide.type === 'videoLoop'" :vimeo="slide.vimeo" :cover="true" :key="index" ref="videoSlides" />
+            <VideoCover v-if="slide.type === 'videoPlayer'" :vimeo="slide.vimeo" :cover="true" :controls="true" :key="index" ref="videoSlides" />
           </Slide>
         </Carousel>
         <div class="carousel-controls pad-t">
@@ -37,6 +37,7 @@ const props = defineProps({
     type: Array
   }
 });
+const videoSlides = ref([]);
 const carousel = ref(null);
 const state = reactive({
   current_index: 0
@@ -45,6 +46,9 @@ const state = reactive({
 // Methods
 function handleSlideEnd(data) {
   state.current_index = data.currentSlideIndex;
+  videoSlides.value.forEach((slide, index) => {
+    slide.carouselSlideChange();
+  });
 }
 
 function onClickPrev() {
