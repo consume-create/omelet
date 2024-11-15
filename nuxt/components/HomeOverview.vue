@@ -299,15 +299,48 @@ section#overview {
   }
 
   .text-block {
-    margin: span(-1) span(1) 0px span(2.5);
+    width: span(10);
+    margin: span(-1) auto 0px 0;
+    padding: span(0.5) 0 0 0;
     display: flex;
     flex-direction: column;
-    padding: span(0.5) 0 0 span(0.5);
     //border: 1px solid #f00;
 
+    h3 {
+      width: span(10);
+      margin-left: $space-s;
+    }
+
     .copy {
+      width: span(10);
+      margin-left: span(3);
+
       p {
         margin-top: $space-m;
+      }
+    }
+  }
+
+  @include respond-to($small-tablet) {
+    .text-block {
+      width: auto;
+      margin: span(-1) span(1) 0px span(2.5);
+      padding: span(0.5) 0 0 span(0.5);
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        width: auto;
+        margin-left: 0px;
+      }
+
+      .copy {
+        width: auto;
+        margin-left: 0px;
+
+        p {
+          margin-top: $space-m;
+        }
       }
     }
   }
@@ -322,7 +355,7 @@ section#overview {
     }
 
     .text-block {
-      margin: span(-1) span(1) 0px span(6);
+      margin: span(-1) span(1) 0px span(6.5);
     }
   }
 

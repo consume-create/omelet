@@ -9,7 +9,7 @@
           </div>
         </div>
       </div>
-      <div class="contact-info">
+      <div id="contact" class="contact-info">
         <h4>{{ store.footer_title }}</h4>
         <div class="cols">
           <div class="col">

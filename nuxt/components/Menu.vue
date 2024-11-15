@@ -17,7 +17,7 @@
             </ul>
             <ul>
               <li>
-                <NuxtLink class="icon --contact" to="mailto:hello@omelet.com" target="_blank">hello@omelet.com</NuxtLink>
+                <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" @click.native="store.setMenuClose()" />
               </li>
             </ul>
           </div>

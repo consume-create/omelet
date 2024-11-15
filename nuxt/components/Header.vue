@@ -14,7 +14,7 @@
       </nav>
       <nav id="primary-nav">
         <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ path: '/', hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
-        <NuxtLink class="icon --contact" :to="`mailto:${store.general_email}`" target="_blank">{{ store.general_email }}</NuxtLink>
+        <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" />
         <div class="icon --accessibility marg-r" :class="{'--enabled': store.accessibility}" @click="onClickAccessibility">Accessibility</div>
       </nav>
     </div>
