@@ -20,14 +20,8 @@
           1440: { itemsToShow: 3 }
         }"
       >
-        <Slide v-for="(member, index) in members" :key="index">
-          <div class="inner">
-            <div class="image-holder">
-              <ResponsiveImage v-bind="member.image" :alt="member.name" />
-            </div>
-            <p class="fs-p4">{{ member.name }}</p>
-            <p class="fs-p4 reg">{{ member.title }}</p>
-          </div>
+        <Slide v-for="(member, index) in team_members" :key="index">
+          <HomeTeamMember :member="member" />
         </Slide>
       </Carousel>
     </div>
@@ -35,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
@@ -50,6 +44,7 @@ const props = defineProps({
 });
 
 const teamCarousel = ref(null);
+const team_members = ref(props.members);
 </script>
 
 <style lang='scss'>
@@ -139,6 +134,20 @@ section#leadership {
                       img {
                         object-position: 50% 100%;
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.--hover {
+            .image-holder {
+              .responsive-image-wrapper {
+                &.--fill {
+                  picture.responsive-image-picture {
+                    img {
+                      object-position: 50% 100%;
                     }
                   }
                 }
