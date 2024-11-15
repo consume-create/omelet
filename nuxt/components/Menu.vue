@@ -5,7 +5,7 @@
         <div id="mobile-menu-content">
           <ul class="menu-nav gutter">
             <li v-for="item in store.site_nav">
-              <NuxtLink class="nav-item nav-a1 --alt" :to="{ path: '/', hash: `#${item.id}` }" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
+              <NuxtLink class="nav-item nav-a1 --alt" :to="`/?${item.id}`" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
             </li>
           </ul>
           <div class="smiley gutter"></div>
@@ -17,7 +17,7 @@
             </ul>
             <ul>
               <li>
-                <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" @click.native="onClickNavItem('contact')" />
+                <NuxtLink class="icon --contact" to="/?contact" @click.native="onClickNavItem('contact')" />
               </li>
             </ul>
           </div>
