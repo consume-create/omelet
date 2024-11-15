@@ -1,6 +1,6 @@
 <template>
   <section class="hero-section pad-bl">
-    <div class="hero-section-inner bg-green">
+    <div class="hero-section-inner">
       <div class="hero-media">
         <ResponsiveImage v-if="media.type === 'singleImage'" v-bind="media.image" :alt="title" />
         <VideoCover v-if="media.type !== 'singleImage' && video" :vimeo="video.vimeo" :cover="true" :hero="true" />
@@ -70,6 +70,7 @@ section.hero-section {
 
   .hero-section-inner {
     position: relative;
+    background-color: $black;
   }
 
   .hero-media {
