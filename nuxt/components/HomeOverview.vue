@@ -299,22 +299,14 @@ section#overview {
   }
 
   .text-block {
-    width: span(10);
-    margin: span(-1) auto 0px 0;
+    width: calc(#{span(13)} - #{$space-s});
+    margin: span(-1) auto 0px $space-s;
     padding: span(0.5) 0 0 0;
     display: flex;
     flex-direction: column;
     //border: 1px solid #f00;
 
-    h3 {
-      width: span(10);
-      margin-left: $space-s;
-    }
-
     .copy {
-      width: span(10);
-      margin-left: span(3);
-
       p {
         margin-top: $space-m;
       }
@@ -329,15 +321,7 @@ section#overview {
       display: flex;
       flex-direction: column;
 
-      h3 {
-        width: auto;
-        margin-left: 0px;
-      }
-
       .copy {
-        width: auto;
-        margin-left: 0px;
-
         p {
           margin-top: $space-m;
         }
