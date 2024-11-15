@@ -21,6 +21,7 @@ export const useSiteStore = defineStore('site', {
     social_links: [],
     copyright: '',
     case_studies: [],
+    hide_header: false,
     menu_open: false,
     dark_mode: false,
     site_nav: [
@@ -39,6 +40,12 @@ export const useSiteStore = defineStore('site', {
     },
     setLoaderComplete() {
       this.loader = false;
+    },
+    setHideHeader() {
+      this.hide_header = true;
+    },
+    setShowHeader() {
+      this.hide_header = false;
     },
     setMenuOpen() {
       this.menu_open = true;

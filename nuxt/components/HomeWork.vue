@@ -1,5 +1,5 @@
 <template>
-  <section id="work" class="pad-t">
+  <section id="work-section" class="pad-t">
     <div class="title-block gutter">
       <h3 class="pad-b">{{ title }}</h3>
     </div>
@@ -127,7 +127,7 @@ function listItemDirection(e, index) {
 </script>
 
 <style lang='scss'>
-section#work {
+section#work-section {
   width: 100%;
   padding-bottom: span(2);
   overflow: hidden;

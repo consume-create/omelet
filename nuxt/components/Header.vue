@@ -1,7 +1,7 @@
 <template>
-  <header :class="{'--hidden': state.hidden, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
+  <header :class="{'--hidden': store.hide_header, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
     <div class="inner">
-      <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loader}" to="/" @click.native="store.setMenuClose()">
+      <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loader}" to="/" @click.native="onClickLogo">
         <span>O</span><span>M</span><span>E</span><span>L</span><span>E</span><span>T</span>
       </NuxtLink>
       <h1 class="pre" v-html="getTitleLines" />
@@ -13,8 +13,8 @@
         </div>
       </nav>
       <nav id="primary-nav">
-        <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ path: '/', hash: `#${item.id}` }">{{ item.label }}</NuxtLink>
-        <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" />
+        <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="{ path: '/', hash: `#${item.id}` }" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
+        <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" @click.native="onClickNavItem('contact')" />
         <div class="icon --accessibility marg-r" :class="{'--enabled': store.accessibility}" @click="onClickAccessibility">Accessibility</div>
       </nav>
     </div>
@@ -24,6 +24,7 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { useSiteStore } from '~/stores/store';
+import { smoothScrollTo } from '~/utils/smooth-scroll-to';
 
 const route = useRoute();
 const store = useSiteStore();
@@ -83,17 +84,17 @@ function onScroll() {
 
   if (state.event_horizon <= 1) {
     state.shield_mode = false;
-    state.hidden = false;
+    store.setShowHeader();
   } else {
     state.shield_mode = true;
 
     if (state.event_horizon - state.last_scroll >= 0) {
       state.diff_scroll = 0;
-      state.hidden = true;
+      store.setHideHeader();
     } else {
       state.diff_scroll = state.diff_scroll + 1;
       if (state.diff_scroll >= 1) {
-        state.hidden = false;
+        store.setShowHeader();
       }
 
       state.scrolling_cb = setTimeout(() => {
@@ -145,6 +146,23 @@ function turnAccessibilityOff() {
 function turnAccessibilityOn() {
   localStorage.setItem('OML_ACC', true);
   store.setAccessibilityOn();
+}
+
+function onClickLogo() {
+  store.setMenuClose();
+  if (route.name === 'index') {
+    smoothScrollTo(0);
+  }
+}
+
+function onClickNavItem(id) {
+  if (route.name === 'index') {
+    smoothScrollTo(document.getElementById(`${id}-section`), () => {
+      setTimeout(() => {
+        store.setHideHeader();
+      }, 27);
+    });
+  }
 }
 
 // Watchers

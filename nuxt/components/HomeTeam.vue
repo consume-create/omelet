@@ -1,5 +1,5 @@
 <template>
-  <section id="leadership" class="pad-t">
+  <section id="leadership-section" class="pad-t">
     <div class="title-block">
       <h3 class="pre">{{ title }}</h3>
     </div>
@@ -48,7 +48,7 @@ const team_members = ref(props.members);
 </script>
 
 <style lang='scss'>
-section#leadership {
+section#leadership-section {
   width: 100%;
   padding-bottom: span(2.5);
   overflow: hidden;

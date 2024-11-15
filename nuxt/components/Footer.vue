@@ -9,7 +9,7 @@
           </div>
         </div>
       </div>
-      <div id="contact" class="contact-info">
+      <div id="contact-section" class="contact-info">
         <h4>{{ store.footer_title }}</h4>
         <div class="cols">
           <div class="col">
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="gutter">
-      <NuxtLink class="logo" to="/">Omelet</NuxtLink>
+      <NuxtLink class="logo" to="/" @click.native="onClickLogo">Omelet</NuxtLink>
       <ul class="legals nav-a2">
         <li v-html="formatCopyright" />
       </ul>
@@ -52,7 +52,9 @@
 
 <script setup>
 import { useSiteStore } from '~/stores/store';
+import { smoothScrollTo } from '~/utils/smooth-scroll-to';
 
+const route = useRoute();
 const store = useSiteStore();
 const year = new Date().getFullYear();
 
@@ -71,6 +73,13 @@ const formatCopyright = computed(() => {
   let label = store.copyright.replace('®', '<span class="reg">®</span>');
   return label;
 });
+
+// Methods
+function onClickLogo() {
+  if (route.name === 'index') {
+    smoothScrollTo(0);
+  }
+}
 </script>
 
 <style lang='scss'>

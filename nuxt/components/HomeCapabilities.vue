@@ -1,5 +1,5 @@
 <template>
-  <section id="capabilities" class="pad-t">
+  <section id="capabilities-section" class="pad-t">
     <div class="title-block gutter">
       <h3 class="pre pad-b">{{ title }}</h3>
     </div>
@@ -57,7 +57,7 @@ const formatLines = computed(() => {
 </script>
 
 <style lang='scss'>
-section#capabilities {
+section#capabilities-section {
   width: 100%;
   padding-bottom: span(2.5);
   overflow: hidden;

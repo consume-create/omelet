@@ -5,7 +5,7 @@
         <div id="mobile-menu-content">
           <ul class="menu-nav gutter">
             <li v-for="item in store.site_nav">
-              <NuxtLink class="nav-item nav-a1 --alt" :to="{ path: '/', hash: `#${item.id}` }" @click.native="store.setMenuClose()">{{ item.label }}</NuxtLink>
+              <NuxtLink class="nav-item nav-a1 --alt" :to="{ path: '/', hash: `#${item.id}` }" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
             </li>
           </ul>
           <div class="smiley gutter"></div>
@@ -17,7 +17,7 @@
             </ul>
             <ul>
               <li>
-                <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" @click.native="store.setMenuClose()" />
+                <NuxtLink class="icon --contact" :to="{ path: '/', hash: '#contact'}" @click.native="onClickNavItem('contact')" />
               </li>
             </ul>
           </div>
@@ -29,8 +29,22 @@
 
 <script setup>
 import { useSiteStore } from '~/stores/store';
+import { smoothScrollTo } from '~/utils/smooth-scroll-to';
 
+const route = useRoute();
 const store = useSiteStore();
+
+// Methods
+function onClickNavItem(id) {
+  store.setMenuClose();
+  if (route.name === 'index') {
+    smoothScrollTo(document.getElementById(`${id}-section`), () => {
+      setTimeout(() => {
+        store.setHideHeader();
+      }, 27);
+    });
+  }
+}
 </script>
 
 <style lang='scss'>
