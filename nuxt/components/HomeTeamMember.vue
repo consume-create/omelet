@@ -1,7 +1,7 @@
 <template>
   <div class="inner" :class="{'--hover': state.active}" @click="onMobileClick(index)">
     <div class="image-holder">
-      <ResponsiveImage v-bind="member.image" :alt="member.name" />
+      <ResponsiveImage v-bind="member.image" :alt="member.image.alt ? member.image.alt : member.name" />
     </div>
     <p class="fs-p4">{{ member.name }}</p>
     <p class="fs-p4 reg">{{ member.title }}</p>

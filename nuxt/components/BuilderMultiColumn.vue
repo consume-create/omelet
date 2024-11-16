@@ -3,7 +3,7 @@
     <div class="gutter">
       <div class="cols" :class="[ `cols-${items.length}` ]">
         <div v-for="(item, index) in items" class="col" :class="[ item.type ]" :key="index">
-          <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" :alt="item.image.filename" />
+          <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" />
           <VideoCover v-if="item.type === 'videoLoop'" :vimeo="item.vimeo" :cover="true" />
           <RichTextContent v-if="item.type === 'textColumn'" :content="item.richtext" />
         </div>

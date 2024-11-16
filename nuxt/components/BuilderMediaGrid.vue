@@ -3,7 +3,7 @@
     <div class="gutter">
       <div class="grid">
         <div v-for="(item, index) in items" class="grid-item" :key="index">
-          <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" :alt="item.image.filename" />
+          <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" />
           <VideoCover v-if="item.type === 'videoLoop'" :vimeo="item.vimeo" :cover="true" />
         </div>
       </div>

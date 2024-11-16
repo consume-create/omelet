@@ -12,13 +12,13 @@
       />
     </div>
     <div class="video-poster" :class="{'--show': !state.playing_mode}">
-      <ResponsiveImage v-bind="poster" :alt="alt" />
+      <ResponsiveImage v-bind="poster" />
       <div v-if="controls || store.accessibility" class="play-btn" @click="clickToPlay">
         <span class="fs-p2">Play</span>
       </div>
     </div>
     <div v-if="hero && store.accessibility" class="video-poster --show force-poster">
-      <ResponsiveImage v-bind="poster" :alt="alt" />
+      <ResponsiveImage v-bind="poster" />
     </div>
   </div>
 </template>
@@ -78,9 +78,9 @@ const wrapper = ref();
 const poster = {
   src: props.vimeo.pictures.base_link.replace('?r=pad', '') + '_1920?r=rpad',
   width: props.vimeo.pictures.sizes.pop().width,
-  height: props.vimeo.pictures.sizes.pop().height
+  height: props.vimeo.pictures.sizes.pop().height,
+  alt: props.vimeo.name
 }
-const alt = props.vimeo.name;
 const vid = props.vimeo.id;
 
 // Mounted

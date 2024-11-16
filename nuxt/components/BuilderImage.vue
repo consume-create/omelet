@@ -2,7 +2,7 @@
   <section class="builder-image pad-bl">
     <div class="gutter">
       <div class="image-size" :style="{'aspectRatio': `${image.width}/${image.height}`}">
-        <ResponsiveImage v-bind="image" :alt="image.filename" />
+        <ResponsiveImage v-bind="image" />
       </div>
     </div>
   </section>

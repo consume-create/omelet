@@ -10,7 +10,7 @@
           @slide-end="handleSlideEnd"
         >
           <Slide v-for="(slide, index) in slides" :key="index">
-            <ResponsiveImage v-if="slide.type === 'singleImage'" v-bind="slide.image" :alt="slide.image.filename" />
+            <ResponsiveImage v-if="slide.type === 'singleImage'" v-bind="slide.image" />
             <VideoCover v-if="slide.type === 'videoLoop'" :vimeo="slide.vimeo" :cover="true" :key="index" ref="videoSlides" />
             <VideoCover v-if="slide.type === 'videoPlayer'" :vimeo="slide.vimeo" :cover="true" :controls="true" :key="index" ref="videoSlides" />
           </Slide>

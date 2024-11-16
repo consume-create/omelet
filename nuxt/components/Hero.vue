@@ -2,7 +2,7 @@
   <section class="hero-section pad-bl">
     <div class="hero-section-inner">
       <div class="hero-media">
-        <ResponsiveImage v-if="media.type === 'singleImage'" v-bind="media.image" :alt="title" />
+        <ResponsiveImage v-if="media.type === 'singleImage'" v-bind="media.image" />
         <VideoCover v-if="media.type !== 'singleImage' && video" :vimeo="video.vimeo" :cover="true" :hero="true" />
       </div>
       <div class="hero-title pad-b">

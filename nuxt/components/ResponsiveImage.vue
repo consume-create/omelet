@@ -12,7 +12,8 @@
       <source :srcset="src.endsWith('.png') ? generateSrcSet('png') : generateSrcSet('jpg')" :type="src.endsWith('.png') ? 'image/png' : 'image/jpeg'" :sizes="`${effectiveWidth}px`">
       <img
         :src="generateSrc()"
-        :alt="alt"
+        :title="[ dataTitle ]"
+        :alt="dataAlt ? dataAlt : dataFilename"
         :loading="isLazy ? 'lazy' : 'eager'"
         :sizes="`${effectiveWidth}px`"
         ref="image"
@@ -30,7 +31,13 @@ export default {
     src: {
       type: String
     },
-    alt: {
+    dataTitle: {
+      type: String
+    },
+    dataAlt: {
+      type: String
+    },
+    dataFilename: {
       type: String
     },
     width: {
@@ -230,6 +237,7 @@ export default {
 .responsive-image-wrapper {
   position: relative;
   user-select: none;
+  pointer-events: none;
 
   &.--fill {
     @include abs-fill;
