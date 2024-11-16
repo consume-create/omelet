@@ -12,7 +12,7 @@
       <source :srcset="src.endsWith('.png') ? generateSrcSet('png') : generateSrcSet('jpg')" :type="src.endsWith('.png') ? 'image/png' : 'image/jpeg'" :sizes="`${effectiveWidth}px`">
       <img
         :src="generateSrc()"
-        :title="[ dataTitle ]"
+        :title="dataTitle"
         :alt="dataAlt ? dataAlt : dataFilename"
         :loading="isLazy ? 'lazy' : 'eager'"
         :sizes="`${effectiveWidth}px`"
