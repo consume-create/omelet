@@ -118,7 +118,7 @@ onMounted(() => {
     }
   }
 
-  &.loader-leave-from {
+  &.loading-leave-from {
     transform: scale(1, 1);
 
     #loader-text {
@@ -128,7 +128,7 @@ onMounted(() => {
     }
   }
 
-  &.loader-leave-active {
+  &.loading-leave-active {
     transition: transform $speed-666 1.333s $evil-ease;
     transform-origin: 0 100%;
 
@@ -143,7 +143,7 @@ onMounted(() => {
     }
   }
 
-  &.loader-leave-to {
+  &.loading-leave-to {
     transform: scale(1, 0);
 
     #loader-text {

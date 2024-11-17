@@ -178,7 +178,7 @@ const getNextCta = computed(() => {
 });
 
 onMounted(() => {
-  if (store.loader) {
+  if (store.loading) {
     setTimeout(() => {
       store.setLoaderComplete();
     }, 1800);

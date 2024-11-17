@@ -1,7 +1,7 @@
 <template>
   <header :class="{'--hidden': store.hide_header, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
     <div class="inner">
-      <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loader}" to="/" @click.native="onClickLogo">
+      <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loading, 'reset': state.loading_cb}" to="/" @click.native="onClickLogo">
         <span>O</span><span>M</span><span>E</span><span>L</span><span>E</span><span>T</span>
       </NuxtLink>
       <h1 class="pre" v-html="getTitleLines" />
@@ -34,7 +34,8 @@ const state = reactive({
   last_scroll: 0,
   hidden: false,
   shield_mode: false,
-  scrolling_cb: false
+  scrolling_cb: false,
+  loading_cb: false
 });
 const header_title = ref(store.header_title);
 
@@ -170,6 +171,14 @@ watch(route, () => {
   store.setMenuClose();
   checkRoute();
 });
+
+watch(() => store.loading, (newValue, oldValue) => {
+  if (!newValue) {
+    setTimeout(() => {
+      state.loading_cb = true;
+    }, 3021);
+  }
+});
 </script>
 
 <style lang='scss'>
@@ -192,8 +201,20 @@ header {
 
     .inner {
       .logo {
-        span {
-          @include omelet-logo($white);
+        &.appear {
+          span {
+            @include omelet-logo($white);
+          }
+        }
+
+        &.reset {
+          &:before {
+            opacity: 0;
+          }
+
+          &:after {
+            opacity: 1;
+          }
         }
       }
 
@@ -323,6 +344,31 @@ header {
       &.appear {
         span {
           transform: translate(0, 0);
+        }
+      }
+
+      &.reset {
+        &:before,
+        &:after {
+          content: '';
+          @include abs-fill;
+          background-size: 104px 20px;
+          background-position: 0px 0px;
+          transition: opacity $speed-666 $evil-ease;
+        }
+
+        &:before {
+          @include omelet-logo($black);
+          opacity: 1;
+        }
+
+        &:after {
+          @include omelet-logo($white);
+          opacity: 0;
+        }
+
+        span {
+          display: none;
         }
       }
 
@@ -520,37 +566,46 @@ header {
         width: 122px;
         height: 24px;
 
-        span {
-          background-size: 122px 24px !important;
+        &.appear {
+          span {
+            background-size: 122px 24px !important;
 
-          &:nth-child(1) {
-            width: 24px;
-            background-position: 0px 0px !important;
+            &:nth-child(1) {
+              width: 24px;
+              background-position: 0px 0px !important;
+            }
+
+            &:nth-child(2) {
+              width: 29px;
+              background-position: -24px 0px !important;
+            }
+
+            &:nth-child(3) {
+              width: 16px;
+              background-position: -53px 0px !important;
+            }
+
+            &:nth-child(4) {
+              width: 16px;
+              background-position: -69px 0px !important;
+            }
+
+            &:nth-child(5) {
+              width: 17px;
+              background-position: -85px 0px !important;
+            }
+
+            &:nth-child(6) {
+              width: 20px;
+              background-position: -102px 0px !important;
+            }
           }
+        }
 
-          &:nth-child(2) {
-            width: 29px;
-            background-position: -24px 0px !important;
-          }
-
-          &:nth-child(3) {
-            width: 16px;
-            background-position: -53px 0px !important;
-          }
-
-          &:nth-child(4) {
-            width: 16px;
-            background-position: -69px 0px !important;
-          }
-
-          &:nth-child(5) {
-            width: 17px;
-            background-position: -85px 0px !important;
-          }
-
-          &:nth-child(6) {
-            width: 20px;
-            background-position: -102px 0px !important;
+        &.reset {
+          &:before,
+          &:after {
+            background-size: 122px 24px;
           }
         }
       }

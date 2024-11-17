@@ -118,10 +118,6 @@ h1 {
   .bold {
     font-family: $poppins-semi-bold;
   }
-
-  @include respond-to($tablet) {
-    line-height: 1.2em;
-  }
 }
 
 h2 {

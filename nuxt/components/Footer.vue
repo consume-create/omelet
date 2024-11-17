@@ -200,6 +200,8 @@ footer {
       color: transparent;
       overflow: hidden;
       @include omelet-logo($black);
+      background-position: 0% 50%;
+      background-size: contain;
       display: flex;
       flex-shrink: 0;
     }

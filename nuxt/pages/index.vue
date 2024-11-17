@@ -78,7 +78,7 @@ const homeQuery = groq`*[(_type == "index")][0]{
 const pageData = await useSanityData({ query: homeQuery });
 
 onMounted(() => {
-  if (store.loader) {
+  if (store.loading) {
     setTimeout(() => {
       store.setLoaderComplete();
       setTimeout(() => {

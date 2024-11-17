@@ -1,7 +1,7 @@
 <template>
   <div>
-    <transition name="loader" :duration="2100">
-      <Loader v-if="store.loader" />
+    <transition name="loading" :duration="2100">
+      <Loader v-if="store.loading" />
     </transition>
     <GridOverlay />
     <!-- <DevOnly>

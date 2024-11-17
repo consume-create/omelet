@@ -4,7 +4,7 @@ import { typeFilter, imageProps } from '~/utils/groq-common';
 export const useSiteStore = defineStore('site', {
   state: () => ({
     accessibility: false,
-    loader: true,
+    loading: true,
     site_name: '',
     site_seo_description: '',
     site_seo_image: '',
@@ -39,7 +39,7 @@ export const useSiteStore = defineStore('site', {
       this.accessibility = true;
     },
     setLoaderComplete() {
-      this.loader = false;
+      this.loading = false;
     },
     setHideHeader() {
       this.hide_header = true;
