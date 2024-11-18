@@ -64,14 +64,23 @@ function updateScrollbarWidth() {
   opacity: 0;
 }
 
-// Test page transition
-.scale-enter-active,
-.scale-leave-active {
-  transition: opacity 2s $evil-ease, transform 2s $evil-ease;
+// Directional page transition
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity $speed-666 $evil-ease, transform $speed-666 $evil-ease;
 }
-.scale-enter-from,
-.scale-leave-to {
+
+.slide-left-enter-from,
+.slide-right-leave-to {
   opacity: 0;
-  transform: scale(0.5);
+  transform: translateX(#{span(2)});
+}
+
+.slide-right-enter-from,
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(#{span(-2)});
 }
 </style>
