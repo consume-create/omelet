@@ -155,15 +155,6 @@ export default defineType({
       name: 'instagram',
       title: 'Instagram URL',
       type: 'url'
-    }),
-    defineField({
-      fieldset: 'legal',
-      name: 'copyright',
-      title: 'Copyright Info',
-      type: 'string',
-      validation: [
-        Rule => Rule.required()
-      ]
     })
   ]
 });

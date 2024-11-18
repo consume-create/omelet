@@ -19,7 +19,6 @@ export const useSiteStore = defineStore('site', {
     address_link: '',
     phone_number: '',
     social_links: [],
-    copyright: '',
     case_studies: [],
     hide_header: false,
     menu_open: false,
@@ -78,8 +77,7 @@ export const useSiteStore = defineStore('site', {
           addressLink,
           phoneNumber,
           linkedin,
-          instagram,
-          copyright
+          instagram
         },
         'index': ${typeFilter('index')} {
           caseStudies[]-> {
@@ -120,9 +118,6 @@ export const useSiteStore = defineStore('site', {
       if (arr.length > 0) {
         this.social_links = Object.freeze(arr);
       }
-
-      // Legal settings...
-      this.copyright = site_data.copyright;
 
       // Case Studies...
       this.case_studies = home_data.caseStudies;

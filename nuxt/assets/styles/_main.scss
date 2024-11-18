@@ -35,17 +35,6 @@ body {
   }
 }
 
-.page-enter-active,
-.page-leave-active {
-  transition: opacity $speed-666 $ease-out, transform $speed-666 $ease-out;
-}
-
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  // transform: translateY($header-height);
-}
-
 // --------------------------------------------
 // Links
 // --------------------------------------------

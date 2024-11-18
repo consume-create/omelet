@@ -51,3 +51,27 @@ function updateScrollbarWidth() {
   document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
 };
 </script>
+
+<style lang='scss'>
+// Default page transition
+.page-enter-active,
+.page-leave-active {
+  transition: opacity $speed-666 $evil-ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+// Test page transition
+.scale-enter-active,
+.scale-leave-active {
+  transition: opacity 2s $evil-ease, transform 2s $evil-ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
+}
+</style>

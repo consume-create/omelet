@@ -44,7 +44,7 @@
     <div class="gutter">
       <NuxtLink class="logo" to="/" @click.native="onClickLogo">Omelet</NuxtLink>
       <ul class="legals nav-a2">
-        <li v-html="formatCopyright" />
+        <li><span class="tm r" />,&nbsp;<span class="tm c" />,&nbsp;Omelet, LLC. All rights reserved.</li>
       </ul>
     </div>
   </footer>
@@ -67,11 +67,6 @@ const formatLines = computed(() => {
   });
 
   return html;
-});
-
-const formatCopyright = computed(() => {
-  let label = store.copyright.replace('®', '<span class="reg">®</span>');
-  return label;
 });
 
 // Methods
@@ -212,6 +207,25 @@ footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      li {
+        display: inline-flex;
+        align-items: center;
+
+        span.tm {
+          width: 8px;
+          height: 8px;
+          display: inline-flex;
+
+          &.r {
+            @include registered($black);
+          }
+
+          &.c {
+            @include copyright($black);
+          }
+        }
+      }
     }
   }
 
