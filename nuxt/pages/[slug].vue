@@ -177,6 +177,28 @@ const getNextCta = computed(() => {
   return next_case_study;
 });
 
+const seo_title = `${pageData.value.title} | ${store.site_name}`;
+const seo_description = pageData.value.subtitle ? pageData.value.subtitle : store.site_seo_description;
+const hero_media = pageData.value.heroMedia[0];
+const seo_url = `https://www.omelet.com/${route.params.slug}`;
+let seo_image = store.site_seo_image;
+
+if (hero_media.type !== 'singleImage') {
+  seo_image = hero_media.vimeo.pictures.base_link.replace('?r=pad', '') + '_1920?r=rpad';
+} else {
+  seo_image = hero_media.image.src;
+}
+
+// Composables
+useSeoMeta({
+  title: seo_title,
+  ogTitle: seo_title,
+  description: seo_description,
+  ogDescription: seo_description,
+  ogImage: seo_image,
+  ogUrl: seo_url
+})
+
 onMounted(() => {
   if (store.loading) {
     setTimeout(() => {
