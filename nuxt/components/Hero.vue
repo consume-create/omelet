@@ -22,7 +22,6 @@
 <script setup>
 import { ref } from 'vue';
 import { useSiteStore } from '~/stores/store';
-import { findIndex as _findIndex } from 'lodash';
 
 const route = useRoute();
 const store = useSiteStore();
@@ -51,13 +50,13 @@ if (props.media.type !== 'singleImage') {
 
 // Computed
 const getPrevSlug = computed(() => {
-  const current_index = _findIndex(store.case_studies, {'slug': route.params.slug});
+  const current_index = store.case_studies.findIndex(cs => cs.slug === route.params.slug);
   const prev_slug = current_index > 0 ? store.case_studies[current_index - 1].slug : store.case_studies[store.case_studies.length - 1 ].slug;
   return prev_slug;
 });
 
 const getNextSlug = computed(() => {
-  const current_index = _findIndex(store.case_studies, {'slug': route.params.slug});
+  const current_index = store.case_studies.findIndex(cs => cs.slug === route.params.slug);
   const next_slug = current_index < store.case_studies.length - 1 ? store.case_studies[current_index + 1].slug : store.case_studies[0].slug;
   return next_slug;
 });
