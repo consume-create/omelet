@@ -17,17 +17,17 @@
               <p class="fs-p4">{{ store.general_label }}</p>
               <div class="row">
                 <NuxtLink class="fs-p2 underline" :to="`mailto:${store.general_email}`" target="_blank">{{ store.general_email }}</NuxtLink>
-                <NuxtLink class="icon" :to="store.social_links[0]" target="_blank">{{ store.social_links[0] }}</NuxtLink>
+                <NuxtLink class="icon" :to="store.social_links[0].url" target="_blank">{{ store.social_links[0].label }}</NuxtLink>
               </div>
             </div>
             <div class="email-block">
               <p class="fs-p4">{{ store.business_label }}</p>
               <div class="row">
                 <NuxtLink class="fs-p2 underline" :to="`mailto:${store.business_email}`" target="_blank">{{ store.business_email }}</NuxtLink>
-                <NuxtLink class="icon" :to="store.social_links[1]" target="_blank">{{ store.social_links[1] }}</NuxtLink>
+                <NuxtLink class="icon" :to="store.social_links[1].url" target="_blank">{{ store.social_links[1].label }}</NuxtLink>
               </div>
             </div>
-            <NuxtLink class="col-icon" :to="store.social_links[0]" target="_blank">{{ store.social_links[0] }}</NuxtLink>
+            <NuxtLink class="col-icon" :to="store.social_links[0].url" target="_blank">{{ store.social_links[0].label }}</NuxtLink>
           </div>
           <div class="col">
             <div class="block">
@@ -36,7 +36,7 @@
             <div class="block">
               <NuxtLink class="underline" :to="`tel:${store.phone_number}`" target="_blank">{{ store.phone_number }}</NuxtLink>
             </div>
-            <NuxtLink class="col-icon" :to="store.social_links[1]" target="_blank">{{ store.social_links[1] }}</NuxtLink>
+            <NuxtLink class="col-icon" :to="store.social_links[1].url" target="_blank">{{ store.social_links[1].label }}</NuxtLink>
           </div>
         </div>
       </div>

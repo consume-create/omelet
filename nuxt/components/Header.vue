@@ -2,7 +2,7 @@
   <header :class="{'--hidden': store.hide_header, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}">
     <div class="inner">
       <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loading, 'reset': state.loading_cb}" to="/" @click.native="onClickLogo">
-        <span>O</span><span>M</span><span>E</span><span>L</span><span>E</span><span>T</span>
+        Omelet<span /><span /><span /><span /><span /><span />
       </NuxtLink>
       <h1 class="pre" v-html="getTitleLines" />
       <nav id="mobile-nav" class="marg-r">

@@ -12,7 +12,7 @@
           <div class="menu-footer">
             <ul>
               <li v-for="link in store.social_links">
-                <NuxtLink class="icon" :to="link" target="_blank">{{ link }}</NuxtLink>
+                <NuxtLink class="icon" :to="link.url" target="_blank">{{ link.label }}</NuxtLink>
               </li>
             </ul>
             <ul>

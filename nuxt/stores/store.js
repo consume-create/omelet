@@ -124,8 +124,13 @@ export const useSiteStore = defineStore('site', {
       this.phone_number = site_data.phoneNumber;
 
       // Build social links based on fields with values...
-      let vals = [site_data.linkedin, site_data.instagram],
-          arr = vals.filter(Boolean);
+      let arr = [];
+      if (site_data.linkedin) {
+        arr.push({ 'label': `Visit our LinkedIn profile at ${site_data.linkedin}`, 'url': site_data.linkedin });
+      }
+      if (site_data.instagram) {
+        arr.push({ 'label': `Visit our Instagram account at ${site_data.instagram}`, 'url': site_data.instagram });
+      }
 
       if (arr.length > 0) {
         this.social_links = Object.freeze(arr);
