@@ -1,6 +1,6 @@
 <template>
   <div ref="wrapper" class="video-cover-wrapper" :class="{'--no-controls': !controls}">
-    <div class="video-holder" :class="{'--show': state.playing_mode, '--cover': cover}" :style="[cover && {'width': `${state.player_width}px`, 'height': `${state.player_height}px`}]">
+    <div class="video-holder" :title="poster.alt" :class="{'--show': state.playing_mode, '--cover': cover}" :style="[cover && {'width': `${state.player_width}px`, 'height': `${state.player_height}px`}]">
       <client-only>
         <vueVimeoPlayer ref="player"
           :video-id="vid"

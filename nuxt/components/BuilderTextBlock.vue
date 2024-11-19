@@ -47,36 +47,40 @@ const props = defineProps({
 
         span {
           display: inline-flex;
+          align-items: center;
 
           &:not(:last-child) {
             &:after {
-              content: '+';
-              margin: 0 0.5em;
+              content: '';
+              width: 8px;
+              height: 8px;
+              margin: -0.05em 0.5em 0;
               display: inline-flex;
+              align-items: center;
             }
           }
 
           &:nth-child(4n-1) {
             &:after {
-              color: $gold;
+              @include plus($gold);
             }
           }
 
           &:nth-child(4n-2) {
             &:after {
-              color: $green;
+              @include plus($green);
             }
           }
 
           &:nth-child(4n-3) {
             &:after {
-              color: $orange;
+              @include plus($orange);
             }
           }
 
           &:nth-child(4n-4) {
             &:after {
-              color: $purple;
+              @include plus($purple);
             }
           }
         }
