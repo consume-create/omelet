@@ -97,8 +97,16 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/sanity',
     '@nuxtjs/sitemap',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'nuxt-gtag'
   ],
+  //
+  // Gtag
+  //
+  gtag: {
+    enabled: process.env.NODE_ENV === 'production',
+    id: 'G-TP7N3YB342'
+  },
   //
   // Sanity
   //
