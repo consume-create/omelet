@@ -256,10 +256,22 @@ header {
         .icon {
           &.--contact {
             @include icon-mail($white);
+            background-size: 16px 16px;
           }
 
           &.--accessibility {
             @include icon-accessibility($white);
+            background-size: 16px 16px;
+          }
+
+          @include respond-to($tablet) {
+            &.--contact {
+              background-size: 18px 18px;
+            }
+
+            &.--accessibility {
+              background-size: 18px 18px;
+            }
           }
         }
       }
