@@ -2,7 +2,7 @@
   <div id="mobile-menu" :class="{'--menu-mode': store.menu_open}">
     <div id="mobile-menu-inner">
       <div id="mobile-menu-mask">
-        <div id="mobile-menu-content">
+        <div id="mobile-menu-content" ref="contentRef">
           <ul class="menu-nav gutter">
             <li v-for="item in store.site_nav">
               <NuxtLink class="nav-item nav-a1 --alt" :to="`/?${item.id}`" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
@@ -28,11 +28,28 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useSiteStore } from '~/stores/store';
 import { smoothScrollTo } from '~/utils/smooth-scroll-to';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 const route = useRoute();
 const store = useSiteStore();
+const contentRef = ref(null);
+
+// Mounted
+onMounted(() => {
+  if (contentRef.value) {
+    disableBodyScroll(contentRef.value);
+  }
+});
+
+// Before Unmount
+onBeforeUnmount(() => {
+  if (contentRef.value) {
+    enableBodyScroll(contentRef.value);
+  }
+});
 
 // Methods
 function onClickNavItem(id) {
@@ -106,7 +123,6 @@ function onClickNavItem(id) {
     left: 0px;
     right: 0px;
     bottom: 0px;
-    min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -127,18 +143,27 @@ function onClickNavItem(id) {
     }
 
     .smiley {
-      margin-top: auto;
-      margin-bottom: auto;
-      @include shape-smiley($green);
-      display: flex;
-      flex: 1 0 auto;
+      display: none;
+
+      @include respond-to($portrait) {
+        min-height: 200px;
+        margin-top: auto;
+        margin-bottom: auto;
+        @include shape-smiley($green);
+        display: flex;
+        flex: 1 0 auto;
+      }
     }
 
     .menu-footer {
-      padding: span(1.5) span(1) span(1);
+      padding: span(1.5) $space-s $space-s;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
+      @include respond-to($portrait) {
+        padding: span(1.5) span(1) span(1);
+      }
 
       ul {
         margin: 0 -14px;

@@ -1,5 +1,5 @@
 <template>
-  <header :class="{'--hidden': store.hide_header, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}" v-scroll-lock="store.menu_open">
+  <header :class="{'--hidden': store.hide_header, '--shield': state.shield_mode, '--dark-mode': store.dark_mode, '--menu-mode': store.menu_open}">
     <div class="inner">
       <NuxtLink :class="{'logo': true, 'marg-l': true, 'appear': !store.loading, 'reset': state.loading_cb}" to="/" @click.native="onClickLogo">
         <span>O</span><span>M</span><span>E</span><span>L</span><span>E</span><span>T</span>
@@ -14,7 +14,7 @@
       </nav>
       <nav id="primary-nav">
         <NuxtLink v-for="item in store.site_nav" class="nav-item nav-a1" :to="`/?${item.id}`" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
-        <NuxtLink class="icon --contact" to="/contact" @click.native="onClickNavItem('contact')" />
+        <NuxtLink class="icon --contact" to="/?contact" @click.native="onClickNavItem('contact')" />
         <div class="icon --accessibility marg-r" :class="{'--enabled': store.accessibility}" @click="onClickAccessibility">Accessibility</div>
       </nav>
     </div>
