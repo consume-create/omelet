@@ -150,10 +150,14 @@ function turnAccessibilityOn() {
 }
 
 function onClickLogo() {
-  store.setMenuClose();
   if (route.name === 'index') {
     smoothScrollTo(0);
+  } else {
+    if (store.menu_open) {
+      store.setPageChangeFromMenu(true);
+    }
   }
+  store.setMenuClose();
 }
 
 function onClickNavItem(id) {
@@ -169,6 +173,7 @@ function onClickNavItem(id) {
 // Watchers
 watch(route, () => {
   store.setMenuClose();
+  store.setPageChangeFromMenu(false);
   checkRoute();
 });
 

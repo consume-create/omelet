@@ -5,6 +5,9 @@ export const useSiteStore = defineStore('site', {
   state: () => ({
     accessibility: false,
     loading: true,
+    page_mask: false,
+    page_mask_name: 'slide-left',
+    page_change_from_menu: false,
     site_name: '',
     site_seo_description: '',
     site_seo_image: '',
@@ -39,6 +42,15 @@ export const useSiteStore = defineStore('site', {
     },
     setLoaderComplete() {
       this.loading = false;
+    },
+    setPageMask(val) {
+      this.page_mask = val;
+    },
+    setPageMaskName(val) {
+      this.page_mask_name = val;
+    },
+    setPageChangeFromMenu(val) {
+      this.page_change_from_menu = val;
     },
     setHideHeader() {
       this.hide_header = true;

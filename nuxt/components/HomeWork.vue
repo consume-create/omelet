@@ -140,32 +140,39 @@ section#work-section {
     position: relative;
 
     .backsplash {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 0px;
-      pointer-events: none;
-      transform-origin: 50% 0%;
-      transform: translateY(0%) scaleY(0);
-      transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out;
-      will-change: background-color transform;
+      display: none;
+    }
 
-      &:before,
-      &:after, {
-        content: '';
+    @include can-hover {
+      .backsplash {
         position: absolute;
-        top: 100%;
+        top: 0px;
         left: 0px;
         width: 100%;
-        height: 3px;
-        margin-top: -1px;
-        background-color: inherit;
-      }
+        height: 0px;
+        display: flex;
+        pointer-events: none;
+        transform-origin: 50% 0%;
+        transform: translateY(0%) scaleY(0);
+        transition: background-color $speed-333 $ease-out, transform $speed-333 $ease-out;
+        will-change: background-color transform;
 
-      &:before {
-        top: 0px;
-        margin-top: -2px;
+        &:before,
+        &:after, {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 0px;
+          width: 100%;
+          height: 3px;
+          margin-top: -1px;
+          background-color: inherit;
+        }
+
+        &:before {
+          top: 0px;
+          margin-top: -2px;
+        }
       }
     }
 

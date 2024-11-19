@@ -64,6 +64,7 @@
 import { useSiteStore } from '~/stores/store';
 
 const route = useRoute();
+const router = useRouter();
 const store = useSiteStore();
 const params = { slug: route.params.slug };
 const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
@@ -187,6 +188,61 @@ if (hero_media.type !== 'singleImage') {
   seo_image = hero_media.image.src;
 }
 
+// Page transitions...
+// Define a default name and mode...
+definePageMeta({
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in'
+  }
+});
+
+// Now check to and from names to determine directional page transitions...
+let beforeEachExecuted = false;
+router.beforeEach(async (to, from) => {
+  const from_name = from.name;
+  const to_name = to.name;
+
+  // Going page-to-page, not just first time landing on page...
+  if (from_name && to_name && from_name && !beforeEachExecuted) {
+    let direction = 'slide-left';
+    beforeEachExecuted = true;
+
+    // Home Page to Case Study...
+    if (from_name === 'index' && to_name === 'slug') {
+      direction = 'slide-left';
+    }
+    // Case Study to Case Study
+    if (from_name === 'slug' && to_name === 'slug') {
+      const from_index = store.case_studies.findIndex(cs => cs.slug === from.params.slug);
+      const to_index = store.case_studies.findIndex(cs => cs.slug === to.params.slug);
+      const last_index = store.case_studies.length - 1;
+
+      if (to_index === 0 && from_index === last_index) {
+        direction = 'slide-left';
+      } else if (to_index === last_index && from_index === 0) {
+        direction = 'slide-right';
+      } else {
+        if (to_index < from_index) {
+          direction = 'slide-right';
+        }
+      }
+    }
+    // Case Study to Home Page...
+    if (from_name === 'slug' && to_name === 'index') {
+      direction = 'slide-right';
+    }
+
+    if (store.page_change_from_menu) {
+      direction = 'fade';
+    }
+
+    to.meta.pageTransition.name = direction;
+    from.meta.pageTransition.name = direction;
+    store.setPageMaskName(direction);
+  }
+});
+
 // Composables
 useSeoMeta({
   title: seo_title,
@@ -203,7 +259,13 @@ onMounted(() => {
       store.setLoaderComplete();
     }, 1800);
   }
+
+  store.setPageMask(false);
 })
+
+onBeforeUnmount(() => {
+  store.setPageMask(true);
+});
 </script>
 
 <style lang='scss'>

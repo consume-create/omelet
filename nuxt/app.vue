@@ -3,11 +3,13 @@
     <transition name="loading" :duration="2100">
       <Loader v-if="store.loading" />
     </transition>
-    <GridOverlay />
-    <!-- <DevOnly>
+    <DevOnly>
       <GridOverlay />
-    </DevOnly> -->
+    </DevOnly>
     <Header />
+    <transition :name="store.page_mask_name">
+      <PageMask v-if="store.page_mask" />
+    </transition>
     <transition name="menu">
       <Menu v-if="store.menu_open" />
     </transition>
@@ -54,13 +56,13 @@ function updateScrollbarWidth() {
 
 <style lang='scss'>
 // Default page transition
-.page-enter-active,
-.page-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity $speed-666 $evil-ease;
 }
 
-.page-enter-from,
-.page-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
@@ -69,18 +71,16 @@ function updateScrollbarWidth() {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity $speed-666 $evil-ease, transform $speed-666 $evil-ease;
+  transition: transform $speed-666 $evil-ease;
 }
 
 .slide-left-enter-from,
 .slide-right-leave-to {
-  opacity: 0;
   transform: translateX(#{span(2)});
 }
 
 .slide-right-enter-from,
 .slide-left-leave-to {
-  opacity: 0;
   transform: translateX(#{span(-2)});
 }
 </style>

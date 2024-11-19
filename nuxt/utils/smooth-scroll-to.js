@@ -1,7 +1,8 @@
 export const smoothScrollTo = function(value, callback) {
   const start = window.pageYOffset;
   const destination = value instanceof Element ? value.getBoundingClientRect().top + window.scrollY : value;
-  const distance = destination - start;
+  const offset = destination === 0 ? 0 : window.innerWidth < 768 ? 15 : 10;
+  const distance = destination - offset - start;
   const startTime = performance.now();
 
   if (start === destination) return false; // do nothing if starting at destination (nothing to scroll to)

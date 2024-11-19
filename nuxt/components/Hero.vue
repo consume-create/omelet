@@ -101,7 +101,8 @@ section.hero-section {
     }
 
     p.fs-p2 {
-      margin-top: $space-s;
+      margin-top: $space-xs;
+      line-height: 24px;
     }
   }
 
@@ -134,6 +135,7 @@ section.hero-section {
 
       p.fs-p2 {
         margin-top: $space-m;
+        line-height: 34px;
       }
     }
 

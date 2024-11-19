@@ -36,6 +36,7 @@ import { useSiteStore } from '~/stores/store';
 import { smoothScrollTo } from '~/utils/smooth-scroll-to';
 
 const route = useRoute();
+const router = useRouter();
 const store = useSiteStore();
 const homeQuery = groq`*[(_type == "index")][0]{
   heroVideo,
@@ -77,6 +78,68 @@ const homeQuery = groq`*[(_type == "index")][0]{
 }`;
 const pageData = await useSanityData({ query: homeQuery });
 
+// Page transitions
+definePageMeta({
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in'
+  },
+  middleware: function(to, from) {
+    const from_name = from.name;
+    const to_name = to.name;
+
+    // Going page-to-page, not just first time landing on page...
+    if (from_name && to_name) {
+      // Home Page to Case Study...
+      if (from_name === 'index' && to_name === 'slug') {
+        to.meta.pageTransition.name = 'slide-left';
+        from.meta.pageTransition.name = 'slide-left';
+      }
+      // Case Study to Home Page...
+      if (from_name === 'slug' && to_name === 'index') {
+        to.meta.pageTransition.name = 'slide-right';
+        from.meta.pageTransition.name = 'slide-right';
+      }
+    }
+  }
+})
+
+// Page transitions...
+// Define a default name and mode...
+definePageMeta({
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in'
+  }
+});
+
+// Now check to and from names to determine directional page transitions...
+let beforeEachExecuted = false;
+router.beforeEach(async (to, from) => {
+  const from_name = from.name;
+  const to_name = to.name;
+
+  // Going page-to-page, not just first time landing on page...
+  if (from_name && to_name && from_name && !beforeEachExecuted) {
+    beforeEachExecuted = true;
+    let direction = 'slide-left';
+
+    // Home Page to Case Study...
+    if (from_name === 'index' && to_name === 'slug') {
+      direction = 'slide-left';
+    }
+    // Case Study to Home Page...
+    if (from_name === 'slug' && to_name === 'index') {
+      direction = 'slide-right';
+    }
+
+    to.meta.pageTransition.name = direction;
+    from.meta.pageTransition.name = direction;
+    store.setPageMaskName(direction);
+  }
+});
+
+// Mounted
 onMounted(() => {
   if (store.loading) {
     setTimeout(() => {
@@ -88,8 +151,14 @@ onMounted(() => {
   } else {
     setTimeout(() => {
       checkSearchParams();
-    }, 27);
+    }, 666);
   }
+
+  store.setPageMask(false);
+});
+
+onBeforeUnmount(() => {
+  store.setPageMask(true);
 });
 
 // Methods
@@ -99,7 +168,11 @@ function checkSearchParams() {
   if (query) {
     const el = document.getElementById(`${query.replace('?','')}-section`);
     if (el) {
-      smoothScrollTo(el);
+      smoothScrollTo(el, () => {
+        setTimeout(() => {
+          store.setHideHeader();
+        }, 27);
+      });
     }
   }
 }
@@ -110,7 +183,11 @@ watch(() => route.query, (newQuery, oldQuery) => {
   } else {
     const el = document.getElementById(`${Object.keys(newQuery)[0]}-section`);
     if (el) {
-      smoothScrollTo(el);
+      smoothScrollTo(el, () => {
+        setTimeout(() => {
+          store.setHideHeader();
+        }, 27);
+      });
     }
   }
 });

@@ -36,6 +36,7 @@ const store = useSiteStore();
 
 // Methods
 function onClickNavItem(id) {
+  store.setPageChangeFromMenu(true);
   store.setMenuClose();
   if (route.name === 'index') {
     smoothScrollTo(document.getElementById(`${id}-section`), () => {
