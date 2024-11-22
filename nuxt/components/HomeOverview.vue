@@ -3,7 +3,12 @@
     <div class="title-block gutter" ref="collide1">
       <h2 class="pad-t pre">{{ title }}</h2>
     </div>
-    <canvas id="omoeba" ref="omoeba" width="1920" height="1080"></canvas>
+    <svg ref="omoeba" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" width="1920" height="1080" xml:space="preserve">
+      <g>
+        <path ref="outer" id="outer" d="" />
+        <path ref="inner" id="inner" d="" />
+      </g>
+    </svg>
     <div class="text-block" ref="collide2">
       <h3>{{ subtitle }}</h3>
       <div class="copy fs-p3">
@@ -15,15 +20,18 @@
 
 <script setup>
 import { ref } from 'vue';
-import { gsap } from 'gsap';
-import { useCardinalSpline } from '@/utils/spline.js';
+import { spline } from '@georgedoescode/spline';
+import { createNoise2D } from 'simplex-noise';
 
 // Globals
 const omoeba = ref(null),
+      outer = ref(null),
+      inner = ref(null),
       collide1 = ref(null),
       collide2 = ref(null),
-      numSegments = 18,
-      segment = 360 / numSegments;
+      numSegments = 8,
+      segment = 360 / numSegments,
+      noise2d = createNoise2D();
 
 let ctx = null,
     cp = {
@@ -31,14 +39,11 @@ let ctx = null,
       'y': 540
     },
     points = [],
-    tweens = [],
     raf = null,
-    rotate = {
-      'to': 0
-    },
     scale = 1,
     constraints = [],
-    tween_loop = 0;
+    noiseStep = 0.0042,
+    noiseLoop = 0;
 
 // Props
 const props = defineProps({
@@ -55,14 +60,6 @@ const props = defineProps({
 
 // Mounted
 onMounted(() => {
-  // Spline Proto
-  useCardinalSpline();
-
-  // Canvas Settings
-  ctx = omoeba.value.getContext('2d');
-  ctx.globalCompositeOperation = 'xor';
-  ctx.fillStyle = '#ff5501';
-
   // Listen
   window.addEventListener('resize', onResize);
 
@@ -72,13 +69,13 @@ onMounted(() => {
     window.dispatchEvent(new Event('resize'));
 
     // Initial Points
-    points = randomizeAmplitudes();
-
-    // Tween
-    tween();
+    getPoints();
 
     // Render
     raf = requestAnimationFrame(render);
+
+    // Random noise
+    bringTheNoise();
   }, 0);
 });
 
@@ -90,40 +87,25 @@ onBeforeUnmount(() => {
   // Cancel render
   window.cancelAnimationFrame(raf);
 
-  // Kill tweens
-  for(let i = 0; i < points.length; i++) {
-    // Kill
-    if(tweens[i]) {
-      tweens[i].t1.kill();
-      tweens[i].t2.kill();
-      tweens[i].t3.kill();
-    }
-  }
-
-  // Cancel tween loop
-  clearTimeout(tween_loop);
+  // Cancel noise loop
+  clearTimeout(noiseLoop);
 });
 
-function randomizeAmplitudes() {
-  let amplitudes = [];
+function getPoints() {
+  for (let i = 1; i <= numSegments; i++) {
 
-  // Rotation
-  rotate.to += (Math.random() * 14) - 7;
+    const theta = i * segment,
+          p = getPoint(theta, 440);
 
-  // New random amplitudes in the defined range
-  for(let i = 0; i < numSegments; i++) {
-    const r = (i * segment) + rotate.to,
-          s = 10 * scale,
-          v1 = constrain(r, (Math.random() * 100) + 400);
-
-    amplitudes.push({
-      'p1': v1,
-      'p2': v1 - ((Math.random() * s) + 10),
-      'r': r
+    points.push({
+      'x': p.x,
+      'y': p.y,
+      'originX': p.x,
+      'originY': p.y,
+      'noiseOffsetX': Math.random() * 1000,
+      'noiseOffsetY': Math.random() * 1000
     });
   }
-
-  return amplitudes;
 }
 
 function getPoint(rotation, amplitude) {
@@ -134,18 +116,17 @@ function getPoint(rotation, amplitude) {
   return {x, y};
 }
 
-function constrain(rotation, amplitude) {
-  let constrainedAmplitude = amplitude;
+function constrain(x, y) {
+  let constrainedPoint = {x, y};
 
   // Check collisions and constrain
-  const p = getPoint(rotation, amplitude),
-        ip1 = lineIntersectsRect(cp.x, cp.y, p.x, p.y, constraints[0].x1, constraints[0].y1, constraints[0].x2, constraints[0].y2),
-        ip2 = lineIntersectsRect(cp.x, cp.y, p.x, p.y, constraints[1].x1, constraints[1].y1, constraints[1].x2, constraints[1].y2);
+  const ip1 = lineIntersectsRect(cp.x, cp.y, x, y, constraints[0].x1, constraints[0].y1, constraints[0].x2, constraints[0].y2),
+        ip2 = lineIntersectsRect(cp.x, cp.y, x, y, constraints[1].x1, constraints[1].y1, constraints[1].x2, constraints[1].y2);
 
-  if(ip1) constrainedAmplitude = lineLength(cp.x, cp.y, ip1.x, ip1.y) + 1;
-  if(ip2) constrainedAmplitude = lineLength(cp.x, cp.y, ip2.x, ip2.y) + 1;
+  if(ip1) constrainedPoint = {'x': ip1.x, 'y': ip1.y};
+  if(ip2) constrainedPoint = {'x': ip2.x, 'y': ip2.y};
 
-  return constrainedAmplitude;
+  return constrainedPoint;
 }
 
 function lineIntersectsRect(x1, y1, x2, y2, rx1, ry1, rx2, ry2) {
@@ -198,66 +179,43 @@ function lineLength(x1, y1, x2, y2) {
   return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 }
 
-function tween() {
-  // New targets
-  const amplitudes = randomizeAmplitudes();
-
-  for(let i = 0; i < points.length; i++) {
-    // Kill
-    if(tweens[i]) {
-      tweens[i].t1.kill();
-      tweens[i].t2.kill();
-      tweens[i].t3.kill();
-    }
-
-    // Tween
-    tweens[i] = {
-      t1: gsap.to(points[i], {p1: amplitudes[i].p1, ease: 'none', duration: 2}),
-      t2: gsap.to(points[i], {p2: amplitudes[i].p2, ease: 'none', duration: 2}),
-      t3: gsap.to(points[i], {r: amplitudes[i].r, ease: 'none', duration: 2})
-    }
-  }
-
-  // Loop
-  tween_loop = setTimeout(() => {
-    tween();
-  }, 2000);
+function map(n, start1, end1, start2, end2) {
+  return ((n - start1) / (end1 - start1)) * (end2 - start2) + start2;
 }
 
 function render() {
   // Loop
   raf = requestAnimationFrame(render);
 
-  // Clear
-  ctx.clearRect(0, 0, omoeba.value.width, omoeba.value.height);
-
-  // Points
-  let outsetPoints = [],
-      insetPoints = [];
-
   for(let i = 0; i < points.length; i++) {
-    let p1 = getPoint(points[i].r, points[i].p1),
-        p2 = getPoint(points[i].r, points[i].p2);
+    const point = points[i];
 
-    outsetPoints.push(p1.x, p1.y);
-    insetPoints.push(p2.x, p2.y);
+    const nX = noise2d(point.noiseOffsetX, point.noiseOffsetX),
+          nY = noise2d(point.noiseOffsetY, point.noiseOffsetY);
 
-    // TEST
-    // ctx.beginPath();
-    // ctx.moveTo(cp.x, cp.y);
-    // ctx.lineTo(p1.x, p1.y);
-    // ctx.stroke();
+    const x = map(nX, -1, 1, point.originX - 100, point.originX + 100),
+          y = map(nY, -1, 1, point.originY - 100, point.originY + 100);
+
+    const cp = constrain(x, y);
+
+    point.noiseOffsetX += noiseStep;
+    point.noiseOffsetY += noiseStep;
+
+    point.x = cp.x;
+    point.y = cp.y;
   }
 
-  // Outer
-  let shape1 = new Path2D();
-  shape1.curve(outsetPoints, 0.666, 10, true);
-  ctx.fill(shape1);
+  outer.value.setAttribute("d", spline(points, 1, true));
+  inner.value.setAttribute("d", spline(points, 1, true));
+}
 
-  // Inner
-  let shape2 = new Path2D();
-  shape2.curve(insetPoints, 0.666, 10, true);
-  ctx.fill(shape2);
+function bringTheNoise() {
+  noiseStep = ((Math.random() * 3) / 1000) + 0.002;
+  inner.value.style.transform = `scale(0.96) translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+  
+  noiseLoop = setTimeout(() => {
+    bringTheNoise();
+  }, Math.random() * 2000);
 }
 
 function onResize(e) {
@@ -288,14 +246,25 @@ section#overview {
   .title-block {
     padding-bottom: $space-s;
     display: flex;
-    //border: 1px solid #f00;
+    border: 2px solid $orange;
   }
 
-  #omoeba {
+  svg {
     width: 100%;
     height: auto;
     margin-top: span(-1);
     display: flex;
+
+    #outer {
+      fill: $orange;
+    }
+
+    #inner {
+      fill: $white;
+      transform-origin: 50% 50%;
+      transform: scale(0.96) translate(-3px, 1px);
+      transition: transform $speed-666 linear;
+    }
   }
 
   .text-block {
@@ -304,7 +273,7 @@ section#overview {
     padding: span(0.5) 0 0 0;
     display: flex;
     flex-direction: column;
-    //border: 1px solid #f00;
+    border: 2px solid $orange;
 
     .copy {
       p {
@@ -316,8 +285,8 @@ section#overview {
   @include respond-to($small-tablet) {
     .text-block {
       width: auto;
-      margin: span(-1) span(1) 0px span(2.5);
-      padding: span(0.5) 0 0 span(0.5);
+      margin: span(-1) span(1) 0px span(1);
+      padding: span(0.5) 0 0 span(2);
       display: flex;
       flex-direction: column;
 
@@ -339,7 +308,8 @@ section#overview {
     }
 
     .text-block {
-      margin: span(-1) span(1) 0px span(6.5);
+      margin: span(-1) span(1) 0px span(1);
+      padding: span(0.5) 0 0 span(6);
     }
   }
 
@@ -349,13 +319,13 @@ section#overview {
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(6.5);
+      margin: span(-1.5) span(1) 0px span(1);
     }
   }
 
   @include respond-to($desktop) {
     .text-block {
-      margin: span(-1.75) span(1) 0px span(6.5);
+      margin: span(-1.75) span(1) 0px span(1);
     }
   }
 
@@ -366,17 +336,18 @@ section#overview {
       }
     }
 
-    #omoeba {
+    svg {
       margin-top: span(-1.75);
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(7.5);
+      margin: span(-1.5) span(1) 0px span(1);
+      padding: span(0.5) 0 0 span(7);
     }
   }
 
   @include respond-to($macbook) {
-    #omoeba {
+    svg {
       margin-top: span(-1.25);
     }
   }
