@@ -196,13 +196,13 @@ function render() {
     const x = map(nX, -1, 1, point.originX - 100, point.originX + 100),
           y = map(nY, -1, 1, point.originY - 100, point.originY + 100);
 
-    const cp = constrain(x, y);
+    const constrained = constrain(x, y);
 
     point.noiseOffsetX += noiseStep;
     point.noiseOffsetY += noiseStep;
 
-    point.x = cp.x;
-    point.y = cp.y;
+    point.x = constrained.x;
+    point.y = constrained.y;
   }
 
   outer.value.setAttribute("d", spline(points, 1, true));
@@ -210,7 +210,7 @@ function render() {
 }
 
 function bringTheNoise() {
-  noiseStep = ((Math.random() * 3) / 1000) + 0.002;
+  noiseStep = ((Math.random() * 3) / 1000) + 0.001;
   inner.value.style.transform = `scale(0.96) translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
   
   noiseLoop = setTimeout(() => {
