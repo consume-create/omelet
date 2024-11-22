@@ -29,7 +29,7 @@ const omoeba = ref(null),
       inner = ref(null),
       collide1 = ref(null),
       collide2 = ref(null),
-      numSegments = 8,
+      numSegments = 9,
       segment = 360 / numSegments,
       noise2d = createNoise2D();
 
@@ -95,7 +95,7 @@ function getPoints() {
   for (let i = 1; i <= numSegments; i++) {
 
     const theta = i * segment,
-          p = getPoint(theta, 440);
+          p = getPoint(theta, 420);
 
     points.push({
       'x': p.x,
@@ -170,13 +170,21 @@ function lineIntersectsLine(x1, y1, x2, y2, x3, y3, x4, y4) {
   }
 }
 
-function lineLength(x1, y1, x2, y2) {
-  // Calculate the difference in x and y coordinates
-  const deltaX = x2 - x1;
-  const deltaY = y2 - y1;
-
-  // Use the Pythagorean theorem to calculate the length of the line
-  return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+function updateConstraints() {
+  constraints = [
+    {
+      x1: (collide1.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
+      y1: (collide1.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
+      x2: (collide1.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
+      y2: (collide1.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
+    },
+    {
+      x1: (collide2.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
+      y1: (collide2.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
+      x2: (collide2.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
+      y2: (collide2.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
+    }
+  ];
 }
 
 function map(n, start1, end1, start2, end2) {
@@ -186,6 +194,8 @@ function map(n, start1, end1, start2, end2) {
 function render() {
   // Loop
   raf = requestAnimationFrame(render);
+
+  updateConstraints();
 
   for(let i = 0; i < points.length; i++) {
     const point = points[i];
@@ -210,30 +220,20 @@ function render() {
 }
 
 function bringTheNoise() {
+  let ww = window.innerWidth;
+
   noiseStep = ((Math.random() * 3) / 1000) + 0.001;
-  inner.value.style.transform = `scale(0.96) translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+  omoeba.value.style.transform = `translate(${Math.random() * (ww / 4) - (ww / 8)}px, ${Math.random() * (ww / 8) - (ww / 16)}px)`;
+  inner.value.style.transform = `scale(0.96) translate(${(Math.random() * 16) - 8}px, ${(Math.random() * 16) - 8}px)`;
   
   noiseLoop = setTimeout(() => {
     bringTheNoise();
-  }, Math.random() * 2000);
+  }, Math.random() * 3000);
 }
 
 function onResize(e) {
   scale = 1920 / omoeba.value.getBoundingClientRect().width;
-  constraints = [
-    {
-      x1: (collide1.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
-      y1: (collide1.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
-      x2: (collide1.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
-      y2: (collide1.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
-    },
-    {
-      x1: (collide2.value.getBoundingClientRect().left - omoeba.value.getBoundingClientRect().left) * scale,
-      y1: (collide2.value.getBoundingClientRect().top - omoeba.value.getBoundingClientRect().top) * scale,
-      x2: (collide2.value.getBoundingClientRect().right - omoeba.value.getBoundingClientRect().left) * scale,
-      y2: (collide2.value.getBoundingClientRect().bottom - omoeba.value.getBoundingClientRect().top) * scale
-    },
-  ];
+  updateConstraints();
 }
 </script>
 
@@ -244,9 +244,9 @@ section#overview {
   overflow: hidden;
 
   .title-block {
-    padding-bottom: $space-s;
+    padding-bottom: span(0.25);
     display: flex;
-    border: 2px solid $orange;
+    //border: 2px solid $orange;
   }
 
   svg {
@@ -254,6 +254,7 @@ section#overview {
     height: auto;
     margin-top: span(-1);
     display: flex;
+    transition: transform 3s linear;
 
     #outer {
       fill: $orange;
@@ -262,7 +263,6 @@ section#overview {
     #inner {
       fill: $white;
       transform-origin: 50% 50%;
-      transform: scale(0.96) translate(-3px, 1px);
       transition: transform $speed-666 linear;
     }
   }
@@ -270,10 +270,10 @@ section#overview {
   .text-block {
     width: calc(#{span(13)} - #{$space-s});
     margin: span(-1) auto 0px $space-s;
-    padding: span(0.5) 0 0 0;
+    padding: span(0.25) 0 0 0;
     display: flex;
     flex-direction: column;
-    border: 2px solid $orange;
+    //border: 2px solid $orange;
 
     .copy {
       p {
@@ -286,7 +286,7 @@ section#overview {
     .text-block {
       width: auto;
       margin: span(-1) span(1) 0px span(1);
-      padding: span(0.5) 0 0 span(2);
+      padding: span(0.25) 0 0 span(2);
       display: flex;
       flex-direction: column;
 
@@ -309,7 +309,7 @@ section#overview {
 
     .text-block {
       margin: span(-1) span(1) 0px span(1);
-      padding: span(0.5) 0 0 span(6);
+      padding: span(0.25) 0 0 span(6);
     }
   }
 
@@ -342,7 +342,7 @@ section#overview {
 
     .text-block {
       margin: span(-1.5) span(1) 0px span(1);
-      padding: span(0.5) 0 0 span(7);
+      padding: span(0.25) 0 0 span(7);
     }
   }
 
