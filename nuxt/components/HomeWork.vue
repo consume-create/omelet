@@ -63,9 +63,16 @@ const state = reactive({
   color: colors_arr[0],
   items: []
 });
+let audioContext, frequencies;
 
 projects.forEach((item) => {
   state.items.push('--out');
+});
+
+// Mounted
+onMounted(() => {
+  audioContext = new AudioContext();
+  frequencies = getMajorScaleFrequencies(261.63);
 });
 
 // Methods
@@ -96,6 +103,7 @@ function onMouseenterListItem(e, index) {
   state.color = state.colors[index % 4];
 
   listItemDirection(e, index);
+  startAudio(index);
 };
 
 function onMouseleaveListItem(e, index) {
@@ -123,6 +131,40 @@ function listItemDirection(e, index) {
   }
 
   state.items[index] = `${prefix}${edge}`;
+}
+
+function getMajorScaleFrequencies(rootFrequency) {
+  const scaleRatios = [
+    1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8,
+    2, 9/8*2, 5/4*2, 4/3*2, 3/2*2, 5/3*2, 15/8*2,
+    3, 9/8*3, 5/4*3, 4/3*3, 3/2*3, 5/3*3, 15/8*3
+  ];
+  return scaleRatios.map(ratio => ratio * rootFrequency);
+}
+
+function startAudio(id) {
+  if(navigator.userActivation.hasBeenActive === false) return;
+
+  let osc = audioContext.createOscillator();
+  let vol = audioContext.createGain();
+  let compressor = audioContext.createDynamicsCompressor();
+  
+  osc.type = "triangle";
+  osc.frequency.value = frequencies[id];
+  
+  vol.gain.value = 0.1;
+  
+  osc.connect(vol).connect(compressor).connect(audioContext.destination);
+  
+  vol.gain.exponentialRampToValueAtTime(
+    vol.gain.value,
+    audioContext.currentTime + 0.03
+  );
+
+  vol.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.33);
+
+  osc.start(audioContext.currentTime);
+  osc.stop(audioContext.currentTime + 0.33 + 0.03);
 }
 </script>
 
