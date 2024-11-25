@@ -2,10 +2,12 @@
   <section class="builder-multi-column pad-bl">
     <div class="gutter">
       <div class="cols" :class="[ `cols-${items.length}` ]">
-        <div v-for="(item, index) in items" class="col" :class="[ item.type ]" :key="index">
-          <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" />
-          <VideoCover v-if="item.type === 'videoLoop'" :vimeo="item.vimeo" :cover="true" />
-          <RichTextContent v-if="item.type === 'textColumn'" :content="item.richtext" />
+        <div v-for="(item, index) in items" class="col" :class="[ item.type !== 'textColumn' ? orientation : '', item.type ]" :key="index">
+          <div class="inner">
+            <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" />
+            <VideoCover v-if="item.type === 'videoLoop'" :vimeo="item.vimeo" :cover="true" />
+            <RichTextContent v-if="item.type === 'textColumn'" :content="item.richtext" />
+          </div>
         </div>
       </div>
     </div>
@@ -16,6 +18,10 @@
 const props = defineProps({
   items: {
     type: Array
+  },
+  orientation: {
+    type: String,
+    required: true
   }
 });
 </script>
@@ -27,15 +33,37 @@ const props = defineProps({
 
   .cols {
     .col {
+      .inner {
+        position: relative;
+      }
+
       &:not(:last-child) {
         margin-bottom: $space-s;
       }
 
       &:not(.textColumn) {
-        position: relative;
-        aspect-ratio: 1/1;
-        background-color: $black;
-        overflow: hidden;
+        .inner {
+          background-color: $black;
+          overflow: hidden;
+        }
+
+        &.square {
+          .inner {
+            aspect-ratio: 1/1;
+          }
+        }
+
+        &.landscape {
+          .inner {
+            aspect-ratio: 16/9;
+          }
+        }
+
+        &.portrait {
+          .inner {
+            aspect-ratio: 9/16;
+          }
+        }
       }
 
       &.textColumn {
@@ -69,15 +97,15 @@ const props = defineProps({
       }
 
       &.cols-2 {
+        margin: 0 -10px;
         justify-content: space-between;
 
         .col {
-          width: calc(50% - 10px);
-        }
+          width: 50%;
 
-        .col.singleImage,
-        .col.videoLoop {
-          width: calc(50%);
+          .inner {
+            margin: 0 10px;
+          }
         }
 
         .col.textColumn:nth-child(1) {
@@ -85,6 +113,10 @@ const props = defineProps({
           margin-left: 0px;
           margin-right: auto;
           margin-bottom: 0px;
+
+          .inner {
+            margin: 0 0 0 10px;
+          }
         }
 
         .col.textColumn:nth-child(2) {
@@ -92,14 +124,23 @@ const props = defineProps({
           margin-left: auto;
           margin-right: 0px;
           margin-top: 0px;
+
+          .inner {
+            margin: 0 10px 0 0;
+          }
         }
       }
 
       &.cols-3 {
+        margin: 0 -10px;
         justify-content: space-between;
 
         .col {
-          width: calc(33.333% - 10px);
+          width: 33.333%;
+
+          .inner {
+            margin: 0 10px;
+          }
         }
       }
 

@@ -92,6 +92,7 @@ export default defineType({
       name: 'ctaTags',
       title: 'CTA Tags',
       type: 'object',
+      description: 'These are displayed next to the title in the work list on the home page',
       validation: [
         Rule => Rule.required()
       ],
@@ -100,13 +101,19 @@ export default defineType({
           name: 'categoryTag',
           title: 'Category',
           type: 'reference',
-          to: [{ type: 'tags' }]
+          to: [{ type: 'tags' }],
+          validation: [
+            Rule => Rule.required()
+          ]
         }),
         defineField({
           name: 'industryTag',
           title: 'Industry',
           type: 'reference',
-          to: [{ type: 'industryTags' }]
+          to: [{ type: 'industryTags' }],
+          validation: [
+            Rule => Rule.required()
+          ]
         })
       ]
     }),

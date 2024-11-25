@@ -47,6 +47,7 @@
       <BuilderMultiColumn
         v-if="block.type === 'multiColumn'"
         :items="block.items"
+        :orientation="block.orientation"
       />
       <BuilderStats
         v-if="block.type === 'stats'"
@@ -155,8 +156,9 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
         _type == 'textColumn' => {
           'type': _type,
           richtext
-        },
-      }
+        }
+      },
+      orientation
     },
     _type == 'stats' => {
       'type': _type,

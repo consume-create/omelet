@@ -2,6 +2,12 @@ import { defineField, defineType } from 'sanity';
 import { SplitVerticalIcon } from '@sanity/icons';
 // Sanity Icon Set: https://icons.sanity.build/all
 
+const ORIENTATIONS = [
+  { title: 'Square 1:1', value: 'square' },
+  { title: 'Landscape 16:9', value: 'landscape' },
+  { title: 'Portrait 9:16', value: 'portrait' }
+]
+
 export default defineType({
   name: 'multiColumn',
   title: 'Multi Column',
@@ -27,16 +33,31 @@ export default defineType({
           type: 'textColumn'
         }
       ]
+    }),
+    defineField({
+      name: 'orientation',
+      title: 'Media Orientations',
+      type: 'string',
+      options: {
+        list: ORIENTATIONS,
+        layout: 'radio',
+      },
+      validation: [
+        Rule => Rule.required()
+      ]
     })
   ],
   preview: {
     select: {
-      images: 'items'
+      images: 'items',
+      orientation: 'orientation'
     },
-    prepare({ images }) {
+    prepare({ images, orientation }) {
       const label = images.length > 1 ? `${images.length} columns` : `${images.length} column`;
+      const orientationOpt = orientation && ORIENTATIONS.flatMap(option => option.value === orientation ? [option.title] : [])
       return {
-        title: images && images.length > 0 ? `Multi Column (${label})` : 'Multi Column (missing items)'
+        title: images && images.length > 0 ? `Multi Column (${label})` : 'Multi Column (missing items)',
+        subtitle: orientation ? `${orientationOpt}` : 'No media orientation selected'
       }
     }
   }
