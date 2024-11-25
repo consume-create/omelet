@@ -222,8 +222,8 @@ function render() {
 function bringTheNoise() {
   let ww = window.innerWidth;
 
-  noiseStep = ((Math.random() * 3) / 1000) + 0.001;
-  omoeba.value.style.transform = `translate(${Math.random() * (ww / 4) - (ww / 8)}px, ${Math.random() * (ww / 8) - (ww / 16)}px)`;
+  noiseStep = (Math.random() / 1000) + (Math.random() / 1000) + (Math.random() / 1000);
+  omoeba.value.style.transform = `translate(${Math.random() * 60 - 30}px, ${Math.random() * 60 - 30}px)`;
   inner.value.style.transform = `scale(0.96) translate(${(Math.random() * 16) - 8}px, ${(Math.random() * 16) - 8}px)`;
   
   noiseLoop = setTimeout(() => {

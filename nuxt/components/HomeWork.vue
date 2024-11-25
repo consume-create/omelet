@@ -31,8 +31,6 @@
 </template>
 
 <script setup>
-import { useSiteStore } from '~/stores/store';
-
 // Props
 const props = defineProps({
   title: {
@@ -63,7 +61,7 @@ const state = reactive({
   color: colors_arr[0],
   items: []
 });
-let audioContext, frequencies;
+let audioContext, frequencies, convolver;
 
 projects.forEach((item) => {
   state.items.push('--out');
@@ -149,7 +147,7 @@ function startAudio(id) {
   let vol = audioContext.createGain();
   let compressor = audioContext.createDynamicsCompressor();
   
-  osc.type = "triangle";
+  osc.type = "sine";
   osc.frequency.value = frequencies[id];
   
   vol.gain.value = 0.1;
