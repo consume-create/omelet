@@ -228,7 +228,7 @@ function bringTheNoise() {
   
   noiseLoop = setTimeout(() => {
     bringTheNoise();
-  }, (Math.random() * 3000) + 1000);
+  }, (Math.random() * 3000) + 2000);
 }
 
 function onResize(e) {
@@ -254,7 +254,7 @@ section#overview {
     height: auto;
     margin-top: span(-1);
     display: flex;
-    transition: transform 3s $ease-out;
+    transition: transform 4s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 
     #outer {
       fill: $orange;
