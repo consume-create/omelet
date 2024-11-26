@@ -70,7 +70,7 @@ projects.forEach((item) => {
 // Mounted
 onMounted(() => {
   audioContext = new AudioContext();
-  frequencies = getMajorScaleFrequencies(261.63);
+  frequencies = getMajorScaleFrequencies(220);
 });
 
 // Methods
@@ -150,7 +150,7 @@ function startAudio(id) {
   osc.type = "sine";
   osc.frequency.value = frequencies[id];
   
-  vol.gain.value = 0.1;
+  vol.gain.value = 0.25;
   
   osc.connect(vol).connect(compressor).connect(audioContext.destination);
   

@@ -8,6 +8,17 @@
         <path ref="outer" id="outer" d="" />
         <path ref="inner" id="inner" d="" />
       </g>
+      <g>
+        <line ref="line1" stroke="black"></line>
+        <line ref="line2" stroke="black"></line>
+        <line ref="line3" stroke="black"></line>
+        <line ref="line4" stroke="black"></line>
+        <line ref="line5" stroke="black"></line>
+        <line ref="line6" stroke="black"></line>
+        <line ref="line7" stroke="black"></line>
+        <line ref="line8" stroke="black"></line>
+        <line ref="line9" stroke="black"></line>
+      </g>
     </svg>
     <div class="text-block" ref="collide2">
       <h3>{{ subtitle }}</h3>
@@ -27,6 +38,15 @@ import { createNoise2D } from 'simplex-noise';
 const omoeba = ref(null),
       outer = ref(null),
       inner = ref(null),
+      line1 = ref(null),
+      line2 = ref(null),
+      line3 = ref(null),
+      line4 = ref(null),
+      line5 = ref(null),
+      line6 = ref(null),
+      line7 = ref(null),
+      line8 = ref(null),
+      line9 = ref(null),
       collide1 = ref(null),
       collide2 = ref(null),
       numSegments = 9,
@@ -213,6 +233,53 @@ function render() {
 
     point.x = constrained.x;
     point.y = constrained.y;
+
+    if(i === 0) {
+      line1.value.setAttribute('x1', cp.x);
+      line1.value.setAttribute('y1', cp.y);
+      line1.value.setAttribute('x2', constrained.x);
+      line1.value.setAttribute('y2', constrained.y);
+    } else if(i === 1) {
+      line2.value.setAttribute('x1', cp.x);
+      line2.value.setAttribute('y1', cp.y);
+      line2.value.setAttribute('x2', constrained.x);
+      line2.value.setAttribute('y2', constrained.y);
+    } else if(i === 2) {
+      line3.value.setAttribute('x1', cp.x);
+      line3.value.setAttribute('y1', cp.y);
+      line3.value.setAttribute('x2', constrained.x);
+      line3.value.setAttribute('y2', constrained.y);
+    } else if(i === 3) {
+      line4.value.setAttribute('x1', cp.x);
+      line4.value.setAttribute('y1', cp.y);
+      line4.value.setAttribute('x2', constrained.x);
+      line4.value.setAttribute('y2', constrained.y);
+    } else if(i === 4) {
+      line5.value.setAttribute('x1', cp.x);
+      line5.value.setAttribute('y1', cp.y);
+      line5.value.setAttribute('x2', constrained.x);
+      line5.value.setAttribute('y2', constrained.y);
+    } else if(i === 5) {
+      line6.value.setAttribute('x1', cp.x);
+      line6.value.setAttribute('y1', cp.y);
+      line6.value.setAttribute('x2', constrained.x);
+      line6.value.setAttribute('y2', constrained.y);
+    } else if(i === 6) {
+      line7.value.setAttribute('x1', cp.x);
+      line7.value.setAttribute('y1', cp.y);
+      line7.value.setAttribute('x2', constrained.x);
+      line7.value.setAttribute('y2', constrained.y);
+    } else if(i === 7) {
+      line8.value.setAttribute('x1', cp.x);
+      line8.value.setAttribute('y1', cp.y);
+      line8.value.setAttribute('x2', constrained.x);
+      line8.value.setAttribute('y2', constrained.y);
+    } else if(i === 8) {
+      line9.value.setAttribute('x1', cp.x);
+      line9.value.setAttribute('y1', cp.y);
+      line9.value.setAttribute('x2', constrained.x);
+      line9.value.setAttribute('y2', constrained.y);
+    }
   }
 
   outer.value.setAttribute("d", spline(points, 1, true));
@@ -244,9 +311,9 @@ section#overview {
   overflow: hidden;
 
   .title-block {
-    padding-bottom: span(0.25);
+    padding-bottom: span(0.2);
     display: flex;
-    //border: 2px solid $orange;
+    border: 2px solid $green;
   }
 
   svg {
@@ -255,6 +322,7 @@ section#overview {
     margin-top: span(-1);
     display: flex;
     transition: transform 4s cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    border: 2px solid $orange;
 
     #outer {
       fill: $orange;
@@ -270,10 +338,10 @@ section#overview {
   .text-block {
     width: calc(#{span(13)} - #{$space-s});
     margin: span(-1) auto 0px $space-s;
-    padding: span(0.25) 0 0 0;
+    padding: span(0.2) 0 0 0;
     display: flex;
     flex-direction: column;
-    //border: 2px solid $orange;
+    border: 2px solid $green;
 
     .copy {
       p {
@@ -286,7 +354,7 @@ section#overview {
     .text-block {
       width: auto;
       margin: span(-1) span(1) 0px span(1);
-      padding: span(0.25) 0 0 span(2);
+      padding: span(0.2) 0 0 span(2);
       display: flex;
       flex-direction: column;
 
@@ -307,19 +375,23 @@ section#overview {
       }
     }
 
+    svg {
+      margin: span(-1) 0 0 span(-3);
+    }
+
     .text-block {
-      margin: span(-1) span(1) 0px span(1);
-      padding: span(0.25) 0 0 span(6);
+      margin: span(-3) span(1) 0px span(6.8);
+      padding: span(1) 0 0 span(0.2);
     }
   }
 
   @include respond-to($large-tablet) {
-    #omoeba {
-      margin-top: span(-1.5);
+    svg {
+      margin: span(-1) 0 0 span(-2);
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(1);
+      margin: span(-1.5) span(1) 0px span(6.8);
     }
   }
 
@@ -341,8 +413,8 @@ section#overview {
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(1);
-      padding: span(0.25) 0 0 span(7);
+      margin: span(-1.5) span(1) 0px span(7.8);
+      padding: span(1) 0 0 span(0.2);
     }
   }
 
