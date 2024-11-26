@@ -3,11 +3,12 @@
     <div class="title-block gutter" ref="collide1">
       <h2 class="pad-t pre">{{ title }}</h2>
     </div>
-    <svg ref="omoeba" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" width="1920" height="1080" xml:space="preserve">
+    <svg ref="omoeba" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000" width="1000" height="1000" xml:space="preserve">
       <g>
         <path ref="outer" id="outer" d="" />
         <path ref="inner" id="inner" d="" />
       </g>
+      <!-- NOTE: guides for dev 
       <g>
         <line ref="line1" stroke="black"></line>
         <line ref="line2" stroke="black"></line>
@@ -18,7 +19,7 @@
         <line ref="line7" stroke="black"></line>
         <line ref="line8" stroke="black"></line>
         <line ref="line9" stroke="black"></line>
-      </g>
+      </g> -->
     </svg>
     <div class="text-block" ref="collide2">
       <h3>{{ subtitle }}</h3>
@@ -55,8 +56,8 @@ const omoeba = ref(null),
 
 let ctx = null,
     cp = {
-      'x': 960,
-      'y': 540
+      'x': 500,
+      'y': 500
     },
     points = [],
     raf = null,
@@ -115,7 +116,7 @@ function getPoints() {
   for (let i = 1; i <= numSegments; i++) {
 
     const theta = i * segment,
-          p = getPoint(theta, 420);
+          p = getPoint(theta, 380);
 
     points.push({
       'x': p.x,
@@ -234,52 +235,53 @@ function render() {
     point.x = constrained.x;
     point.y = constrained.y;
 
-    if(i === 0) {
-      line1.value.setAttribute('x1', cp.x);
-      line1.value.setAttribute('y1', cp.y);
-      line1.value.setAttribute('x2', constrained.x);
-      line1.value.setAttribute('y2', constrained.y);
-    } else if(i === 1) {
-      line2.value.setAttribute('x1', cp.x);
-      line2.value.setAttribute('y1', cp.y);
-      line2.value.setAttribute('x2', constrained.x);
-      line2.value.setAttribute('y2', constrained.y);
-    } else if(i === 2) {
-      line3.value.setAttribute('x1', cp.x);
-      line3.value.setAttribute('y1', cp.y);
-      line3.value.setAttribute('x2', constrained.x);
-      line3.value.setAttribute('y2', constrained.y);
-    } else if(i === 3) {
-      line4.value.setAttribute('x1', cp.x);
-      line4.value.setAttribute('y1', cp.y);
-      line4.value.setAttribute('x2', constrained.x);
-      line4.value.setAttribute('y2', constrained.y);
-    } else if(i === 4) {
-      line5.value.setAttribute('x1', cp.x);
-      line5.value.setAttribute('y1', cp.y);
-      line5.value.setAttribute('x2', constrained.x);
-      line5.value.setAttribute('y2', constrained.y);
-    } else if(i === 5) {
-      line6.value.setAttribute('x1', cp.x);
-      line6.value.setAttribute('y1', cp.y);
-      line6.value.setAttribute('x2', constrained.x);
-      line6.value.setAttribute('y2', constrained.y);
-    } else if(i === 6) {
-      line7.value.setAttribute('x1', cp.x);
-      line7.value.setAttribute('y1', cp.y);
-      line7.value.setAttribute('x2', constrained.x);
-      line7.value.setAttribute('y2', constrained.y);
-    } else if(i === 7) {
-      line8.value.setAttribute('x1', cp.x);
-      line8.value.setAttribute('y1', cp.y);
-      line8.value.setAttribute('x2', constrained.x);
-      line8.value.setAttribute('y2', constrained.y);
-    } else if(i === 8) {
-      line9.value.setAttribute('x1', cp.x);
-      line9.value.setAttribute('y1', cp.y);
-      line9.value.setAttribute('x2', constrained.x);
-      line9.value.setAttribute('y2', constrained.y);
-    }
+    // NOTE: guides for dev
+    // if(i === 0) {
+    //   line1.value.setAttribute('x1', cp.x);
+    //   line1.value.setAttribute('y1', cp.y);
+    //   line1.value.setAttribute('x2', constrained.x);
+    //   line1.value.setAttribute('y2', constrained.y);
+    // } else if(i === 1) {
+    //   line2.value.setAttribute('x1', cp.x);
+    //   line2.value.setAttribute('y1', cp.y);
+    //   line2.value.setAttribute('x2', constrained.x);
+    //   line2.value.setAttribute('y2', constrained.y);
+    // } else if(i === 2) {
+    //   line3.value.setAttribute('x1', cp.x);
+    //   line3.value.setAttribute('y1', cp.y);
+    //   line3.value.setAttribute('x2', constrained.x);
+    //   line3.value.setAttribute('y2', constrained.y);
+    // } else if(i === 3) {
+    //   line4.value.setAttribute('x1', cp.x);
+    //   line4.value.setAttribute('y1', cp.y);
+    //   line4.value.setAttribute('x2', constrained.x);
+    //   line4.value.setAttribute('y2', constrained.y);
+    // } else if(i === 4) {
+    //   line5.value.setAttribute('x1', cp.x);
+    //   line5.value.setAttribute('y1', cp.y);
+    //   line5.value.setAttribute('x2', constrained.x);
+    //   line5.value.setAttribute('y2', constrained.y);
+    // } else if(i === 5) {
+    //   line6.value.setAttribute('x1', cp.x);
+    //   line6.value.setAttribute('y1', cp.y);
+    //   line6.value.setAttribute('x2', constrained.x);
+    //   line6.value.setAttribute('y2', constrained.y);
+    // } else if(i === 6) {
+    //   line7.value.setAttribute('x1', cp.x);
+    //   line7.value.setAttribute('y1', cp.y);
+    //   line7.value.setAttribute('x2', constrained.x);
+    //   line7.value.setAttribute('y2', constrained.y);
+    // } else if(i === 7) {
+    //   line8.value.setAttribute('x1', cp.x);
+    //   line8.value.setAttribute('y1', cp.y);
+    //   line8.value.setAttribute('x2', constrained.x);
+    //   line8.value.setAttribute('y2', constrained.y);
+    // } else if(i === 8) {
+    //   line9.value.setAttribute('x1', cp.x);
+    //   line9.value.setAttribute('y1', cp.y);
+    //   line9.value.setAttribute('x2', constrained.x);
+    //   line9.value.setAttribute('y2', constrained.y);
+    // }
   }
 
   outer.value.setAttribute("d", spline(points, 1, true));
@@ -290,7 +292,7 @@ function bringTheNoise() {
   let ww = window.innerWidth;
 
   noiseStep = (Math.random() / 1000) + (Math.random() / 1000) + (Math.random() / 1000);
-  omoeba.value.style.transform = `translate(${Math.random() * 60 - 30}px, ${Math.random() * 60 - 30}px)`;
+  omoeba.value.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
   inner.value.style.transform = `scale(0.96) translate(${(Math.random() * 16) - 8}px, ${(Math.random() * 16) - 8}px)`;
   
   noiseLoop = setTimeout(() => {
@@ -299,7 +301,7 @@ function bringTheNoise() {
 }
 
 function onResize(e) {
-  scale = 1920 / omoeba.value.getBoundingClientRect().width;
+  scale = 1000 / omoeba.value.getBoundingClientRect().width;
   updateConstraints();
 }
 </script>
@@ -311,18 +313,22 @@ section#overview {
   overflow: hidden;
 
   .title-block {
-    padding-bottom: span(0.2);
+    padding-bottom: span(0.255);
     display: flex;
-    border: 2px solid $green;
+
+    // NOTE: this is a guide for dev
+    //border: 2px solid $green;
   }
 
   svg {
-    width: 100%;
+    width: span(12);
     height: auto;
-    margin-top: span(-1);
+    margin: span(-1) 0 0 span(1);
     display: flex;
     transition: transform 4s cubic-bezier(0.785, 0.135, 0.150, 0.860);
-    border: 2px solid $orange;
+
+    // NOTE: this is a guide for dev
+    //border: 2px solid $orange;
 
     #outer {
       fill: $orange;
@@ -338,10 +344,12 @@ section#overview {
   .text-block {
     width: calc(#{span(13)} - #{$space-s});
     margin: span(-1) auto 0px $space-s;
-    padding: span(0.2) 0 0 0;
+    padding: span(0.25) 0 0 0;
     display: flex;
     flex-direction: column;
-    border: 2px solid $green;
+
+    // NOTE: this is a guide for dev
+    //border: 2px solid $green;
 
     .copy {
       p {
@@ -354,7 +362,7 @@ section#overview {
     .text-block {
       width: auto;
       margin: span(-1) span(1) 0px span(1);
-      padding: span(0.2) 0 0 span(2);
+      padding: span(0.25) 0 0 span(2);
       display: flex;
       flex-direction: column;
 
@@ -376,28 +384,34 @@ section#overview {
     }
 
     svg {
-      margin: span(-1) 0 0 span(-3);
+      width: span(10);
+      margin: span(-1) 0 0 span(0);
     }
 
     .text-block {
-      margin: span(-3) span(1) 0px span(6.8);
-      padding: span(1) 0 0 span(0.2);
+      margin: span(-2) span(1) 0px span(6.75);
+      padding: span(1) 0 0 span(0.25);
     }
   }
 
   @include respond-to($large-tablet) {
     svg {
-      margin: span(-1) 0 0 span(-2);
+      margin: span(-1) 0 0 span(0);
     }
 
     .text-block {
-      margin: span(-1.5) span(1) 0px span(6.8);
+      margin: span(-2.5) span(1) 0px span(6.75);
     }
   }
 
   @include respond-to($desktop) {
+    svg {
+      width: span(8);
+    }
+
     .text-block {
-      margin: span(-1.75) span(1) 0px span(1);
+      margin: span(-7) span(1) 0px span(6.75);
+      padding: span(4) 0 0 span(0.25);
     }
   }
 
@@ -406,21 +420,6 @@ section#overview {
       h2 {
         width: span(8);
       }
-    }
-
-    svg {
-      margin-top: span(-1.75);
-    }
-
-    .text-block {
-      margin: span(-1.5) span(1) 0px span(7.8);
-      padding: span(1) 0 0 span(0.2);
-    }
-  }
-
-  @include respond-to($macbook) {
-    svg {
-      margin-top: span(-1.25);
     }
   }
 }
