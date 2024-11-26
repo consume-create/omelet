@@ -224,8 +224,8 @@ function render() {
     const nX = noise2d(point.noiseOffsetX, point.noiseOffsetX),
           nY = noise2d(point.noiseOffsetY, point.noiseOffsetY);
 
-    const x = map(nX, -1, 1, point.originX - 100, point.originX + 100),
-          y = map(nY, -1, 1, point.originY - 100, point.originY + 100);
+    const x = map(nX, -1, 1, point.originX - 80, point.originX + 80),
+          y = map(nY, -1, 1, point.originY - 80, point.originY + 80);
 
     const constrained = constrain(x, y);
 
