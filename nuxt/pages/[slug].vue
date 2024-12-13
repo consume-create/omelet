@@ -55,6 +55,7 @@
       />
     </template>
     <UpNext
+      v-if="getNextCta"
       :cta="getNextCta"
     />
     <Footer />
@@ -175,7 +176,13 @@ const pageData = await useSanityData({ query: pageQuery, params: params });
 const getNextCta = computed(() => {
   const current_index = store.case_studies.findIndex(cs => cs.slug === route.params.slug);
   const next_case_study = current_index < store.case_studies.length - 1 ? store.case_studies[current_index + 1] : store.case_studies[0];
-  return next_case_study;
+
+  if (current_index < 0) {
+    // Doesn't exist in case studies list (deep-linking to one-off project)
+    return false;
+  } else {
+    return next_case_study;
+  }
 });
 
 const seo_title = `${pageData.value.title} | ${store.site_name}`;

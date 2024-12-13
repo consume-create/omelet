@@ -11,7 +11,7 @@
           <p v-if="subtitle" class="fs-p2">{{ subtitle }}</p>
         </div>
       </div>
-      <div class="hero-controls gutter pad-b">
+      <div v-if="getPrevSlug && getNextSlug" class="hero-controls gutter pad-b">
         <NuxtLink class="arrow --prev" :to="getPrevSlug" />
         <NuxtLink class="arrow --next" :to="getNextSlug" />
       </div>
@@ -47,18 +47,29 @@ if (props.media.type !== 'singleImage') {
   video = props.media;
 }
 
-
 // Computed
 const getPrevSlug = computed(() => {
   const current_index = store.case_studies.findIndex(cs => cs.slug === route.params.slug);
   const prev_slug = current_index > 0 ? store.case_studies[current_index - 1].slug : store.case_studies[store.case_studies.length - 1 ].slug;
-  return prev_slug;
+
+  if (current_index < 0) {
+    // Doesn't exist in case studies list (deep-linking to one-off project)
+    return false;
+  } else {
+    return prev_slug;
+  }
 });
 
 const getNextSlug = computed(() => {
   const current_index = store.case_studies.findIndex(cs => cs.slug === route.params.slug);
   const next_slug = current_index < store.case_studies.length - 1 ? store.case_studies[current_index + 1].slug : store.case_studies[0].slug;
-  return next_slug;
+
+  if (current_index < 0) {
+    // Doesn't exist in case studies list (deep-linking to one-off project)
+    return false;
+  } else {
+    return next_slug;
+  }
 });
 </script>
 
