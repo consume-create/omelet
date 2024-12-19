@@ -71,6 +71,9 @@ export default defineConfig({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID,
   dataset: 'production',
   document: {
+    comments: {
+      enabled: false
+    },
     newDocumentOptions: (prev, { currentUser, creationContext }) => {
       if (creationContext.type === 'global') {
         return [];

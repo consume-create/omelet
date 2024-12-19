@@ -2,7 +2,7 @@
   <section class="builder-pull-quote pad-bl">
     <div class="gutter-lg">
       <h4 v-if="quote" class="alt">“{{ quote.replace(/(“|”|")/gi, '').replace(/(')/gi, '’') }}”</h4>
-      <p v-if="citee" class="nav-a1">— {{ citee }}</p>
+      <p v-if="citee" class="nav-a1">— {{ citee.replace(/(-|–|—)/gi, '').trim() }}</p>
     </div>
   </section>
 </template>
