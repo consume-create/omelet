@@ -8,16 +8,16 @@
               <NuxtLink class="nav-item nav-a1 --alt" :to="`/?${item.id}`" @click.native="onClickNavItem(item.id)">{{ item.label }}</NuxtLink>
             </li>
           </ul>
-          <div class="smiley gutter"></div>
+          <div class="smiley gutter" />
           <div class="menu-footer">
             <ul>
               <li v-for="link in store.social_links">
-                <NuxtLink class="icon" :to="link.url" target="_blank">{{ link.label }}</NuxtLink>
+                <NuxtLink class="icon" :to="link.url" target="_blank" :aria-label="link.label" />
               </li>
             </ul>
             <ul>
               <li>
-                <NuxtLink class="icon --contact" to="/?contact" @click.native="onClickNavItem('contact')" />
+                <NuxtLink class="icon --contact" to="/?contact" @click.native="onClickNavItem('contact')" aria-label="Contact" />
               </li>
             </ul>
           </div>
@@ -179,8 +179,8 @@ function onClickNavItem(id) {
           .icon {
             width: 18px;
             height: 18px;
-            font-size: 0px;
             color: transparent;
+            white-space: nowrap;
             overflow: hidden;
             display: inline-flex;
             align-items: center;

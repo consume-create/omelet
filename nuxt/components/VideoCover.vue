@@ -15,9 +15,9 @@
     </div>
     <div class="video-poster" :class="{'--show': !state.playing_mode}">
       <ResponsiveImage v-bind="poster" />
-      <div v-if="controls || store.accessibility" class="play-btn" @click="clickToPlay">
+      <button v-if="controls || store.accessibility" class="play-btn" @click="clickToPlay">
         <span class="fs-p2">Play</span>
-      </div>
+      </button>
     </div>
     <div v-if="hero && store.accessibility" class="video-poster --show force-poster">
       <ResponsiveImage v-bind="poster" />

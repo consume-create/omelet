@@ -2,7 +2,7 @@
   <div id="loader" ref="loader">
     <div class="gutter pad-t">
       <span id="loader-text">
-        <span>O</span><span>M</span><span>E</span><span>L</span><span>E</span><span>T</span>
+        Omelet<span/><span/><span/><span/><span/><span/>
       </span>
     </div>
   </div>

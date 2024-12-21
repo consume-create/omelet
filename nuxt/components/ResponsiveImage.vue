@@ -12,7 +12,6 @@
       <source :srcset="src.endsWith('.png') ? generateSrcSet('png') : generateSrcSet('jpg')" :type="src.endsWith('.png') ? 'image/png' : 'image/jpeg'" :sizes="`${effectiveWidth}px`">
       <img
         :src="generateSrc()"
-        :title="dataTitle"
         :alt="dataAlt ? dataAlt : dataFilename"
         :loading="isLazy ? 'lazy' : 'eager'"
         :sizes="`${effectiveWidth}px`"
@@ -29,9 +28,6 @@ import { default as throttle } from 'lodash/throttle.js';
 export default {
   props: {
     src: {
-      type: String
-    },
-    dataTitle: {
       type: String
     },
     dataAlt: {
