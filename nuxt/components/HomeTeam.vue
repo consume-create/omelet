@@ -4,8 +4,8 @@
       <h3 class="pre">{{ title }}</h3>
     </div>
     <div class="carousel-controls pad-b">
-      <div class="arrow --prev" @click="teamCarousel.prev" />
-      <div class="arrow --next" @click="teamCarousel.next" />
+      <button class="arrow --prev" @click="teamCarousel.prev" />
+      <button class="arrow --next" @click="teamCarousel.next" />
     </div>
     <div class="carousel-wrapper">
       <Carousel

@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, defineExpose } from 'vue';
+import { ref } from 'vue';
 import { useSiteStore } from '~/stores/store';
 import { vueVimeoPlayer } from 'vue-vimeo-player';
 

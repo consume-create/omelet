@@ -8,7 +8,7 @@
         <path ref="outer" id="outer" d="" />
         <path ref="inner" id="inner" d="" />
       </g>
-      <!-- NOTE: guides for dev 
+      <!-- NOTE: guides for dev
       <g>
         <line ref="line1" stroke="black"></line>
         <line ref="line2" stroke="black"></line>
@@ -294,7 +294,7 @@ function bringTheNoise() {
   noiseStep = (Math.random() / 1000) + (Math.random() / 1000) + (Math.random() / 1000);
   omoeba.value.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
   inner.value.style.transform = `scale(0.96) translate(${(Math.random() * 16) - 8}px, ${(Math.random() * 16) - 8}px)`;
-  
+
   noiseLoop = setTimeout(() => {
     bringTheNoise();
   }, (Math.random() * 3000) + 2000);
@@ -325,6 +325,7 @@ section#overview {
     height: auto;
     margin: span(-1) 0 0 span(1);
     display: flex;
+    pointer-events: none;
     transition: transform 4s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 
     // NOTE: this is a guide for dev

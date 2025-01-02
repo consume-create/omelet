@@ -54,20 +54,20 @@ function handleSlideEnd(data) {
 function onClickPrev() {
   if (state.current_index > 0) {
     state.current_index = state.current_index - 1;
-    carousel.value.data.prev();
+    carousel.value.prev();
   }
 }
 
 function onClickNext() {
   if (state.current_index < props.slides.length - 1) {
     state.current_index = state.current_index + 1;
-    carousel.value.data.next();
+    carousel.value.next();
   }
 }
 
 function onClickPagination(index) {
   state.current_index = index;
-  carousel.value.data.slideTo(index);
+  carousel.value.slideTo(index);
 }
 
 </script>
