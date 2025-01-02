@@ -1,6 +1,7 @@
 # Omelet
 
 Website built with [Nuxt3](https://nuxt.com), [Sanity.io](https://www.sanity.io) and [Netlify](https://www.netlify.com).
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a7975a31-5a81-4118-aa98-46343508eaf1/deploy-status)](https://app.netlify.com/sites/omelet/deploys)
 
 ## Build Setup
 
