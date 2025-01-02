@@ -1,3 +1,6 @@
+# OMELET
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a7975a31-5a81-4118-aa98-46343508eaf1/deploy-status)](https://app.netlify.com/sites/omelet/deploys)
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
