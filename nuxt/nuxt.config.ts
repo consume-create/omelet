@@ -108,6 +108,12 @@ export default defineNuxtConfig({
     id: 'G-TP7N3YB342'
   },
   //
+  // Generate
+  //
+  generate: {
+    fallback: true
+  },
+  //
   // Sanity
   //
   sanity: {
