@@ -4,6 +4,9 @@ const site_url = 'https://omelet.com'
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: false },
+  nitro: {
+    preset: 'netlify-static'
+  },
   //
   // Runtime config
   //
@@ -106,12 +109,6 @@ export default defineNuxtConfig({
   gtag: {
     enabled: process.env.NODE_ENV === 'production',
     id: 'G-TP7N3YB342'
-  },
-  //
-  // Generate
-  //
-  generate: {
-    fallback: true
   },
   //
   // Sanity
