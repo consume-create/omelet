@@ -2,8 +2,9 @@
   <section id="leadership-section" class="pad-t">
     <div class="title-block">
       <h3 class="pre">{{ title }}</h3>
+      <!-- <p class="carousel-reader" v-html="readNames" /> -->
     </div>
-    <div class="carousel-controls pad-b">
+    <div class="carousel-controls pad-b" inert>
       <button class="arrow --prev" @click="teamCarousel.prev" />
       <button class="arrow --next" @click="teamCarousel.next" />
     </div>
@@ -20,7 +21,7 @@
           1440: { itemsToShow: 3 }
         }"
       >
-        <Slide v-for="(member, index) in team_members" :key="index">
+        <Slide v-for="(member, index) in members" :key="index">
           <HomeTeamMember :member="member" />
         </Slide>
       </Carousel>
@@ -44,7 +45,19 @@ const props = defineProps({
 });
 
 const teamCarousel = ref(null);
-const team_members = ref(props.members);
+
+// Computed
+const readNames = computed(() => {
+  let label = 'Team members include: ',
+      members = props.members;
+
+  members.forEach((member, index) => {
+    let comma = index < members.length - 1 ? ', ' : '';
+    label += `${member.name}, ${member.title}${comma}`;
+  });
+
+  return label;
+});
 </script>
 
 <style lang='scss'>
@@ -54,10 +67,20 @@ section#leadership-section {
   overflow: hidden;
 
   .title-block {
+    position: relative;
     margin: 0 span(2);
 
     h3 {
       max-width: 768px;
+    }
+
+    .carousel-reader {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      color: transparent;
+      font-size: 8px;
+      line-height: 1em;
     }
   }
 
@@ -82,6 +105,10 @@ section#leadership-section {
   .carousel-wrapper {
     margin: 0 calc(#{span(2)} - #{$space-xs});
     overflow: visible;
+
+    .carousel__sr-only {
+      display: none;
+    }
 
     .carousel {
       &.is-hover {

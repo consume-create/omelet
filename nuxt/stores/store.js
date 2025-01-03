@@ -126,10 +126,10 @@ export const useSiteStore = defineStore('site', {
       // Build social links based on fields with values...
       let arr = [];
       if (site_data.linkedin) {
-        arr.push({ 'label': `Visit our LinkedIn profile at ${site_data.linkedin}`, 'url': site_data.linkedin });
+        arr.push({ 'label': 'Visit our LinkedIn profile', 'url': site_data.linkedin });
       }
       if (site_data.instagram) {
-        arr.push({ 'label': `Visit our Instagram account at ${site_data.instagram}`, 'url': site_data.instagram });
+        arr.push({ 'label': 'Visit our Instagram account', 'url': site_data.instagram });
       }
 
       if (arr.length > 0) {

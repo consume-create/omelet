@@ -1,5 +1,6 @@
 <template>
   <div ref="wrapper" class="video-cover-wrapper" :class="{'--no-controls': !controls}">
+    <p class="screen-reader">Video name: {{ poster.alt }}</p>
     <div class="video-holder" :aria-label="poster.alt" :class="{'--show': state.playing_mode, '--cover': cover}" :style="[cover && {'width': `${state.player_width}px`, 'height': `${state.player_height}px`}]">
       <client-only>
         <vueVimeoPlayer ref="player"
@@ -14,13 +15,13 @@
       </client-only>
     </div>
     <div class="video-poster" :class="{'--show': !state.playing_mode}">
-      <ResponsiveImage v-bind="poster" />
+      <ResponsiveImage v-bind="poster" :nosr="true" />
       <button v-if="controls || store.accessibility" class="play-btn" @click="clickToPlay">
         <span class="fs-p2">Play</span>
       </button>
     </div>
     <div v-if="hero && store.accessibility" class="video-poster --show force-poster">
-      <ResponsiveImage v-bind="poster" />
+      <ResponsiveImage v-bind="poster" :nosr="true" />
     </div>
   </div>
 </template>

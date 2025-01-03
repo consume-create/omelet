@@ -10,12 +10,16 @@
           @slide-end="handleSlideEnd"
         >
           <Slide v-for="(slide, index) in slides" :key="index">
-            <ResponsiveImage v-if="slide.type === 'singleImage'" v-bind="slide.image" />
-            <VideoCover v-if="slide.type === 'videoLoop'" :vimeo="slide.vimeo" :cover="true" :key="index" ref="videoSlides" />
-            <VideoCover v-if="slide.type === 'videoPlayer'" :vimeo="slide.vimeo" :cover="true" :controls="true" :key="index" ref="videoSlides" />
+            <template v-if="slide.type === 'singleImage'">
+              <ResponsiveImage v-bind="slide.image" />
+            </template>
+            <template v-else>
+              <VideoCover v-if="slide.type === 'videoLoop'" :vimeo="slide.vimeo" :cover="true" :key="index" ref="videoSlides" />
+              <VideoCover v-if="slide.type === 'videoPlayer'" :vimeo="slide.vimeo" :cover="true" :controls="true" :key="index" ref="videoSlides" />
+            </template>
           </Slide>
         </Carousel>
-        <div class="carousel-controls pad-t">
+        <div class="carousel-controls pad-t" inert>
           <div class="arrow --prev" :class="{'--disabled': state.current_index === 0}" @click="onClickPrev" />
           <ul>
             <li v-for="(slide, index) in slides" :class="{'--active': state.current_index === index}" :key="index" @click="onClickPagination(index)" />
@@ -81,6 +85,10 @@ function onClickPagination(index) {
     position: relative;
     width: 100%;
     overflow: hidden;
+
+    .carousel__sr-only {
+      display: none;
+    }
 
     .carousel {
       &.is-hover {

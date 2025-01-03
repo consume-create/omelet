@@ -8,8 +8,8 @@
       <nav id="mobile-nav" class="marg-r">
         <button class="icon --accessibility" :class="{'--enabled': store.accessibility}" aria-label="Accessibility" @click="onClickAccessibility" />
         <button id="menu-btn" @click="toggleMenu" aria-label="Menu">
-          <div class="lines" aria-hidden="true"><span /><span /></div>
-          <div class="lines" aria-hidden="true"><span /><span /></div>
+          <div class="lines"><span inert /><span /></div>
+          <div class="lines"><span inert /><span /></div>
         </button>
       </nav>
       <nav id="primary-nav">

@@ -7,7 +7,7 @@
       <div class="shape">
         <div class="inner">
           <div class="content">
-            <img src="/images/capabilities-shape.png" :alt="handwriting" />
+            <img inert src="/images/capabilities-shape.png" :alt="handwriting" />
             <p class="fs-t2 pre" v-html="formatLines" />
           </div>
         </div>
@@ -21,7 +21,7 @@
         <div v-for="cta in ctas" class="cta-block">
           <p class="fs-p2">{{ cta.title }}</p>
           <p class="fs-p4 reg">{{ cta.copy }}</p>
-          <NuxtLink class="nav-a1" :to="cta.url" target="_blank">+ {{ cta.label }}</NuxtLink>
+          <NuxtLink class="nav-a1" :to="cta.url" target="_blank">{{ cta.label }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -135,6 +135,16 @@ section#capabilities-section {
 
         .fs-p4 {
           margin: $space-s 0;
+        }
+
+        a {
+          display: inline-flex;
+          align-items: center;
+
+          &:before {
+            content: '+\00a0';
+            display: inline-flex;
+          }
         }
       }
     }

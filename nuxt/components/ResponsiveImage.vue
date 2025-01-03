@@ -8,6 +8,7 @@
       'responsive-image-picture--is-fully-visible': isFullyVisible
     }"
   >
+    <p v-if="!nosr" class="screen-reader">Image element: {{ dataAlt ? dataAlt : dataFilename }}</p>
     <picture class="responsive-image-picture picture" :class="{ 'responsive-image-fade': !palette }">
       <source :srcset="src.endsWith('.png') ? generateSrcSet('png') : generateSrcSet('jpg')" :type="src.endsWith('.png') ? 'image/png' : 'image/jpeg'" :sizes="`${effectiveWidth}px`">
       <img
@@ -27,6 +28,11 @@ import { default as throttle } from 'lodash/throttle.js';
 
 export default {
   props: {
+    nosr: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     src: {
       type: String
     },
@@ -232,8 +238,6 @@ export default {
 
 .responsive-image-wrapper {
   position: relative;
-  user-select: none;
-  pointer-events: none;
 
   &.--fill {
     @include abs-fill;
@@ -250,9 +254,13 @@ export default {
     }
   }
 
+  picture {
+    user-select: none;
+    pointer-events: none;
+  }
+
   picture.responsive-image-picture {
     position: relative;
-    pointer-events: none;
   }
 
   .responsive-image-palette {
