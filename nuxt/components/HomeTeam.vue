@@ -4,9 +4,9 @@
       <h3 class="pre">{{ title }}</h3>
       <!-- <p class="carousel-reader" v-html="readNames" /> -->
     </div>
-    <div class="carousel-controls pad-b" inert>
-      <button class="arrow --prev" @click="teamCarousel.prev" />
-      <button class="arrow --next" @click="teamCarousel.next" />
+    <div class="carousel-controls pad-b">
+      <button class="arrow --prev" @click="teamCarousel.prev" aria-label="Previous Slide" />
+      <button class="arrow --next" @click="teamCarousel.next" aria-label="Next Slide" />
     </div>
     <div class="carousel-wrapper">
       <Carousel

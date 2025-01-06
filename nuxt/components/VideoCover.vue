@@ -80,8 +80,8 @@ let player = ref();
 const wrapper = ref();
 const poster = {
   src: props.vimeo.pictures.base_link.replace('?r=pad', '') + '_1920?r=rpad',
-  width: props.vimeo.pictures.sizes.pop().width,
-  height: props.vimeo.pictures.sizes.pop().height,
+  width: props.vimeo.pictures.sizes.slice(-1)[0].width,
+  height: props.vimeo.pictures.sizes.slice(-1)[0].height,
   alt: props.vimeo.name
 }
 const vid = props.vimeo.id;

@@ -19,12 +19,12 @@
             </template>
           </Slide>
         </Carousel>
-        <div class="carousel-controls pad-t" inert>
-          <div class="arrow --prev" :class="{'--disabled': state.current_index === 0}" @click="onClickPrev" />
+        <div class="carousel-controls pad-t">
+          <button class="arrow --prev" :class="{'--disabled': state.current_index === 0}" @click="onClickPrev" aria-label="Previous Slide" />
           <ul>
             <li v-for="(slide, index) in slides" :class="{'--active': state.current_index === index}" :key="index" @click="onClickPagination(index)" />
           </ul>
-          <div class="arrow --next" :class="{'--disabled': state.current_index === slides.length - 1}" @click="onClickNext" />
+          <button class="arrow --next" :class="{'--disabled': state.current_index === slides.length - 1}" @click="onClickNext" aria-label="Next Slide" />
         </div>
       </div>
     </div>
