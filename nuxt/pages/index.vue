@@ -38,7 +38,7 @@ import { smoothScrollTo } from '~/utils/smooth-scroll-to';
 const route = useRoute();
 const router = useRouter();
 const store = useSiteStore();
-const homeQuery = groq`*[(_type == "index")][0]{
+const homeQuery = groq`*[(_type == "home")][0]{
   heroVideo,
   overviewTitle,
   overviewSubtitle,
@@ -104,15 +104,6 @@ definePageMeta({
   }
 })
 
-// Page transitions...
-// Define a default name and mode...
-definePageMeta({
-  pageTransition: {
-    name: 'page',
-    mode: 'out-in'
-  }
-});
-
 // Now check to and from names to determine directional page transitions...
 let beforeEachExecuted = false;
 router.beforeEach(async (to, from) => {
@@ -157,6 +148,7 @@ onMounted(() => {
   store.setPageMask(false);
 });
 
+// Before Unmount
 onBeforeUnmount(() => {
   store.setPageMask(true);
 });
@@ -177,6 +169,7 @@ function checkSearchParams() {
   }
 }
 
+// Watchers
 watch(() => route.query, (newQuery, oldQuery) => {
   if (!Object.keys(newQuery)[0]) {
     smoothScrollTo(0);

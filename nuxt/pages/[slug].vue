@@ -1,64 +1,66 @@
 <template>
   <div class="case-study-page page">
-    <Hero
-      :title="pageData.title"
-      :slug="pageData.slug.current"
-      :subtitle="pageData.subtitle"
-      :media="pageData.heroMedia[0]"
-    />
-    <BuilderTextBlock
-      :headline="pageData.overview.headline"
-      :richtext="pageData.overview.richtext"
-      :tags="pageData.tags"
-    />
-    <template v-for="(block, index) in pageData.blocks">
+    <template v-if="pageData">
+      <Hero
+        :title="pageData.title"
+        :slug="pageData.slug.current"
+        :subtitle="pageData.subtitle"
+        :media="pageData.heroMedia[0]"
+      />
       <BuilderTextBlock
-        v-if="block.type === 'textBlock'"
-        :headline="block.headline"
-        :richtext="block.richtext"
+        :headline="pageData.overview.headline"
+        :richtext="pageData.overview.richtext"
+        :tags="pageData.tags"
       />
-      <BuilderPullQuote
-        v-if="block.type === 'pullQuote'"
-        :quote="block.title"
-        :citee="block.citee"
+      <template v-for="(block, index) in pageData.blocks">
+        <BuilderTextBlock
+          v-if="block.type === 'textBlock'"
+          :headline="block.headline"
+          :richtext="block.richtext"
+        />
+        <BuilderPullQuote
+          v-if="block.type === 'pullQuote'"
+          :quote="block.title"
+          :citee="block.citee"
+        />
+        <BuilderImage
+          v-if="block.type === 'singleImage'"
+          :image="block.image"
+        />
+        <BuilderVideo
+          v-if="block.type === 'videoLoop'"
+          :vimeo="block.vimeo"
+          :controls="false"
+        />
+        <BuilderVideo
+          v-if="block.type === 'videoPlayer'"
+          :vimeo="block.vimeo"
+          :controls="true"
+        />
+        <BuilderCarousel
+          v-if="block.type === 'carousel'"
+          :slides="block.slides"
+        />
+        <BuilderMediaGrid
+          v-if="block.type === 'mediaGrid'"
+          :items="block.items"
+        />
+        <BuilderMultiColumn
+          v-if="block.type === 'multiColumn'"
+          :items="block.items"
+          :orientation="block.orientation"
+        />
+        <BuilderStats
+          v-if="block.type === 'stats'"
+          :stats="block.items"
+        />
+      </template>
+      <UpNext
+        v-if="getNextCta"
+        :cta="getNextCta"
       />
-      <BuilderImage
-        v-if="block.type === 'singleImage'"
-        :image="block.image"
-      />
-      <BuilderVideo
-        v-if="block.type === 'videoLoop'"
-        :vimeo="block.vimeo"
-        :controls="false"
-      />
-      <BuilderVideo
-        v-if="block.type === 'videoPlayer'"
-        :vimeo="block.vimeo"
-        :controls="true"
-      />
-      <BuilderCarousel
-        v-if="block.type === 'carousel'"
-        :slides="block.slides"
-      />
-      <BuilderMediaGrid
-        v-if="block.type === 'mediaGrid'"
-        :items="block.items"
-      />
-      <BuilderMultiColumn
-        v-if="block.type === 'multiColumn'"
-        :items="block.items"
-        :orientation="block.orientation"
-      />
-      <BuilderStats
-        v-if="block.type === 'stats'"
-        :stats="block.items"
-      />
+      <Footer />
     </template>
-    <UpNext
-      v-if="getNextCta"
-      :cta="getNextCta"
-    />
-    <Footer />
   </div>
 </template>
 
@@ -172,6 +174,39 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
 }`;
 const pageData = await useSanityData({ query: pageQuery, params: params });
 
+// Page transitions...
+// Define a default name and mode...
+definePageMeta({
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in'
+  }
+});
+
+if (pageData && pageData.value) {
+  const seo_title = `${pageData.value.title} | ${store.site_name}`;
+  const seo_description = pageData.value.subtitle ? pageData.value.subtitle : store.site_seo_description;
+  const hero_media = pageData.value.heroMedia[0];
+  const seo_url = `https://www.omelet.com/${route.params.slug}`;
+  let seo_image = store.site_seo_image;
+
+  if (hero_media.type !== 'singleImage') {
+    seo_image = hero_media.vimeo.pictures.base_link.replace('?r=pad', '') + '_1920?r=rpad';
+  } else {
+    seo_image = hero_media.image.src;
+  }
+
+  // Composables
+  useSeoMeta({
+    title: seo_title,
+    ogTitle: seo_title,
+    description: seo_description,
+    ogDescription: seo_description,
+    ogImage: seo_image,
+    ogUrl: seo_url
+  })
+}
+
 // Computed
 const getNextCta = computed(() => {
   const current_index = store.case_studies.findIndex(cs => cs.slug === route.params.slug);
@@ -182,27 +217,6 @@ const getNextCta = computed(() => {
     return false;
   } else {
     return next_case_study;
-  }
-});
-
-const seo_title = `${pageData.value.title} | ${store.site_name}`;
-const seo_description = pageData.value.subtitle ? pageData.value.subtitle : store.site_seo_description;
-const hero_media = pageData.value.heroMedia[0];
-const seo_url = `https://www.omelet.com/${route.params.slug}`;
-let seo_image = store.site_seo_image;
-
-if (hero_media.type !== 'singleImage') {
-  seo_image = hero_media.vimeo.pictures.base_link.replace('?r=pad', '') + '_1920?r=rpad';
-} else {
-  seo_image = hero_media.image.src;
-}
-
-// Page transitions...
-// Define a default name and mode...
-definePageMeta({
-  pageTransition: {
-    name: 'page',
-    mode: 'out-in'
   }
 });
 
@@ -252,16 +266,7 @@ router.beforeEach(async (to, from) => {
   }
 });
 
-// Composables
-useSeoMeta({
-  title: seo_title,
-  ogTitle: seo_title,
-  description: seo_description,
-  ogDescription: seo_description,
-  ogImage: seo_image,
-  ogUrl: seo_url
-})
-
+// Mounted
 onMounted(() => {
   if (store.loading) {
     setTimeout(() => {
@@ -272,6 +277,7 @@ onMounted(() => {
   store.setPageMask(false);
 })
 
+// Before Unmount
 onBeforeUnmount(() => {
   store.setPageMask(true);
 });

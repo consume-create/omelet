@@ -17,6 +17,7 @@
     "@pinia/nuxt": "^0.5.5",
     "@portabletext/to-html": "^2.0.13",
     "body-scroll-lock": "^4.0.0-beta.0",
+    "debounce": "^2.2.0",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
     "nuxt": "^3.13.0",

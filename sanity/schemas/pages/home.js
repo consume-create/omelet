@@ -3,7 +3,7 @@ import { HomeIcon } from '@sanity/icons';
 // Sanity Icon Set: https://icons.sanity.build/all
 
 export default defineType({
-  name: 'index',
+  name: 'home',
   title: 'Home',
   type: 'document',
   singleton: true,

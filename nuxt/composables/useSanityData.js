@@ -1,20 +1,30 @@
-export default async function ({ query, params, live_preview = true }) {
-  const store = useSiteStore();
-  const sanityClient = store.preview_is_active ? { client: 'preview', server: false, initialCache: false } : undefined;
+import debounce from 'debounce';
 
-  // Live preview: listen to changes
+export default async function ({ query, params }) {
+  const route = useRoute();
+  const isPreview = route.query && route.query.preview === 'true' ? true : false;
+  const sanityClient = isPreview
+    ? {
+        client: 'preview',
+        server: false,
+        initialCache: false
+      }
+    : undefined;
+
   onMounted(() => {
-    if (store.preview_is_active && live_preview) {
+    if (isPreview) {
       const sanity = useSanity('preview');
-      sanity.client.listen(query, params).subscribe((event) => {
-        setTimeout(() => {
-          refresh();
-        }, 1000);
+      const debouncedRefresh = debounce(refresh, 1000);
+
+      sanity.client.listen(query, params, { includeResult: true }).subscribe((event) => {
+        if (event.result) {
+          debouncedRefresh();
+        }
       });
     }
   });
 
-  const { data, refresh } = await useSanityQuery(query, params, sanityClient);
+  const { data, refresh } = await useLazySanityQuery(query, params, sanityClient);
 
   return data;
 }

@@ -33,23 +33,15 @@ const singletonListItem = (S, typeName, title) => {
 
 // Iframe previews...
 function resolvePageUrl(doc) {
-  let baseUrl = 'https://omelet-website.sanity.studio',
-      slug = doc?.slug?.current ? doc.slug.current : '';
+  let baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://omelet.netlify.app',
+      slug = doc._type === 'home' ? '' : doc._type;
 
-  if (window.location.hostname === 'localhost') {
-    baseUrl = 'http://localhost:3000'
-  }
-
-  return slug ? `${baseUrl}/${slug}?preview=true` : `${baseUrl}?preview=true`;
+  return `${baseUrl}/${slug}?preview=true`;
 }
 
 function resolveCaseStudyUrl(doc) {
-  let baseUrl = 'https://omelet-website.sanity.studio',
-      slug = doc?.slug?.current ? doc.slug.current : '';
-
-  if (window.location.hostname === 'localhost') {
-    baseUrl = 'http://localhost:3000'
-  }
+  let baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://omelet.netlify.app',
+      slug = doc?.slug?.current ? doc.slug.current : false;
 
   return slug ? `${baseUrl}/${doc.slug.current}?preview=true` : `${baseUrl}?preview=true`;
 }

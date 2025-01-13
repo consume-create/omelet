@@ -2,7 +2,7 @@
 import site from './settings/site';
 
 // Pages
-import index from './pages/index';
+import home from './pages/home';
 
 // Collections
 import caseStudy from './collections/case-study';
@@ -26,7 +26,7 @@ import stats from './shared/builder/stats';
 
 export const schemaTypes = [
   site,
-  index,
+  home,
   caseStudy,
   tags,
   industryTags,

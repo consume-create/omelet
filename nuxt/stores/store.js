@@ -91,7 +91,7 @@ export const useSiteStore = defineStore('site', {
           linkedin,
           instagram
         },
-        'index': ${typeFilter('index')} {
+        'home': ${typeFilter('home')} {
           caseStudies[]-> {
             title,
             'slug': slug.current
@@ -100,7 +100,7 @@ export const useSiteStore = defineStore('site', {
       }`;
       const { data } = await useSanityQuery(siteQuery);
       const site_data = data.value.site;
-      const home_data = data.value.index;
+      const home_data = data.value.home;
 
       // Site settings
       this.site_name = site_data.siteName;
