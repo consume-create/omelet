@@ -116,14 +116,14 @@ export default defineNuxtConfig({
   sanity: {
     projectId: process.env.SANITY_STUDIO_PROJECT_ID,
     dataset: 'production',
-    // apiVersion: '2022-03-07',
+    apiVersion: '2022-03-07',
     useCdn: false,
     minimal: false,
     additionalClients: {
       preview: {
         projectId: process.env.SANITY_STUDIO_PROJECT_ID,
         dataset: 'production',
-        // apiVersion: '2022-03-07',
+        apiVersion: '2022-03-07',
         useCdn: false,
         perspective: 'previewDrafts',
         withCredentials: true
