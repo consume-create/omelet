@@ -142,6 +142,10 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
         _type == 'videoLoop' => {
           'type': _type,
           vimeo
+        },
+        _type == 'videoPlayer' => {
+          'type': _type,
+          vimeo
         }
       }
     },
@@ -153,6 +157,10 @@ const pageQuery = groq`*[_type == 'caseStudy' && slug.current == $slug][0]{
           image ${imageProps}
         },
         _type == 'videoLoop' => {
+          'type': _type,
+          vimeo
+        },
+        _type == 'videoPlayer' => {
           'type': _type,
           vimeo
         },

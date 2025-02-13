@@ -30,6 +30,9 @@ export default defineType({
           type: 'videoLoop'
         },
         {
+          type: 'videoPlayer'
+        },
+        {
           type: 'textColumn'
         }
       ]

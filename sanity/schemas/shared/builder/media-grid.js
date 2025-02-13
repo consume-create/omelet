@@ -22,6 +22,9 @@ export default defineType({
         },
         {
           type: 'videoLoop'
+        },
+        {
+          type: 'videoPlayer'
         }
       ]
     })

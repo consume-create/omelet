@@ -6,6 +6,7 @@
           <div class="inner">
             <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" />
             <VideoCover v-if="item.type === 'videoLoop'" :vimeo="item.vimeo" :cover="true" />
+            <VideoCover v-if="item.type === 'videoPlayer'" :vimeo="item.vimeo" :cover="true" :controls="true" />
             <RichTextContent v-if="item.type === 'textColumn'" :content="item.richtext" />
           </div>
         </div>

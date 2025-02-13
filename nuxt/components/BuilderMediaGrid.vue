@@ -5,6 +5,7 @@
         <div v-for="(item, index) in items" class="grid-item" :key="index">
           <ResponsiveImage v-if="item.type === 'singleImage'" v-bind="item.image" />
           <VideoCover v-if="item.type === 'videoLoop'" :vimeo="item.vimeo" :cover="true" />
+          <VideoCover v-if="item.type === 'videoPlayer'" :vimeo="item.vimeo" :cover="true" :controls="true" />
         </div>
       </div>
     </div>
